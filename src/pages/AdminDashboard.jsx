@@ -24,6 +24,7 @@ const navLinks = [
 const AdminDashboard = () => {
     const [admin, setAdmin] = useState(null)
     const [stats, setStats] = useState(null)
+    const [loadError, setLoadError] = useState('')
     const navigate = useNavigate()
     const outlet = useOutlet()
 
@@ -32,19 +33,23 @@ const AdminDashboard = () => {
     }, [])
 
     const getAdminDashboard = () => {
+        setLoadError('')
         const token = localStorage.token
+        if (!token) { navigate('/admin/login'); return }
         axios.get('https://schoolpj-backend.onrender.com/admin/dashboardadmin', {
             headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         })
         .then((res) => {
             if (!res.data.status) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('role')
                 navigate('/admin/login')
             } else {
                 setAdmin(res.data.admin)
                 setStats(res.data.stats)
             }
         })
-        .catch(() => navigate('/admin/login'))
+        .catch(() => setLoadError('Could not connect to server. Please try again.'))
     }
 
     const handleLogout = () => {
@@ -110,6 +115,12 @@ const AdminDashboard = () => {
             <main className={style.main}>
                 {outlet || (
                     <div className={style.dashboardContent}>
+                        {loadError && (
+                            <div className={style.errorBanner}>
+                                <p>{loadError}</p>
+                                <button className={style.retryBtn} onClick={getAdminDashboard}>Retry</button>
+                            </div>
+                        )}
                         <div className={style.welcomeSection}>
                             <h1 className={style.welcomeTitle}>
                                 Welcome, {adminFullName}!

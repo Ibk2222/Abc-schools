@@ -63,7 +63,11 @@ const StudentSignup = () => {
     const registerStudent = async () => {
         if (!image) { setError('Please upload a profile photo.'); return }
         const age = Number(form.age)
-        if (!form.age || age < 5 || age > 12) { setError('Age must be between 5 and 12.'); return }
+        if (!form.age || !(age >= 5 && age <= 12)) { setError('Age must be between 5 and 12.'); return }
+        if (form.dob) {
+            const year = new Date(form.dob).getFullYear()
+            if (year < 2015 || year > 2022) { setError('Date of birth must be between 2015 and 2022.'); return }
+        }
         if (!Object.values(pwChecks).every(Boolean)) { setError('Password does not meet all requirements.'); return }
         if (form.password !== confirm) { setError('Passwords do not match.'); return }
         setLoading(true)
@@ -131,7 +135,7 @@ const StudentSignup = () => {
                         </div>
                         <div className={style.group}>
                             <label>Date of Birth</label>
-                            <input type="date" value={form.dob} onChange={set('dob')} min={5} max={12} required />
+                            <input type="date" value={form.dob} onChange={set('dob')} min="2015-01-01" max="2022-12-31" required />
                         </div>
                     </div>
 

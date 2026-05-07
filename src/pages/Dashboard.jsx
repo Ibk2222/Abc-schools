@@ -15,6 +15,7 @@ const navLinks = [
 const Dashboard = () => {
     const [teacher, setTeacher] = useState(null)
     const [stats, setStats] = useState(null)
+    const [loadError, setLoadError] = useState('')
     const navigate = useNavigate()
     const outlet = useOutlet()
 
@@ -23,8 +24,10 @@ const Dashboard = () => {
     }, [])
 
     const getTeacherDashboard = () => {
-        const url = 'https://schoolpj-backend.onrender.com/teacher/dashboard'
+        setLoadError('')
         const token = localStorage.token
+        if (!token) { navigate('/login'); return }
+        const url = 'https://schoolpj-backend.onrender.com/teacher/dashboard'
         axios.get(url, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -34,16 +37,15 @@ const Dashboard = () => {
         })
         .then((response) => {
             if (!response.data.status) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('role')
                 navigate('/login')
             } else {
                 setTeacher(response.data.teacher)
                 setStats(response.data.stats)
             }
         })
-        .catch((error) => {
-            console.log(error)
-            navigate('/login')
-        })
+        .catch(() => setLoadError('Could not connect to server. Please try again.'))
     }
 
     const handleLogout = () => {
@@ -123,6 +125,12 @@ const Dashboard = () => {
             <main className={style.main}>
                 {outlet || (
                     <div className={style.dashboardContent}>
+                        {loadError && (
+                            <div className={style.errorBanner}>
+                                <p>{loadError}</p>
+                                <button className={style.retryBtn} onClick={getTeacherDashboard}>Retry</button>
+                            </div>
+                        )}
                         <div className={style.welcomeSection}>
                             <h1 className={style.welcomeTitle}>
                                 Welcome, {teacherFullName}!

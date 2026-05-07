@@ -217,6 +217,41 @@
     border-radius: 20px;
 }
 
+.errorBanner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    color: #ef4444;
+    font-size: 14px;
+}
+
+.errorBanner p {
+    margin: 0;
+    flex: 1;
+}
+
+.retryBtn {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 7px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.retryBtn:hover {
+    background: rgba(239, 68, 68, 0.25);
+}
+
 .positive {
     color: #22c55e;
     font-size: 13px;
