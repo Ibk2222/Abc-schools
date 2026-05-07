@@ -62,8 +62,8 @@ const AdminDashboard = () => {
         : '?'
 
     const statCards = [
-        { title: 'Total Teachers', value: stats?.totalTeachers ?? '—', description: 'Registered teachers' },
-        { title: 'Total Students', value: stats?.totalStudents ?? '—', description: 'Enrolled students' },
+        { title: 'Total Teachers', value: stats?.totalTeachers ?? '—', description: 'Registered teachers', active: stats?.activeTeachers },
+        { title: 'Total Students', value: stats?.totalStudents ?? '—', description: 'Enrolled students', active: stats?.activeStudents },
         { title: 'Total Classes', value: stats?.totalClasses ?? '—', description: 'Active classes' },
         { title: 'Total Subjects', value: stats?.totalSubjects ?? '—', description: 'Available subjects' },
     ]
@@ -123,6 +123,11 @@ const AdminDashboard = () => {
                                     <p className={style.cardTitle}>{card.title}</p>
                                     <h2 className={style.cardValue}>{card.value}</h2>
                                     <p className={style.cardDesc}>{card.description}</p>
+                                    {card.active !== undefined && (
+                                        <span className={style.activeBadge}>
+                                            ● {card.active} active
+                                        </span>
+                                    )}
                                 </div>
                             ))}
                         </div>
