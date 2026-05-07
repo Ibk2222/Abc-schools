@@ -30,7 +30,6 @@ const ForgotPassword = () => {
     const [email, setEmail]     = useState('')
     const [step1Loading, setStep1Loading] = useState(false)
     const [step1Error, setStep1Error]     = useState('')
-    const [resetCode, setResetCode]       = useState('') // shown on screen (dev mode)
 
     // Step 2: reset password
     const [step, setStep]           = useState(1)
@@ -48,7 +47,6 @@ const ForgotPassword = () => {
         axios.post(`${apiBase}/forgot-password`, { email })
             .then((res) => {
                 if (res.data.status) {
-                    setResetCode(res.data.resetCode)
                     setStep(2)
                 } else {
                     setStep1Error(res.data.message ?? 'Something went wrong.')
@@ -125,11 +123,9 @@ const ForgotPassword = () => {
                     <form onSubmit={handleResetPassword}>
                         {step2Error && <div className={style['error-message']}>{step2Error}</div>}
 
-                        {/* Dev-mode code display */}
                         <div className={fpStyle.codeBox}>
-                            <p className={fpStyle.codeLabel}>Your reset code</p>
-                            <p className={fpStyle.codeValue}>{resetCode}</p>
-                            <p className={fpStyle.codeNote}>In production this would be sent to your email. Code expires in 15 minutes.</p>
+                            <p className={fpStyle.codeLabel}>Check your email</p>
+                            <p className={fpStyle.codeNote}>A 6-digit reset code was sent to <strong>{email}</strong>. It expires in 15 minutes.</p>
                         </div>
 
                         <div className={style['form-group']}>
