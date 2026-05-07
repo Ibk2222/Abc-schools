@@ -6,7 +6,7 @@ import style from './StudentSignup.module.css'
 
 const StudentSignup = () => {
     const [form, setForm] = useState({
-        firstname: '', lastname: '', email: '', age: '',
+        firstname: '', lastname: '', email: '',
         password: '', dob: '', gender: '', address: '',
         parent_phone: '', class_id: '',
     })
@@ -62,8 +62,6 @@ const StudentSignup = () => {
 
     const registerStudent = async () => {
         if (!image) { setError('Please upload a profile photo.'); return }
-        const age = Number(form.age)
-        if (!form.age || !(age >= 5 && age <= 12)) { setError('Age must be between 5 and 12.'); return }
         if (form.dob) {
             const year = new Date(form.dob).getFullYear()
             if (year < 2015 || year > 2022) { setError('Date of birth must be between 2015 and 2022.'); return }
@@ -128,15 +126,9 @@ const StudentSignup = () => {
                         </div>
                     </div>
 
-                    <div className={style.row}>
-                        <div className={style.group}>
-                            <label>Age</label>
-                            <input type="number" value={form.age} onChange={set('age')} placeholder="Age (5–12)" min="5" max="12" required />
-                        </div>
-                        <div className={style.group}>
-                            <label>Date of Birth</label>
-                            <input type="date" value={form.dob} onChange={set('dob')} min="2015-01-01" max="2022-12-31" required />
-                        </div>
+                    <div className={style.group}>
+                        <label>Date of Birth</label>
+                        <input type="date" value={form.dob} onChange={set('dob')} min="2015-01-01" max="2022-12-31" required />
                     </div>
 
                     <div className={style.row}>
