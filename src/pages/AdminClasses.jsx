@@ -88,7 +88,7 @@ const AdminClasses = () => {
                 closeModal()
                 fetchAll()
             })
-            .catch(() => setError('Request failed. Please try again.'))
+            .catch((err) => setError(err.response?.data?.message || 'Request failed. Please try again.'))
             .finally(() => setSaving(false))
     }
 

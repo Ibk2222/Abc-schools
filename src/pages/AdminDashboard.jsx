@@ -72,7 +72,7 @@ const AdminDashboard = () => {
         <div className={style.layout}>
             <aside className={style.sidebar}>
                 <div className={style.sidebarHeader}>
-                    <h1 className={style.schoolName}>SchoolHub</h1>
+                    <h1 className={style.schoolName}>ABC School</h1>
                     <p className={style.schoolSub}>Admin Panel</p>
                 </div>
 
