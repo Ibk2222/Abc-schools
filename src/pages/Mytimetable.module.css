@@ -1,0 +1,152 @@
+.container {
+    padding: 40px 36px;
+    background: #080d18;
+    min-height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.header {
+    margin-bottom: 32px;
+}
+.title {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+.subtitle {
+    color: #6b7a99;
+    font-size: 14px;
+}
+
+/* Day section */
+.daySection {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.dayHeader {
+    padding: 16px 24px;
+    border-bottom: 1px solid #1a2540;
+}
+.dayName {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Entry */
+.entry {
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    border-left: 3px solid transparent;
+    border-bottom: 1px solid #111827;
+    transition: background 0.15s;
+    gap: 0;
+}
+.entry:last-child {
+    border-bottom: none;
+}
+.entry:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+.entryClass {
+    border-left-color: rgb(20, 81, 240);
+}
+.entrySpecial {
+    border-left-color: #7c3aed;
+}
+.entryFree {
+    border-left-color: #059669;
+}
+
+/* Left: time + info */
+.entryLeft {
+    flex: 1;
+}
+.entryMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+.timeBadge {
+    background: #1a2540;
+    color: #c0cfe8;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+.studentsBadge {
+    background: rgba(20, 81, 240, 0.15);
+    color: rgb(100, 150, 255);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 6px;
+}
+.entryName {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+.entryRoom {
+    color: #6b7a99;
+    font-size: 12px;
+}
+
+/* Right: view details */
+.viewLink {
+    background: transparent;
+    border: none;
+    color: #8899aa;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+    transition: color 0.2s;
+    flex-shrink: 0;
+    margin-left: 24px;
+}
+.viewLink:hover {
+    color: rgb(20, 81, 240);
+}
+
+/* Loading / empty */
+.loadingWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+}
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #1a2540;
+    border-top-color: rgb(20, 81, 240);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty {
+    text-align: center;
+    color: #6b7a99;
+    padding: 60px 0;
+    font-size: 15px;
+}
+
+@media (max-width: 600px) {
+    .container { padding: 24px 16px; }
+    .entry { padding: 14px 16px; }
+    .viewLink { display: none; }
+}

@@ -1,0 +1,188 @@
+﻿import axios from 'axios'
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Loader2, Eye, EyeOff, Upload } from 'lucide-react'
+import style from './StudentSignup.module.css'
+
+const StudentSignup = () => {
+    const [form, setForm] = useState({
+        firstname: '', lastname: '', email: '', age: '',
+        password: '', dob: '', gender: '', address: '',
+        parent_phone: '', class_id: '',
+    })
+    const [image, setImage] = useState(null)
+    const [imagePreview, setImagePreview] = useState(null)
+    const [classes, setClasses] = useState([])
+    const [showPassword, setShowPassword] = useState(false)
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const fileRef = useRef()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        axios.get('https://schoolproject-backend-ruiy.onrender.com/students/all-students')
+            .then(() => {})
+            .catch(() => {})
+        axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-classes')
+            .then((res) => {
+                if (res.data.status) setClasses(res.data.classes ?? [])
+            })
+            .catch(() => {})
+    }, [])
+
+    const set = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }))
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0]
+        if (!file) return
+        setImage(file)
+        setImagePreview(URL.createObjectURL(file))
+    }
+
+    const uploadImage = async () => {
+        if (!image) return null
+        const data = new FormData()
+        data.append('image', image)
+        const res = await axios.post('https://schoolproject-backend-ruiy.onrender.com/students/upload', data)
+        if (res.data.status) return res.data.imageUrl
+        throw new Error('Image upload failed')
+    }
+
+    const registerStudent = async () => {
+        if (!image) { setError('Please upload a profile photo.'); return }
+        setLoading(true)
+        setError('')
+        try {
+            const imageUrl = await uploadImage()
+            const res = await axios.post('https://schoolproject-backend-ruiy.onrender.com/students/registerstudent', {
+                ...form, image: imageUrl,
+            })
+            if (res.data.status === false) {
+                setError(res.data.message)
+            } else {
+                navigate('/student/login')
+            }
+        } catch {
+            setError('Registration failed. Please try again.')
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return (
+        <div className={style.container}>
+            <div className={style.wrapper}>
+                <div className={style.header}>
+                    <img
+                        src="https://img.freepik.com/premium-vector/abc-kindergarten-school-preschool-day-care-logo_513640-3079.jpg?w=360"
+                        alt="Logo"
+                        className={style.logo}
+                    />
+                    <h1>Student Registration</h1>
+                    <p>Create your student account</p>
+                </div>
+
+                {error && <div className={style.error}>{error}</div>}
+
+                <form onSubmit={(e) => { e.preventDefault(); registerStudent() }}>
+                    {/* Profile photo */}
+                    <div className={style.photoSection}>
+                        <div className={style.photoPreview} onClick={() => fileRef.current.click()}>
+                            {imagePreview
+                                ? <img src={imagePreview} alt="Preview" className={style.previewImg} />
+                                : <><Upload size={24} /><span>Upload Photo</span></>
+                            }
+                        </div>
+                        <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} />
+                        <p className={style.photoHint}>Profile photo (required)</p>
+                    </div>
+
+                    <div className={style.row}>
+                        <div className={style.group}>
+                            <label>First Name</label>
+                            <input type="text" value={form.firstname} onChange={set('firstname')} placeholder="First name" required />
+                        </div>
+                        <div className={style.group}>
+                            <label>Last Name</label>
+                            <input type="text" value={form.lastname} onChange={set('lastname')} placeholder="Last name" required />
+                        </div>
+                    </div>
+
+                    <div className={style.row}>
+                        <div className={style.group}>
+                            <label>Age</label>
+                            <input type="number" value={form.age} onChange={set('age')} placeholder="Age" min="1" required />
+                        </div>
+                        <div className={style.group}>
+                            <label>Date of Birth</label>
+                            <input type="date" value={form.dob} onChange={set('dob')} required />
+                        </div>
+                    </div>
+
+                    <div className={style.row}>
+                        <div className={style.group}>
+                            <label>Gender</label>
+                            <select value={form.gender} onChange={set('gender')} required>
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div className={style.group}>
+                            <label>Class</label>
+                            <select value={form.class_id} onChange={set('class_id')} required>
+                                <option value="">Select class</option>
+                                {classes.map(c => (
+                                    <option key={c._id} value={c._id}>{c.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className={style.group}>
+                        <label>Email Address</label>
+                        <input type="email" value={form.email} onChange={set('email')} placeholder="Enter your email" required />
+                    </div>
+
+                    <div className={style.group}>
+                        <label>Address</label>
+                        <input type="text" value={form.address} onChange={set('address')} placeholder="Home address" required />
+                    </div>
+
+                    <div className={style.group}>
+                        <label>Parent / Guardian Phone</label>
+                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="+2348000000000" required />
+                    </div>
+
+                    <div className={style.group}>
+                        <label>Password</label>
+                        <div className={style.inputWrapper}>
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                value={form.password}
+                                onChange={set('password')}
+                                placeholder="Min 6 chars, uppercase, lowercase & number"
+                                required
+                            />
+                            <span className={style.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </span>
+                        </div>
+                    </div>
+
+                    <button type="submit" className={style.submitBtn} disabled={loading}>
+                        {loading ? <><Loader2 className="animate-spin" /><span>Registering...</span></> : 'Create Student Account'}
+                    </button>
+                </form>
+
+                <p className={style.loginLink}>
+                    Already have an account?{' '}
+                    <span onClick={() => navigate('/student/login')}>Sign In</span>
+                </p>
+            </div>
+        </div>
+    )
+}
+
+export default StudentSignup

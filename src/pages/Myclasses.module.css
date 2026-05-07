@@ -1,0 +1,212 @@
+.container {
+    padding: 40px 36px;
+    background: #080d18;
+    min-height: 100%;
+}
+
+/* Header */
+.header {
+    margin-bottom: 32px;
+}
+
+.title {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.subtitle {
+    color: #6b7a99;
+    font-size: 14px;
+}
+
+/* Summary section */
+.summarySection {
+    margin-bottom: 32px;
+}
+
+.sectionLabel {
+    color: #8899aa;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.summaryGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.summaryCard {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 12px;
+    padding: 20px 22px;
+}
+
+.summaryValue {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 0 6px;
+}
+
+.summaryLabel {
+    color: #6b7a99;
+    font-size: 12px;
+}
+
+/* Classes grid */
+.classesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Class card */
+.classCard {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardActions {
+    display: flex;
+    gap: 10px;
+}
+
+.btnPrimary {
+    flex: 1;
+    padding: 9px 16px;
+    background: rgb(20, 81, 240);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btnPrimary:hover {
+    background: rgb(15, 65, 200);
+}
+
+.btnSecondary {
+    padding: 9px 20px;
+    background: transparent;
+    color: #8899aa;
+    border: 1px solid #1a2540;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.btnSecondary:hover {
+    color: #c0cfe8;
+    border-color: #2a3a5c;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cardMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.metaKey {
+    color: #6b7a99;
+    font-size: 12px;
+}
+
+.metaValue {
+    color: #c0cfe8;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: right;
+}
+
+.className {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.studentsCount {
+    color: rgb(20, 81, 240);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.studentsLabel {
+    color: #6b7a99;
+    font-size: 12px;
+}
+
+/* Loading */
+.loadingWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #1a2540;
+    border-top-color: rgb(20, 81, 240);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Empty state */
+.empty {
+    text-align: center;
+    color: #6b7a99;
+    padding: 60px 0;
+    font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .summaryGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .classesGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .container {
+        padding: 24px 16px;
+    }
+
+    .summaryGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

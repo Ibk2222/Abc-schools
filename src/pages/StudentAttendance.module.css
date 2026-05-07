@@ -1,0 +1,175 @@
+.container {
+    padding: 40px 36px;
+    background: #080d18;
+    min-height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ── Header ── */
+.header { margin-bottom: 28px; }
+.title  { color: #fff; font-size: 30px; font-weight: 700; margin: 0 0 5px; }
+.subtitle { color: #6b7a99; font-size: 14px; }
+
+/* ── Summary cards ── */
+.summaryGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.summaryCard {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 14px;
+    padding: 24px 26px;
+}
+.summaryLabel { color: #6b7a99; font-size: 12px; font-weight: 600; margin: 0 0 8px; }
+.summaryValue { color: #fff; font-size: 32px; font-weight: 700; margin: 0 0 6px; }
+.summaryValue.green { color: #22c55e; }
+.summaryValue.red   { color: #ef4444; }
+.summaryDesc  { color: #6b7a99; font-size: 12px; margin: 0; }
+
+/* ── Section cards ── */
+.tableCard {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-bottom: 20px;
+}
+.cardTitle { color: #fff; font-size: 16px; font-weight: 700; margin: 0 0 20px; }
+
+/* ── Table ── */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.table thead tr {
+    border-bottom: 1px solid #1a2540;
+}
+.table th {
+    color: #6b7a99;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 12px 12px 0;
+    text-align: left;
+}
+.table td {
+    padding: 13px 12px 13px 0;
+    border-bottom: 1px solid #111827;
+    color: #c0cfe8;
+    vertical-align: middle;
+}
+.table tbody tr:last-child td { border-bottom: none; }
+
+.subjectName { color: #22c55e; font-weight: 600; }
+.present { color: #22c55e; font-weight: 600; }
+.absent  { color: #ef4444; font-weight: 600; }
+.late    { color: #f59e0b; font-weight: 600; }
+
+.empty {
+    color: #6b7a99;
+    font-size: 13px;
+    text-align: center;
+    padding: 30px 0;
+}
+
+/* ── Percentage bar in table ── */
+.pctCell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.pctCell span { font-weight: 700; min-width: 36px; font-size: 13px; }
+.pctBarWrap {
+    flex: 1;
+    height: 6px;
+    background: #1a2540;
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 60px;
+}
+.pctBar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+/* ── Monthly section ── */
+.monthHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.monthHeader .cardTitle { margin-bottom: 0; }
+
+.monthSelect {
+    background: #131f35;
+    border: 1px solid #1a2540;
+    border-radius: 8px;
+    color: #c0cfe8;
+    font-size: 13px;
+    padding: 7px 28px 7px 12px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7a99' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+.monthSelect:focus { border-color: rgb(20, 81, 240); }
+
+.monthList { display: flex; flex-direction: column; gap: 18px; }
+
+.monthRow {
+    display: grid;
+    grid-template-columns: 160px 1fr 52px;
+    align-items: center;
+    gap: 16px;
+}
+.monthMeta { display: flex; flex-direction: column; gap: 2px; }
+.monthName  { color: #c0cfe8; font-size: 14px; font-weight: 600; }
+.monthSub   { color: #6b7a99; font-size: 11px; }
+
+.monthBarWrap {
+    height: 8px;
+    background: #1a2540;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.monthBar {
+    height: 100%;
+    background: #22c55e;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+}
+.monthPct {
+    color: #22c55e;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: right;
+}
+
+/* ── Loading ── */
+.loadingWrap { display: flex; justify-content: center; padding: 80px 0; }
+.spinner {
+    width: 34px; height: 34px;
+    border: 3px solid #1a2540;
+    border-top-color: rgb(20, 81, 240);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+    .summaryGrid { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 24px 16px; }
+    .monthRow { grid-template-columns: 140px 1fr 46px; }
+}
+@media (max-width: 560px) {
+    .summaryGrid { grid-template-columns: 1fr; }
+}

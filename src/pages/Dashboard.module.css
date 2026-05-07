@@ -1,0 +1,253 @@
+/* Layout */
+.layout {
+    display: flex;
+    min-height: 100vh;
+    background: #080d18;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: #0f1623;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #1a2540;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebarHeader {
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid #1a2540;
+}
+
+.schoolName {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 3px;
+}
+
+.schoolSub {
+    color: #6b7a99;
+    font-size: 12px;
+}
+
+/* Navigation */
+.nav {
+    flex: 1;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #8899aa;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+.navLink:hover {
+    background: rgba(20, 81, 240, 0.1);
+    color: #c0cfe8;
+}
+
+.navLinkActive {
+    background: rgba(20, 81, 240, 0.15);
+    color: rgb(20, 81, 240);
+}
+
+/* Sidebar footer – teacher info + logout */
+.sidebarFooter {
+    padding: 16px 12px;
+    border-top: 1px solid #1a2540;
+}
+
+.teacherCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1a2540;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgb(20, 81, 240);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.teacherMeta {
+    min-width: 0;
+}
+
+.teacherName {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.teacherEmail {
+    color: #6b7a99;
+    font-size: 11px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 9px;
+    background: transparent;
+    color: #6b7a99;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+}
+
+.logoutBtn:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Main content area */
+.main {
+    flex: 1;
+    background: #080d18;
+    overflow-y: auto;
+}
+
+.dashboardContent {
+    padding: 40px 36px;
+}
+
+/* Welcome header */
+.welcomeSection {
+    margin-bottom: 36px;
+}
+
+.welcomeTitle {
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.department {
+    color: rgb(20, 81, 240);
+    font-size: 14px;
+}
+
+/* Stats cards */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 780px;
+}
+
+.statCard {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 14px;
+    padding: 26px 24px;
+}
+
+.cardTitle {
+    color: #8899aa;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0 0 10px;
+}
+
+.cardValue {
+    color: #fff;
+    font-size: 38px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    line-height: 1;
+}
+
+.cardDesc {
+    color: #6b7a99;
+    font-size: 12px;
+    margin: 0 0 10px;
+}
+
+.positive {
+    color: #22c55e;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.negative {
+    color: #ef4444;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        min-width: 200px;
+    }
+
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboardContent {
+        padding: 24px 20px;
+    }
+
+    .welcomeTitle {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 560px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: unset;
+        height: auto;
+        position: relative;
+    }
+}
