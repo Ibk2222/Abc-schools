@@ -62,6 +62,8 @@ const StudentSignup = () => {
 
     const registerStudent = async () => {
         if (!image) { setError('Please upload a profile photo.'); return }
+        const age = Number(form.age)
+        if (!form.age || age < 5 || age > 12) { setError('Age must be between 5 and 12.'); return }
         if (!Object.values(pwChecks).every(Boolean)) { setError('Password does not meet all requirements.'); return }
         if (form.password !== confirm) { setError('Passwords do not match.'); return }
         setLoading(true)
@@ -125,7 +127,7 @@ const StudentSignup = () => {
                     <div className={style.row}>
                         <div className={style.group}>
                             <label>Age</label>
-                            <input type="number" value={form.age} onChange={set('age')} placeholder="Age (0–12)" min="0" max="12" required />
+                            <input type="number" value={form.age} onChange={set('age')} placeholder="Age (5–12)" min="5" max="12" required />
                         </div>
                         <div className={style.group}>
                             <label>Date of Birth</label>
@@ -138,8 +140,8 @@ const StudentSignup = () => {
                             <label>Gender</label>
                             <select value={form.gender} onChange={set('gender')} required>
                                 <option value="">Select gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
                             </select>
                         </div>
                         <div className={style.group}>
@@ -165,7 +167,7 @@ const StudentSignup = () => {
 
                     <div className={style.group}>
                         <label>Parent / Guardian Phone</label>
-                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="+2348000000000" min={12} max={12} required />
+                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="+2348000000000" maxLength={12} required />
                     </div>
                     <div className={style.group}>
                         <label>Password</label>
