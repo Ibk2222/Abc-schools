@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Eye, EyeOff } from "lucide-react";
@@ -19,7 +19,7 @@ const Signup = () => {
     let navigate = useNavigate()
     const registerUser = () =>{
         setLoading(true)
-        const url = "https://schoolproject-backend-ruiy.onrender.com/teacher/register"
+        const url = "https://schoolpj-backend.onrender.com/teacher/register"
         const teacherObject = {title, firstname, lastname, email, age, password}
         console.log(teacherObject)
 

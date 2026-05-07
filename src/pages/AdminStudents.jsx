@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
@@ -29,8 +29,8 @@ const AdminStudents = () => {
     const fetchAll = () => {
         setLoading(true)
         Promise.all([
-            axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-students', { headers: headers() }),
-            axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-classes', { headers: headers() }),
+            axios.get('https://schoolpj-backend.onrender.com/admin/all-students', { headers: headers() }),
+            axios.get('https://schoolpj-backend.onrender.com/admin/all-classes', { headers: headers() }),
         ])
         .then(([sRes, cRes]) => {
             if (sRes.data.status) setStudents(sRes.data.students ?? [])
@@ -73,8 +73,8 @@ const AdminStudents = () => {
         setSaving(true)
         setError('')
         const url = editing
-            ? `https://schoolproject-backend-ruiy.onrender.com/admin/update-student/${editing}`
-            : 'https://schoolproject-backend-ruiy.onrender.com/admin/registerstudent'
+            ? `https://schoolpj-backend.onrender.com/admin/update-student/${editing}`
+            : 'https://schoolpj-backend.onrender.com/admin/registerstudent'
         const method = editing ? axios.post : axios.post
         const payload = editing
             ? { firstname: form.firstname, lastname: form.lastname, email: form.email, age: form.age, dob: form.dob, gender: form.gender, address: form.address, parent_phone: form.parent_phone, class_id: form.class_id }
@@ -92,7 +92,7 @@ const AdminStudents = () => {
 
     const remove = (id) => {
         if (!window.confirm('Delete this student? This cannot be undone.')) return
-        axios.get(`https://schoolproject-backend-ruiy.onrender.com/admin/delete-student/${id}`, { headers: headers() })
+        axios.get(`https://schoolpj-backend.onrender.com/admin/delete-student/${id}`, { headers: headers() })
             .then(() => fetchAll())
             .catch(console.log)
     }
@@ -113,7 +113,7 @@ const AdminStudents = () => {
 
             <input
                 className={style.searchBar}
-                placeholder="Search by name or emailâ€¦"
+                placeholder="Search by name or email…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
@@ -169,7 +169,7 @@ const AdminStudents = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2 className={style.modalTitle}>{editing ? 'Edit Student' : 'Add Student'}</h2>
-                            <button className={style.closeBtn} onClick={closeModal}>Ã—</button>
+                            <button className={style.closeBtn} onClick={closeModal}>×</button>
                         </div>
 
                         {error && <div className={style.errorMsg}>{error}</div>}
@@ -241,7 +241,7 @@ const AdminStudents = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={closeModal}>Cancel</button>
                             <button className={style.saveBtn} onClick={save} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update Student' : 'Add Student'}
+                                {saving ? 'Saving…' : editing ? 'Update Student' : 'Add Student'}
                             </button>
                         </div>
                     </div>

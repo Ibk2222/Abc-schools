@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import style from './Mytimetable.module.css'
@@ -17,7 +17,7 @@ const Mytimetable = () => {
     const fetchTimetables = () => {
         setLoading(true)
         const token = localStorage.token
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/teacher/all-timetables', {
+        axios.get('https://schoolpj-backend.onrender.com/teacher/all-timetables', {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Mytimetable = () => {
 
     const getRoom = (entry) => {
         if (entry.class?.room) return `Room: ${entry.class.room}`
-        return 'Room: â€”'
+        return 'Room: —'
     }
 
     return (
@@ -100,7 +100,7 @@ const Mytimetable = () => {
                                     </div>
                                     <p className={style.entryName}>
                                         {getClassName(entry)}
-                                        {getSubject(entry) ? ` â€“ ${getSubject(entry)}` : ''}
+                                        {getSubject(entry) ? ` – ${getSubject(entry)}` : ''}
                                     </p>
                                     <p className={style.entryRoom}>{getRoom(entry)}</p>
                                 </div>

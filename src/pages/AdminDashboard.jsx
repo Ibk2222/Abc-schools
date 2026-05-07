@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import {
@@ -33,7 +33,7 @@ const AdminDashboard = () => {
 
     const getAdminDashboard = () => {
         const token = localStorage.token
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/dashboardadmin', {
+        axios.get('https://schoolpj-backend.onrender.com/admin/dashboardadmin', {
             headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         })
         .then((res) => {
@@ -62,10 +62,10 @@ const AdminDashboard = () => {
         : '?'
 
     const statCards = [
-        { title: 'Total Teachers', value: stats?.totalTeachers ?? 'â€”', description: 'Registered teachers' },
-        { title: 'Total Students', value: stats?.totalStudents ?? 'â€”', description: 'Enrolled students' },
-        { title: 'Total Classes', value: stats?.totalClasses ?? 'â€”', description: 'Active classes' },
-        { title: 'Total Subjects', value: stats?.totalSubjects ?? 'â€”', description: 'Available subjects' },
+        { title: 'Total Teachers', value: stats?.totalTeachers ?? '—', description: 'Registered teachers' },
+        { title: 'Total Students', value: stats?.totalStudents ?? '—', description: 'Enrolled students' },
+        { title: 'Total Classes', value: stats?.totalClasses ?? '—', description: 'Active classes' },
+        { title: 'Total Subjects', value: stats?.totalSubjects ?? '—', description: 'Available subjects' },
     ]
 
     return (

@@ -1,8 +1,8 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com/admin'
+const BASE = 'https://schoolpj-backend.onrender.com/admin'
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 const EMPTY = { class: '', teacher: '', subject: '', day_of_week: 'Monday', start_time: '', end_time: '', academic_year: '' }
 
@@ -93,7 +93,7 @@ const AdminTimetables = () => {
             </div>
 
             <div className={style.searchBar}>
-                <input placeholder="Search by class, teacher, subject or dayâ€¦" value={search} onChange={e => setSearch(e.target.value)} />
+                <input placeholder="Search by class, teacher, subject or day…" value={search} onChange={e => setSearch(e.target.value)} />
             </div>
 
             {loading ? <div className={style.loadingWrap}><div className={style.spinner} /></div> : (
@@ -108,12 +108,12 @@ const AdminTimetables = () => {
                                 <tr><td colSpan={7} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No timetable entries found</td></tr>
                             ) : filtered.map(t => (
                                 <tr key={t._id}>
-                                    <td>{t.day_of_week ?? 'â€”'}</td>
-                                    <td>{t.class?.name ?? 'â€”'}</td>
-                                    <td>{t.subject?.subject_name ?? 'â€”'}</td>
-                                    <td>{t.teacher?.firstname ?? 'â€”'} {t.teacher?.lastname ?? ''}</td>
-                                    <td>{t.start_time ?? 'â€”'} â€“ {t.end_time ?? 'â€”'}</td>
-                                    <td>{t.academic_year ?? 'â€”'}</td>
+                                    <td>{t.day_of_week ?? '—'}</td>
+                                    <td>{t.class?.name ?? '—'}</td>
+                                    <td>{t.subject?.subject_name ?? '—'}</td>
+                                    <td>{t.teacher?.firstname ?? '—'} {t.teacher?.lastname ?? ''}</td>
+                                    <td>{t.start_time ?? '—'} – {t.end_time ?? '—'}</td>
+                                    <td>{t.academic_year ?? '—'}</td>
                                     <td>
                                         <button className={style.editBtn} onClick={() => openEdit(t)}>Edit</button>
                                         <button className={style.deleteBtn} onClick={() => handleDelete(t._id)}>Delete</button>
@@ -130,7 +130,7 @@ const AdminTimetables = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2>{editing ? 'Edit Entry' : 'Add Timetable'}</h2>
-                            <button className={style.closeBtn} onClick={() => setModal(false)}>Ã—</button>
+                            <button className={style.closeBtn} onClick={() => setModal(false)}>×</button>
                         </div>
                         {error && <div className={style.errorMsg}>{error}</div>}
                         <div className={style.formRow}>
@@ -183,7 +183,7 @@ const AdminTimetables = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={() => setModal(false)}>Cancel</button>
                             <button className={style.saveBtn} onClick={handleSave} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update' : 'Add'}
+                                {saving ? 'Saving…' : editing ? 'Update' : 'Add'}
                             </button>
                         </div>
                     </div>

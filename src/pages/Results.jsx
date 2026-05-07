@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import style from './Results.module.css'
@@ -21,7 +21,7 @@ const gradeFromScore = (score) => {
     return 'F'
 }
 
-/* â”€â”€ Donut chart â”€â”€ */
+/* ── Donut chart ── */
 const DonutChart = ({ segments, total }) => {
     const size = 140
     const cx = size / 2, cy = size / 2, r = 52, stroke = 22
@@ -61,7 +61,7 @@ const DonutChart = ({ segments, total }) => {
     )
 }
 
-/* â”€â”€ Line chart â”€â”€ */
+/* ── Line chart ── */
 const LineChart = ({ points, color = 'rgb(20,81,240)', label }) => {
     if (!points.length) return <p className={style.empty}>No data</p>
     const W = 400, H = 120, PAD = 16
@@ -100,7 +100,7 @@ const LineChart = ({ points, color = 'rgb(20,81,240)', label }) => {
     )
 }
 
-/* â”€â”€ Bar chart â”€â”€ */
+/* ── Bar chart ── */
 const BarChart = ({ bars }) => {
     const maxVal = Math.max(...bars.map(b => b.value), 1)
     return (
@@ -125,7 +125,7 @@ const BarChart = ({ bars }) => {
     )
 }
 
-/* â”€â”€ Print result sheet in new window â”€â”€ */
+/* ── Print result sheet in new window ── */
 const printSheet = (student, studentResults) => {
     const fullName = `${student.firstname ?? ''} ${student.lastname ?? ''}`.trim().toUpperCase()
     const totalScore = studentResults.reduce((a, r) => a + (r.score ?? 0), 0)
@@ -136,12 +136,12 @@ const printSheet = (student, studentResults) => {
         <tr>
             <td>${i + 1}</td>
             <td style="text-align:left">${r.exam?.subject_id?.subject_name ?? `Subject ${i + 1}`}</td>
-            <td>${r.score ?? 'â€”'}</td>
+            <td>${r.score ?? '—'}</td>
             <td>100</td>
             <td><b>${r.grade_level || gradeFromScore(r.score)}</b></td>
         </tr>`).join('')
 
-    const html = `<!DOCTYPE html><html><head><title>Result Sheet â€” ${fullName}</title>
+    const html = `<!DOCTYPE html><html><head><title>Result Sheet — ${fullName}</title>
     <style>
         body { font-family: 'Times New Roman', serif; margin: 50px; color: #000; }
         .header { text-align: center; padding-bottom: 14px; border-bottom: 3px double #000; margin-bottom: 20px; }
@@ -188,7 +188,7 @@ const printSheet = (student, studentResults) => {
     setTimeout(() => { w.print(); w.close() }, 400)
 }
 
-/* â”€â”€ Main component â”€â”€ */
+/* ── Main component ── */
 const Results = () => {
     const [results, setResults] = useState([])
     const [classes, setClasses] = useState([])
@@ -210,8 +210,8 @@ const Results = () => {
             Accept: 'application/json',
         }
         Promise.all([
-            axios.get('https://schoolproject-backend-ruiy.onrender.com/teacher/all-results', { headers }),
-            axios.get('https://schoolproject-backend-ruiy.onrender.com/teacher/all-classes', { headers }),
+            axios.get('https://schoolpj-backend.onrender.com/teacher/all-results', { headers }),
+            axios.get('https://schoolpj-backend.onrender.com/teacher/all-classes', { headers }),
         ])
         .then(([rRes, cRes]) => {
             if (rRes.data.status) setResults(rRes.data.results ?? [])
@@ -221,7 +221,7 @@ const Results = () => {
         .finally(() => setLoading(false))
     }
 
-    /* â”€â”€ Stats â”€â”€ */
+    /* ── Stats ── */
     const scores = results.map(r => r.score).filter(s => typeof s === 'number')
     const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0
     const highest = scores.length ? Math.max(...scores) : 0
@@ -234,7 +234,7 @@ const Results = () => {
         : 0
     const topPerformers = scores.filter(s => s >= 80).length
 
-    /* â”€â”€ Grade distribution â”€â”€ */
+    /* ── Grade distribution ── */
     const gradeCounts = { A: 0, B: 0, C: 0, D: 0, F: 0 }
     results.forEach(r => {
         const g = r.grade_level || gradeFromScore(r.score)
@@ -245,17 +245,17 @@ const Results = () => {
     }))
     const totalResults = results.length
 
-    /* â”€â”€ Performance trend (group by score buckets as trend points) â”€â”€ */
+    /* ── Performance trend (group by score buckets as trend points) ── */
     const buckets = ['0-59', '60-69', '70-79', '80-89', '90-100']
     const trendPoints = buckets.map(b => {
         const [lo, hi] = b.split('-').map(Number)
         return { label: b, y: scores.filter(s => s >= lo && s <= hi).length }
     })
 
-    /* â”€â”€ Score distribution for bar chart â”€â”€ */
+    /* ── Score distribution for bar chart ── */
     const classBars = classes.length
         ? classes.slice(0, 6).map(c => ({
-            label: c.name?.length > 12 ? c.name.slice(0, 12) + 'â€¦' : (c.name ?? 'â€”'),
+            label: c.name?.length > 12 ? c.name.slice(0, 12) + '…' : (c.name ?? '—'),
             value: avg,
         }))
         : [
@@ -358,7 +358,7 @@ const Results = () => {
                                 <p className={style.tableTitle}>
                                     {activeClass === 'all'
                                         ? 'All Classes'
-                                        : (classes.find(c => c._id === activeClass)?.name ?? '')} â€“ Student Grades
+                                        : (classes.find(c => c._id === activeClass)?.name ?? '')} – Student Grades
                                 </p>
                                 <p className={style.tableSubtitle}>{results.length} students</p>
                             </div>
@@ -449,7 +449,7 @@ const Results = () => {
                 </>
             )}
 
-            {/* â”€â”€ Result sheet modal â”€â”€ */}
+            {/* ── Result sheet modal ── */}
             {sheet && (() => {
                 const { student, results: sr } = sheet
                 const fullName = `${student?.firstname ?? ''} ${student?.lastname ?? ''}`.trim()
@@ -466,19 +466,19 @@ const Results = () => {
                             <div className={style.sheetModalHead}>
                                 <div>
                                     <h2 className={style.sheetTitle}>Result Sheet</h2>
-                                    <p className={style.sheetSub}>{fullName} â€” {sr.length} subject{sr.length !== 1 ? 's' : ''}</p>
+                                    <p className={style.sheetSub}>{fullName} — {sr.length} subject{sr.length !== 1 ? 's' : ''}</p>
                                 </div>
-                                <button className={style.sheetCloseBtn} onClick={() => setSheet(null)}>Ã—</button>
+                                <button className={style.sheetCloseBtn} onClick={() => setSheet(null)}>×</button>
                             </div>
 
                             <div className={style.sheetInfoGrid}>
                                 <div className={style.sheetInfoItem}>
                                     <p className={style.sheetInfoLabel}>Student Name</p>
-                                    <p className={style.sheetInfoValue}>{fullName || 'â€”'}</p>
+                                    <p className={style.sheetInfoValue}>{fullName || '—'}</p>
                                 </div>
                                 <div className={style.sheetInfoItem}>
                                     <p className={style.sheetInfoLabel}>Email</p>
-                                    <p className={style.sheetInfoValue}>{student?.email ?? 'â€”'}</p>
+                                    <p className={style.sheetInfoValue}>{student?.email ?? '—'}</p>
                                 </div>
                                 <div className={style.sheetInfoItem}>
                                     <p className={style.sheetInfoLabel}>Roll No.</p>
@@ -508,7 +508,7 @@ const Results = () => {
                                                 <td>{i + 1}</td>
                                                 <td>{r.exam?.name ?? r.exam?.subject ?? `Subject ${i + 1}`}</td>
                                                 <td>
-                                                    <span className={style.scoreBadge}>{r.score ?? 'â€”'}</span>
+                                                    <span className={style.scoreBadge}>{r.score ?? '—'}</span>
                                                 </td>
                                                 <td>100</td>
                                                 <td>

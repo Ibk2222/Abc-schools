@@ -1,9 +1,9 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import s from './StudentAttendance.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com'
+const BASE = 'https://schoolpj-backend.onrender.com'
 const MONTH_NAMES = [
     'January','February','March','April','May','June',
     'July','August','September','October','November','December',
@@ -32,13 +32,13 @@ const StudentAttendance = () => {
             .finally(() => setLoading(false))
     }, [])
 
-    // â”€â”€ Summary stats â”€â”€
+    // ── Summary stats ──
     const total        = records.length
     const presentCount = records.filter((r) => r.status === 'present').length
     const absentCount  = records.filter((r) => r.status === 'absent').length
     const overallPct   = total > 0 ? Math.round((presentCount / total) * 100) : 0
 
-    // â”€â”€ Group by class â”€â”€
+    // ── Group by class ──
     const byClass = {}
     records.forEach((r) => {
         const key  = r.class_id?._id ?? 'unknown'
@@ -50,7 +50,7 @@ const StudentAttendance = () => {
     })
     const classRows = Object.values(byClass)
 
-    // â”€â”€ Group by month â”€â”€
+    // ── Group by month ──
     const byMonth = {}
     records.forEach((r) => {
         const d   = new Date(r.date)
@@ -96,7 +96,7 @@ const StudentAttendance = () => {
                 <p className={s.subtitle}>Track your attendance and absences</p>
             </div>
 
-            {/* â”€â”€ Summary cards â”€â”€ */}
+            {/* ── Summary cards ── */}
             <div className={s.summaryGrid}>
                 <div className={s.summaryCard}>
                     <p className={s.summaryLabel}>Overall Attendance</p>
@@ -120,7 +120,7 @@ const StudentAttendance = () => {
                 </div>
             </div>
 
-            {/* â”€â”€ Attendance by Class/Subject table â”€â”€ */}
+            {/* ── Attendance by Class/Subject table ── */}
             <div className={s.tableCard}>
                 <h2 className={s.cardTitle}>Attendance by Subject</h2>
                 <table className={s.table}>
@@ -167,7 +167,7 @@ const StudentAttendance = () => {
                 </table>
             </div>
 
-            {/* â”€â”€ Monthly attendance â”€â”€ */}
+            {/* ── Monthly attendance ── */}
             <div className={s.tableCard}>
                 <div className={s.monthHeader}>
                     <h2 className={s.cardTitle}>Monthly Attendance</h2>

@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import s from './StudentPages.module.css'
@@ -19,13 +19,13 @@ const StudentResults = () => {
     const token = localStorage.getItem('token')
 
     useEffect(() => {
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/students/dashboardstudent', {
+        axios.get('https://schoolpj-backend.onrender.com/students/dashboardstudent', {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
             if (!res.data.status) { navigate('/student/login'); return }
             const studentId = res.data.students._id
-            return axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-results', {
+            return axios.get('https://schoolpj-backend.onrender.com/admin/all-results', {
                 headers: { Authorization: `Bearer ${token}` },
             }).then((r) => {
                 if (r.data.status) {
@@ -66,16 +66,16 @@ const StudentResults = () => {
                             : results.map((r, i) => (
                                 <tr key={r._id}>
                                     <td>{i + 1}</td>
-                                    <td>{r.exam?.subject_id?.subject_name ?? 'â€”'}</td>
-                                    <td>{r.exam?.start_date ? new Date(r.exam.start_date).toLocaleDateString() : 'â€”'}</td>
-                                    <td>{r.score ?? 'â€”'}</td>
-                                    <td>{r.exam?.max_score ?? 'â€”'}</td>
+                                    <td>{r.exam?.subject_id?.subject_name ?? '—'}</td>
+                                    <td>{r.exam?.start_date ? new Date(r.exam.start_date).toLocaleDateString() : '—'}</td>
+                                    <td>{r.score ?? '—'}</td>
+                                    <td>{r.exam?.max_score ?? '—'}</td>
                                     <td>
                                         <span className={`${s.badge} ${gradeColor(r.grade_level)}`}>
-                                            {r.grade_level ?? 'â€”'}
+                                            {r.grade_level ?? '—'}
                                         </span>
                                     </td>
-                                    <td>{r.teacher ? `${r.teacher.firstname} ${r.teacher.lastname}` : 'â€”'}</td>
+                                    <td>{r.teacher ? `${r.teacher.firstname} ${r.teacher.lastname}` : '—'}</td>
                                 </tr>
                             ))
                         }

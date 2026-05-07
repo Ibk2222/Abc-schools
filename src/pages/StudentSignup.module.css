@@ -9,7 +9,11 @@
     padding: 40px 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+.passwordHint {
+    color: #6b7a99;
+    font-size: 11px;
+    margin-top: 4px;
+}
 .wrapper {
     background: rgb(19, 28, 49);
     border-radius: 15px;

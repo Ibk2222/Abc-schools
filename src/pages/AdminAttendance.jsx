@@ -1,8 +1,8 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com/admin'
+const BASE = 'https://schoolpj-backend.onrender.com/admin'
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 const EMPTY = { class_id: '', student_id: '', date: '', marked_by: '', status: 'present' }
 
@@ -89,7 +89,7 @@ const AdminAttendance = () => {
             </div>
 
             <div className={style.searchBar}>
-                <input placeholder="Search by student or classâ€¦" value={search} onChange={e => setSearch(e.target.value)} />
+                <input placeholder="Search by student or class…" value={search} onChange={e => setSearch(e.target.value)} />
             </div>
 
             {loading ? <div className={style.loadingWrap}><div className={style.spinner} /></div> : (
@@ -104,15 +104,15 @@ const AdminAttendance = () => {
                                 <tr><td colSpan={6} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No records found</td></tr>
                             ) : filtered.map(a => (
                                 <tr key={a._id}>
-                                    <td>{a.student_id?.firstname ?? 'â€”'} {a.student_id?.lastname ?? ''}</td>
-                                    <td>{a.class_id?.name ?? 'â€”'}</td>
-                                    <td>{a.date ? new Date(a.date).toLocaleDateString() : 'â€”'}</td>
+                                    <td>{a.student_id?.firstname ?? '—'} {a.student_id?.lastname ?? ''}</td>
+                                    <td>{a.class_id?.name ?? '—'}</td>
+                                    <td>{a.date ? new Date(a.date).toLocaleDateString() : '—'}</td>
                                     <td>
                                         <span className={a.status === 'present' ? style.badgeActive : style.badgeInactive}>
                                             {a.status}
                                         </span>
                                     </td>
-                                    <td>{a.marked_by?.firstname ?? 'â€”'} {a.marked_by?.lastname ?? ''}</td>
+                                    <td>{a.marked_by?.firstname ?? '—'} {a.marked_by?.lastname ?? ''}</td>
                                     <td>
                                         <button className={style.editBtn} onClick={() => openEdit(a)}>Edit</button>
                                         <button className={style.deleteBtn} onClick={() => handleDelete(a._id)}>Delete</button>
@@ -129,7 +129,7 @@ const AdminAttendance = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2>{editing ? 'Edit Record' : 'Add Attendance'}</h2>
-                            <button className={style.closeBtn} onClick={() => setModal(false)}>Ã—</button>
+                            <button className={style.closeBtn} onClick={() => setModal(false)}>×</button>
                         </div>
                         {error && <div className={style.errorMsg}>{error}</div>}
                         <div className={style.formRow}>
@@ -173,7 +173,7 @@ const AdminAttendance = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={() => setModal(false)}>Cancel</button>
                             <button className={style.saveBtn} onClick={handleSave} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update' : 'Add'}
+                                {saving ? 'Saving…' : editing ? 'Update' : 'Add'}
                             </button>
                         </div>
                     </div>

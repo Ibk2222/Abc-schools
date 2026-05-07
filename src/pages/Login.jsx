@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Eye, EyeOff } from "lucide-react";
@@ -15,7 +15,7 @@ const Login = () => {
 
     const loginUser = () => {
         setLoading(true)
-        const url = "https://schoolproject-backend-ruiy.onrender.com/teacher/logins"
+        const url = "https://schoolpj-backend.onrender.com/teacher/logins"
         const loginObject = { email, password }
 
         axios.post(url, loginObject)

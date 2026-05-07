@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, LogOut } from 'lucide-react'
@@ -23,7 +23,7 @@ const Dashboard = () => {
     }, [])
 
     const getTeacherDashboard = () => {
-        const url = 'https://schoolproject-backend-ruiy.onrender.com/teacher/getTeacherDashboard'
+        const url = 'https://schoolpj-backend.onrender.com/teacher/getTeacherDashboard'
         const token = localStorage.token
         axios.get(url, {
             headers: {
@@ -62,20 +62,20 @@ const Dashboard = () => {
     const statCards = [
         {
             title: 'Total Classes',
-            value: stats?.totalClasses ?? 'â€”',
+            value: stats?.totalClasses ?? '—',
             description: 'Classes assigned',
             change: stats?.classesChange ?? '+2%',
         },
         {
             title: 'Total Students',
-            value: stats?.totalStudents ?? 'â€”',
+            value: stats?.totalStudents ?? '—',
             description: 'Active enrollments',
             change: stats?.studentsChange ?? '+8%',
         },
        
         {
             title: 'Avg. Class Rating',
-            value: stats?.avgRating ?? 'â€”',
+            value: stats?.avgRating ?? '—',
             description: 'Student feedback',
             change: stats?.ratingChange ?? '+12%',
         },

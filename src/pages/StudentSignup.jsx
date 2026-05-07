@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Eye, EyeOff, Upload } from 'lucide-react'
@@ -20,10 +20,10 @@ const StudentSignup = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/students/all-students')
+        axios.get('https://schoolpj-backend.onrender.com/students/all-students')
             .then(() => {})
             .catch(() => {})
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-classes')
+        axios.get('https://schoolpj-backend.onrender.com/admin/all-classes')
             .then((res) => {
                 if (res.data.status) setClasses(res.data.classes ?? [])
             })
@@ -43,7 +43,7 @@ const StudentSignup = () => {
         if (!image) return null
         const data = new FormData()
         data.append('image', image)
-        const res = await axios.post('https://schoolproject-backend-ruiy.onrender.com/students/upload', data)
+        const res = await axios.post('https://schoolpj-backend.onrender.com/students/upload', data)
         if (res.data.status) return res.data.imageUrl
         throw new Error('Image upload failed')
     }
@@ -54,7 +54,7 @@ const StudentSignup = () => {
         setError('')
         try {
             const imageUrl = await uploadImage()
-            const res = await axios.post('https://schoolproject-backend-ruiy.onrender.com/students/registerstudent', {
+            const res = await axios.post('https://schoolpj-backend.onrender.com/students/registerstudent', {
                 ...form, image: imageUrl,
             })
             if (res.data.status === false) {
@@ -168,6 +168,9 @@ const StudentSignup = () => {
                             <span className={style.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </span>
+                            <p className={style.passwordHint}>
+                                Password must be at least 6 characters long and include uppercase, lowercase, and a number.
+                            </p>
                         </div>
                     </div>
 

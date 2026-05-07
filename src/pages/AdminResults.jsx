@@ -1,8 +1,8 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com/admin'
+const BASE = 'https://schoolpj-backend.onrender.com/admin'
 const EMPTY = { student: '', exam: '', score: '', grade_level: '', teacher: '' }
 
 const headers = () => ({ Authorization: `Bearer ${localStorage.token}`, 'Content-Type': 'application/json' })
@@ -78,9 +78,9 @@ const AdminResults = () => {
     })
 
     const examLabel = (e) => {
-        if (!e) return 'â€”'
+        if (!e) return '—'
         const date = e.start_date ? new Date(e.start_date).toLocaleDateString() : ''
-        return `Score ${e.score ?? '?'}/${e.max_score ?? '?'}${date ? ' Â· ' + date : ''}`
+        return `Score ${e.score ?? '?'}/${e.max_score ?? '?'}${date ? ' · ' + date : ''}`
     }
 
     return (
@@ -94,7 +94,7 @@ const AdminResults = () => {
             </div>
 
             <div className={style.searchBar}>
-                <input placeholder="Search by student name or gradeâ€¦" value={search} onChange={e => setSearch(e.target.value)} />
+                <input placeholder="Search by student name or grade…" value={search} onChange={e => setSearch(e.target.value)} />
             </div>
 
             {loading ? <div className={style.loadingWrap}><div className={style.spinner} /></div> : (
@@ -108,12 +108,12 @@ const AdminResults = () => {
                                 <tr><td colSpan={5} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No results found</td></tr>
                             ) : filtered.map(r => (
                                 <tr key={r._id}>
-                                    <td>{r.student?.firstname ?? 'â€”'} {r.student?.lastname ?? ''}</td>
+                                    <td>{r.student?.firstname ?? '—'} {r.student?.lastname ?? ''}</td>
                                     <td>
-                                        <span className={style.badgeActive}>{r.grade_level ?? 'â€”'}</span>
+                                        <span className={style.badgeActive}>{r.grade_level ?? '—'}</span>
                                     </td>
-                                    <td>{r.score ?? 'â€”'}</td>
-                                    <td>{r.teacher?.firstname ?? 'â€”'} {r.teacher?.lastname ?? ''}</td>
+                                    <td>{r.score ?? '—'}</td>
+                                    <td>{r.teacher?.firstname ?? '—'} {r.teacher?.lastname ?? ''}</td>
                                     <td>
                                         <button className={style.editBtn} onClick={() => openEdit(r)}>Edit</button>
                                         <button className={style.deleteBtn} onClick={() => handleDelete(r._id)}>Delete</button>
@@ -130,7 +130,7 @@ const AdminResults = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2>{editing ? 'Edit Result' : 'Add Result'}</h2>
-                            <button className={style.closeBtn} onClick={() => setModal(false)}>Ã—</button>
+                            <button className={style.closeBtn} onClick={() => setModal(false)}>×</button>
                         </div>
                         {error && <div className={style.errorMsg}>{error}</div>}
                         <div className={style.formRow}>
@@ -173,7 +173,7 @@ const AdminResults = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={() => setModal(false)}>Cancel</button>
                             <button className={style.saveBtn} onClick={handleSave} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update' : 'Add'}
+                                {saving ? 'Saving…' : editing ? 'Update' : 'Add'}
                             </button>
                         </div>
                     </div>

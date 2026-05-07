@@ -1,9 +1,9 @@
-﻿import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import s from './Studentprofile.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com'
+const BASE = 'https://schoolpj-backend.onrender.com'
 
 const Studentprofile = () => {
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ const Studentprofile = () => {
     const [saving, setSaving] = useState(false)
     const [saveError, setSaveError] = useState('')
 
-    // account settings (local only â€” backend has no toggle endpoints)
+    // account settings (local only — backend has no toggle endpoints)
     const [emailNotif, setEmailNotif] = useState(true)
     const [twoFactor, setTwoFactor] = useState(false)
     const [parentAccess, setParentAccess] = useState(true)
@@ -64,7 +64,7 @@ const Studentprofile = () => {
         ? `${(student.firstname ?? '')[0] ?? ''}${(student.lastname ?? '')[0] ?? ''}`.toUpperCase()
         : '?'
 
-    const className = student?.class_id?.name ?? student?.class_id ?? 'â€”'
+    const className = student?.class_id?.name ?? student?.class_id ?? '—'
 
     const handleField = (e) =>
         setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
@@ -169,7 +169,7 @@ const Studentprofile = () => {
                 <p className={s.subtitle}>Manage your personal information and account settings</p>
             </div>
 
-            {/* â”€â”€ Top two-column row â”€â”€ */}
+            {/* ── Top two-column row ── */}
             <div className={s.topRow}>
                 {/* Avatar card */}
                 <div className={s.avatarCard}>
@@ -193,7 +193,7 @@ const Studentprofile = () => {
                             <div>
                                 <button className={s.cancelBtn} onClick={handleCancel}>Cancel</button>
                                 <button className={s.editBtn} onClick={handleSave} disabled={saving}>
-                                    {saving ? 'Savingâ€¦' : 'Save Changes'}
+                                    {saving ? 'Saving…' : 'Save Changes'}
                                 </button>
                             </div>
                         ) : (
@@ -221,7 +221,7 @@ const Studentprofile = () => {
                         <p className={s.fieldLabel}>Email Address</p>
                         {editing
                             ? <input className={s.fieldInput} name="email" value={form.email} onChange={handleField} placeholder="Email" />
-                            : <p className={s.fieldValue}>{student?.email ?? 'â€”'}</p>
+                            : <p className={s.fieldValue}>{student?.email ?? '—'}</p>
                         }
                     </div>
 
@@ -229,7 +229,7 @@ const Studentprofile = () => {
                         <p className={s.fieldLabel}>Parent / Guardian Phone</p>
                         {editing
                             ? <input className={s.fieldInput} name="parent_phone" value={form.parent_phone} onChange={handleField} placeholder="Parent phone number" />
-                            : <p className={s.fieldValue}>{student?.parent_phone ?? 'â€”'}</p>
+                            : <p className={s.fieldValue}>{student?.parent_phone ?? '—'}</p>
                         }
                     </div>
 
@@ -237,7 +237,7 @@ const Studentprofile = () => {
                         <p className={s.fieldLabel}>Address</p>
                         {editing
                             ? <input className={s.fieldInput} name="address" value={form.address} onChange={handleField} placeholder="Address" />
-                            : <p className={s.fieldValue}>{student?.address ?? 'â€”'}</p>
+                            : <p className={s.fieldValue}>{student?.address ?? '—'}</p>
                         }
                     </div>
 
@@ -256,7 +256,7 @@ const Studentprofile = () => {
                 </div>
             </div>
 
-            {/* â”€â”€ Account Settings â”€â”€ */}
+            {/* ── Account Settings ── */}
             <div className={s.sectionCard}>
                 <h2 className={s.sectionTitle}>Account Settings</h2>
 
@@ -294,7 +294,7 @@ const Studentprofile = () => {
                 </div>
             </div>
 
-            {/* â”€â”€ Danger Zone â”€â”€ */}
+            {/* ── Danger Zone ── */}
             <div className={s.dangerCard}>
                 <h2 className={s.dangerTitle}>Danger Zone</h2>
                 <p className={s.dangerDesc}>These actions are permanent and cannot be undone</p>
@@ -308,13 +308,13 @@ const Studentprofile = () => {
                 </div>
             </div>
 
-            {/* â”€â”€ Password modal â”€â”€ */}
+            {/* ── Password modal ── */}
             {pwModal && (
                 <div className={s.overlay} ref={overlayRef} onClick={handleOverlayClick}>
                     <div className={s.modal}>
                         <div className={s.modalHeader}>
                             <h3 className={s.modalTitle}>Change Password</h3>
-                            <button className={s.closeBtn} onClick={() => setPwModal(false)}>Ã—</button>
+                            <button className={s.closeBtn} onClick={() => setPwModal(false)}>×</button>
                         </div>
 
                         {pwError && <div className={s.errorMsg}>{pwError}</div>}
@@ -336,7 +336,7 @@ const Studentprofile = () => {
                         <div className={s.modalFooter}>
                             <button className={s.cancelBtn} onClick={() => setPwModal(false)}>Cancel</button>
                             <button className={s.saveBtn} onClick={handlePwSave} disabled={pwSaving}>
-                                {pwSaving ? 'Savingâ€¦' : 'Update Password'}
+                                {pwSaving ? 'Saving…' : 'Update Password'}
                             </button>
                         </div>
                     </div>

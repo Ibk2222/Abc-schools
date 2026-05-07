@@ -1,8 +1,8 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com/admin'
+const BASE = 'https://schoolpj-backend.onrender.com/admin'
 const EMPTY = { subject_name: '', classes_id: '', teachers_id: '' }
 
 const headers = () => ({
@@ -92,7 +92,7 @@ const AdminSubjects = () => {
 
             <input
                 className={style.searchBar}
-                placeholder="Search by subject nameâ€¦"
+                placeholder="Search by subject name…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
@@ -119,11 +119,11 @@ const AdminSubjects = () => {
                                 <tr key={s._id}>
                                     <td>{i + 1}</td>
                                     <td>{s.subject_name}</td>
-                                    <td>{s.classes_id?.name ?? s.classes_id ?? 'â€”'}</td>
+                                    <td>{s.classes_id?.name ?? s.classes_id ?? '—'}</td>
                                     <td>
                                         {s.teachers_id?.firstname
                                             ? `${s.teachers_id.firstname} ${s.teachers_id.lastname}`
-                                            : s.teachers_id ?? 'â€”'}
+                                            : s.teachers_id ?? '—'}
                                     </td>
                                     <td>
                                         <span className={s.is_active ? style.badgeActive : style.badgeInactive}>
@@ -148,7 +148,7 @@ const AdminSubjects = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2 className={style.modalTitle}>{editing ? 'Edit Subject' : 'Add Subject'}</h2>
-                            <button className={style.closeBtn} onClick={closeModal}>Ã—</button>
+                            <button className={style.closeBtn} onClick={closeModal}>×</button>
                         </div>
 
                         {error && <div className={style.errorMsg}>{error}</div>}
@@ -181,7 +181,7 @@ const AdminSubjects = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={closeModal}>Cancel</button>
                             <button className={style.saveBtn} onClick={save} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update Subject' : 'Add Subject'}
+                                {saving ? 'Saving…' : editing ? 'Update Subject' : 'Add Subject'}
                             </button>
                         </div>
                     </div>

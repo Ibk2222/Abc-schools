@@ -1,8 +1,8 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com/admin'
+const BASE = 'https://schoolpj-backend.onrender.com/admin'
 const EMPTY = { title: '', firstname: '', lastname: '', email: '', age: '', phone: '', password: '' }
 
 const headers = () => ({
@@ -85,7 +85,7 @@ const AdminTeachers = () => {
 
             <input
                 className={style.searchBar}
-                placeholder="Search by name or emailâ€¦"
+                placeholder="Search by name or email…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
@@ -141,7 +141,7 @@ const AdminTeachers = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2 className={style.modalTitle}>{editing ? 'Edit Teacher' : 'Add Teacher'}</h2>
-                            <button className={style.closeBtn} onClick={closeModal}>Ã—</button>
+                            <button className={style.closeBtn} onClick={closeModal}>×</button>
                         </div>
 
                         {error && <div className={style.errorMsg}>{error}</div>}
@@ -196,7 +196,7 @@ const AdminTeachers = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={closeModal}>Cancel</button>
                             <button className={style.saveBtn} onClick={save} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update Teacher' : 'Add Teacher'}
+                                {saving ? 'Saving…' : editing ? 'Update Teacher' : 'Add Teacher'}
                             </button>
                         </div>
                     </div>

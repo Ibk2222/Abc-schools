@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import s from './StudentPages.module.css'
@@ -10,13 +10,13 @@ const StudentExams = () => {
     const token = localStorage.getItem('token')
 
     useEffect(() => {
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/students/dashboardstudent', {
+        axios.get('https://schoolpj-backend.onrender.com/students/dashboardstudent', {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
             if (!res.data.status) { navigate('/student/login'); return }
             const studentId = res.data.students._id
-            return axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-exams', {
+            return axios.get('https://schoolpj-backend.onrender.com/admin/all-exams', {
                 headers: { Authorization: `Bearer ${token}` },
             }).then((r) => {
                 if (r.data.status) {
@@ -58,13 +58,13 @@ const StudentExams = () => {
                             : exams.map((e, i) => (
                                 <tr key={e._id}>
                                     <td>{i + 1}</td>
-                                    <td>{e.subject_id?.subject_name ?? 'â€”'}</td>
-                                    <td>{e.class_id?.name ?? 'â€”'}</td>
-                                    <td>{e.start_date ? new Date(e.start_date).toLocaleDateString() : 'â€”'}</td>
-                                    <td>{e.end_date ? new Date(e.end_date).toLocaleDateString() : 'â€”'}</td>
-                                    <td>{e.score ?? 'â€”'}</td>
-                                    <td>{e.max_score ?? 'â€”'}</td>
-                                    <td>{e.teacher_id ? `${e.teacher_id.firstname} ${e.teacher_id.lastname}` : 'â€”'}</td>
+                                    <td>{e.subject_id?.subject_name ?? '—'}</td>
+                                    <td>{e.class_id?.name ?? '—'}</td>
+                                    <td>{e.start_date ? new Date(e.start_date).toLocaleDateString() : '—'}</td>
+                                    <td>{e.end_date ? new Date(e.end_date).toLocaleDateString() : '—'}</td>
+                                    <td>{e.score ?? '—'}</td>
+                                    <td>{e.max_score ?? '—'}</td>
+                                    <td>{e.teacher_id ? `${e.teacher_id.firstname} ${e.teacher_id.lastname}` : '—'}</td>
                                 </tr>
                             ))
                         }

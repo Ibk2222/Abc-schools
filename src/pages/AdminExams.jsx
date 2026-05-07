@@ -1,8 +1,8 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com/admin'
+const BASE = 'https://schoolpj-backend.onrender.com/admin'
 const EMPTY = { student_id: '', subject_id: '', teacher_id: '', class_id: '', score: '', max_score: '', passing_score: '', start_date: '', end_date: '' }
 
 const headers = () => ({ Authorization: `Bearer ${localStorage.token}`, 'Content-Type': 'application/json' })
@@ -97,7 +97,7 @@ const AdminExams = () => {
             </div>
 
             <div className={style.searchBar}>
-                <input placeholder="Search by student, subject or classâ€¦" value={search} onChange={e => setSearch(e.target.value)} />
+                <input placeholder="Search by student, subject or class…" value={search} onChange={e => setSearch(e.target.value)} />
             </div>
 
             {loading ? <div className={style.loadingWrap}><div className={style.spinner} /></div> : (
@@ -113,14 +113,14 @@ const AdminExams = () => {
                                 <tr><td colSpan={9} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No exam records found</td></tr>
                             ) : filtered.map(e => (
                                 <tr key={e._id}>
-                                    <td>{e.student_id?.firstname ?? 'â€”'} {e.student_id?.lastname ?? ''}</td>
-                                    <td>{e.subject_id?.subject_name ?? 'â€”'}</td>
-                                    <td>{e.class_id?.name ?? 'â€”'}</td>
-                                    <td>{e.score ?? 'â€”'}</td>
-                                    <td>{e.max_score ?? 'â€”'}</td>
-                                    <td>{e.passing_score ?? 'â€”'}</td>
-                                    <td>{e.start_date ? new Date(e.start_date).toLocaleDateString() : 'â€”'}</td>
-                                    <td>{e.end_date   ? new Date(e.end_date).toLocaleDateString()   : 'â€”'}</td>
+                                    <td>{e.student_id?.firstname ?? '—'} {e.student_id?.lastname ?? ''}</td>
+                                    <td>{e.subject_id?.subject_name ?? '—'}</td>
+                                    <td>{e.class_id?.name ?? '—'}</td>
+                                    <td>{e.score ?? '—'}</td>
+                                    <td>{e.max_score ?? '—'}</td>
+                                    <td>{e.passing_score ?? '—'}</td>
+                                    <td>{e.start_date ? new Date(e.start_date).toLocaleDateString() : '—'}</td>
+                                    <td>{e.end_date   ? new Date(e.end_date).toLocaleDateString()   : '—'}</td>
                                     <td>
                                         <button className={style.editBtn} onClick={() => openEdit(e)}>Edit</button>
                                         <button className={style.deleteBtn} onClick={() => handleDelete(e._id)}>Delete</button>
@@ -137,7 +137,7 @@ const AdminExams = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2>{editing ? 'Edit Exam' : 'Add Exam'}</h2>
-                            <button className={style.closeBtn} onClick={() => setModal(false)}>Ã—</button>
+                            <button className={style.closeBtn} onClick={() => setModal(false)}>×</button>
                         </div>
                         {error && <div className={style.errorMsg}>{error}</div>}
                         <div className={style.formRow}>
@@ -201,7 +201,7 @@ const AdminExams = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={() => setModal(false)}>Cancel</button>
                             <button className={style.saveBtn} onClick={handleSave} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update' : 'Add'}
+                                {saving ? 'Saving…' : editing ? 'Update' : 'Add'}
                             </button>
                         </div>
                     </div>

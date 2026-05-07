@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import s from './StudentPages.module.css'
 
@@ -10,7 +10,7 @@ const StudentTimetable = () => {
     const token = localStorage.getItem('token')
 
     useEffect(() => {
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-timetables', {
+        axios.get('https://schoolpj-backend.onrender.com/admin/all-timetables', {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => { if (res.data.status) setTimetables(res.data.timetables ?? []) })
@@ -42,10 +42,10 @@ const StudentTimetable = () => {
                         </div>
                         {byDay[day].map((entry) => (
                             <div key={entry._id} className={s.entry}>
-                                <span className={s.timeBadge}>{entry.start_time} â€“ {entry.end_time}</span>
+                                <span className={s.timeBadge}>{entry.start_time} – {entry.end_time}</span>
                                 <p className={s.entryName}>
                                     {entry.class?.name ?? 'Class'}
-                                    {entry.subject?.subject_name ? ` â€“ ${entry.subject.subject_name}` : ''}
+                                    {entry.subject?.subject_name ? ` – ${entry.subject.subject_name}` : ''}
                                 </p>
                                 <p className={s.entryTeacher}>
                                     {entry.teacher ? `${entry.teacher.firstname} ${entry.teacher.lastname}` : ''}

@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import style from './Myclasses.module.css'
@@ -14,7 +14,7 @@ const Myclasses = () => {
 
     const getAllClasses = () => {
         setLoading(true)
-        const url = 'https://schoolproject-backend-ruiy.onrender.com/teacher/all-classes'
+        const url = 'https://schoolpj-backend.onrender.com/teacher/all-classes'
         const token = localStorage.token
         axios.get(url, {
             headers: {
@@ -42,18 +42,18 @@ const Myclasses = () => {
 
     const summaryCards = [
         { label: 'Total Classes', value: classes.length },
-        { label: 'Academic Year', value: classes[0]?.academic_year ?? 'â€”' },
+        { label: 'Academic Year', value: classes[0]?.academic_year ?? '—' },
         { label: 'Active Classes', value: classes.filter(c => c.is_active).length },
         { label: 'Sessions Per Week', value: classesPerWeek },
     ]
 
     const formatSchedule = (schedule) => {
-        if (!schedule) return 'â€”'
+        if (!schedule) return '—'
         const days = schedule.days?.join(', ') ?? ''
         const time = schedule.time
             ? new Date(schedule.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             : ''
-        return [days, time].filter(Boolean).join(' Â· ')
+        return [days, time].filter(Boolean).join(' · ')
     }
 
     return (

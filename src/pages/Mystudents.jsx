@@ -14,7 +14,7 @@ const Mystudents = () => {
     const fetchStudents = () => {
         setLoading(true)
         const token = localStorage.token
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/teacher/all-students', {
+        axios.get('https://schoolpj-backend.onrender.com/teacher/all-students', {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',

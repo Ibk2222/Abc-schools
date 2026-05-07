@@ -1,11 +1,11 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Loader2 } from 'lucide-react'
 import style from './Login.module.css'
 import fpStyle from './ForgotPassword.module.css'
 
-const BASE = 'https://schoolproject-backend-ruiy.onrender.com'
+const BASE = 'https://schoolpj-backend.onrender.com'
 
 const ForgotPassword = () => {
     const navigate = useNavigate()
@@ -87,7 +87,7 @@ const ForgotPassword = () => {
                         alt="Logo"
                         className={style['hero-image']}
                     />
-                    <h1>{roleLabel} â€” Reset Password</h1>
+                    <h1>{roleLabel} — Reset Password</h1>
                     <p>{step === 1 ? 'Enter your email to receive a reset code' : 'Enter the code and your new password'}</p>
                 </div>
 

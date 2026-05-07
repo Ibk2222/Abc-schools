@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import s from './StudentPages.module.css'
 
@@ -8,7 +8,7 @@ const StudentTests = () => {
     const token = localStorage.getItem('token')
 
     useEffect(() => {
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/students/all-tests', {
+        axios.get('https://schoolpj-backend.onrender.com/students/all-tests', {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => { if (res.data.status) setTests(res.data.tests ?? []) })
@@ -41,10 +41,10 @@ const StudentTests = () => {
                             : tests.map((t, i) => (
                                 <tr key={t._id}>
                                     <td>{i + 1}</td>
-                                    <td>{t.test_name ?? 'â€”'}</td>
-                                    <td>{t.subject_id?.subject_name ?? 'â€”'}</td>
-                                    <td>{t.test_score ?? 'â€”'}</td>
-                                    <td>{t.teacher_id ? `${t.teacher_id.firstname} ${t.teacher_id.lastname}` : 'â€”'}</td>
+                                    <td>{t.test_name ?? '—'}</td>
+                                    <td>{t.subject_id?.subject_name ?? '—'}</td>
+                                    <td>{t.test_score ?? '—'}</td>
+                                    <td>{t.teacher_id ? `${t.teacher_id.firstname} ${t.teacher_id.lastname}` : '—'}</td>
                                 </tr>
                             ))
                         }

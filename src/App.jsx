@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 // Teacher
@@ -41,7 +41,7 @@ import socketClient from "socket.io-client";
 function App() {
 
     let socket = useRef();
-  let endpoint = "https://schoolproject-backend-ruiy.onrender.com";
+  let endpoint = "https://schoolpj-backend.onrender.com";
   useEffect(() => {
     socket.current = socketClient(endpoint);
   }, []);
@@ -52,12 +52,12 @@ function App() {
             {/* Default */}
             <Route path="/" element={<Navigate to="/login" />} />
 
-            {/* â”€â”€ Forgot password â”€â”€ */}
+            {/* ── Forgot password ── */}
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/admin/forgot-password" element={<ForgotPassword />} />
             <Route path="/student/forgot-password" element={<ForgotPassword />} />
 
-            {/* â”€â”€ Teacher â”€â”€ */}
+            {/* ── Teacher ── */}
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route
@@ -70,7 +70,7 @@ function App() {
                 <Route path="results" element={<Results />} />
             </Route>
 
-            {/* â”€â”€ Admin â”€â”€ */}
+            {/* ── Admin ── */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/signup" element={<AdminSignup />} />
             <Route
@@ -88,7 +88,7 @@ function App() {
                 <Route path="results" element={<AdminResults />} />
             </Route>
 
-            {/* â”€â”€ Student â”€â”€ */}
+            {/* ── Student ── */}
             <Route path="/student/login" element={<StudentLogin />} />
             <Route path="/student/signup" element={<StudentSignup />} />
             <Route

@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import s from './StudentPages.module.css'
 
@@ -8,7 +8,7 @@ const StudentSubjects = () => {
     const token = localStorage.getItem('token')
 
     useEffect(() => {
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/subjects-list', {
+        axios.get('https://schoolpj-backend.onrender.com/admin/subjects-list', {
             headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => { if (res.data.status) setSubjects(res.data.subjects ?? []) })

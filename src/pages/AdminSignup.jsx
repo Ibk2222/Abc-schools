@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Eye, EyeOff } from 'lucide-react'
@@ -19,7 +19,7 @@ const AdminSignup = () => {
     const registerAdmin = () => {
         setLoading(true)
         setError('')
-        axios.post('https://schoolproject-backend-ruiy.onrender.com/admin/registersadmin', form)
+        axios.post('https://schoolpj-backend.onrender.com/admin/registersadmin', form)
             .then((res) => {
                 if (res.data.status === false) {
                     setError(res.data.message)

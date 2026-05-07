@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import { LayoutDashboard, Calendar, ClipboardList, CheckSquare, LogOut, User } from 'lucide-react'
@@ -26,7 +26,7 @@ const StudentDashboard = () => {
 
     const getStudentDashboard = () => {
         const token = localStorage.token
-        axios.get('https://schoolproject-backend-ruiy.onrender.com/students/dashboardstudent', {
+        axios.get('https://schoolpj-backend.onrender.com/students/dashboardstudent', {
             headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         })
         .then((res) => {

@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Eye, EyeOff } from 'lucide-react'
@@ -15,7 +15,7 @@ const StudentLogin = () => {
     const loginStudent = () => {
         setLoading(true)
         setError('')
-        axios.post('https://schoolproject-backend-ruiy.onrender.com/students/logins', { email, password })
+        axios.post('https://schoolpj-backend.onrender.com/students/logins', { email, password })
             .then((res) => {
                 if (res.data.status) {
                     localStorage.setItem('token', res.data.token)

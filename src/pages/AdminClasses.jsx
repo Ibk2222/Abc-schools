@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import style from './AdminManage.module.css'
 
@@ -26,8 +26,8 @@ const AdminClasses = () => {
     const fetchAll = () => {
         setLoading(true)
         Promise.all([
-            axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-classes', { headers: headers() }),
-            axios.get('https://schoolproject-backend-ruiy.onrender.com/admin/all-teachers', { headers: headers() }),
+            axios.get('https://schoolpj-backend.onrender.com/admin/all-classes', { headers: headers() }),
+            axios.get('https://schoolpj-backend.onrender.com/admin/all-teachers', { headers: headers() }),
         ])
         .then(([cRes, tRes]) => {
             if (cRes.data.status) setClasses(cRes.data.classes ?? [])
@@ -72,8 +72,8 @@ const AdminClasses = () => {
         setSaving(true)
         setError('')
         const url = editing
-            ? `https://schoolproject-backend-ruiy.onrender.com/admin/update-class/${editing}`
-            : 'https://schoolproject-backend-ruiy.onrender.com/admin/create-class'
+            ? `https://schoolpj-backend.onrender.com/admin/update-class/${editing}`
+            : 'https://schoolpj-backend.onrender.com/admin/create-class'
         const payload = {
             ...form,
             schedule: {
@@ -94,7 +94,7 @@ const AdminClasses = () => {
 
     const remove = (id) => {
         if (!window.confirm('Delete this class? This cannot be undone.')) return
-        axios.get(`https://schoolproject-backend-ruiy.onrender.com/admin/delete-class/${id}`, { headers: headers() })
+        axios.get(`https://schoolpj-backend.onrender.com/admin/delete-class/${id}`, { headers: headers() })
             .then(() => fetchAll())
             .catch(console.log)
     }
@@ -115,7 +115,7 @@ const AdminClasses = () => {
 
             <input
                 className={style.searchBar}
-                placeholder="Search by class nameâ€¦"
+                placeholder="Search by class name…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
@@ -144,10 +144,10 @@ const AdminClasses = () => {
                                 <tr key={c._id}>
                                     <td>{i + 1}</td>
                                     <td>{c.name}</td>
-                                    <td>{c.subject || 'â€”'}</td>
-                                    <td>{c.room || 'â€”'}</td>
+                                    <td>{c.subject || '—'}</td>
+                                    <td>{c.room || '—'}</td>
                                     <td>{c.academic_year}</td>
-                                    <td>{c.schedule?.days?.join(', ') || 'â€”'}</td>
+                                    <td>{c.schedule?.days?.join(', ') || '—'}</td>
                                     <td>
                                         <span className={c.is_active ? style.badgeActive : style.badgeInactive}>
                                             {c.is_active ? 'Active' : 'Inactive'}
@@ -171,7 +171,7 @@ const AdminClasses = () => {
                     <div className={style.modal}>
                         <div className={style.modalHeader}>
                             <h2 className={style.modalTitle}>{editing ? 'Edit Class' : 'Add Class'}</h2>
-                            <button className={style.closeBtn} onClick={closeModal}>Ã—</button>
+                            <button className={style.closeBtn} onClick={closeModal}>×</button>
                         </div>
 
                         {error && <div className={style.errorMsg}>{error}</div>}
@@ -238,7 +238,7 @@ const AdminClasses = () => {
                         <div className={style.modalFooter}>
                             <button className={style.cancelBtn} onClick={closeModal}>Cancel</button>
                             <button className={style.saveBtn} onClick={save} disabled={saving}>
-                                {saving ? 'Savingâ€¦' : editing ? 'Update Class' : 'Add Class'}
+                                {saving ? 'Saving…' : editing ? 'Update Class' : 'Add Class'}
                             </button>
                         </div>
                     </div>
