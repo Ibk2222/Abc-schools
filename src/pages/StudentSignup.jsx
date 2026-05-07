@@ -1,4 +1,4 @@
-import axios from 'axios'
+﻿import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Eye, EyeOff, Upload } from 'lucide-react'
@@ -125,11 +125,11 @@ const StudentSignup = () => {
                     <div className={style.row}>
                         <div className={style.group}>
                             <label>Age</label>
-                            <input type="number" value={form.age} onChange={set('age')} placeholder="Age" min="1" required />
+                            <input type="number" value={form.age} onChange={set('age')} placeholder="Age (0–12)" min="0" max="12" required />
                         </div>
                         <div className={style.group}>
                             <label>Date of Birth</label>
-                            <input type="date" value={form.dob} onChange={set('dob')} required />
+                            <input type="date" value={form.dob} onChange={set('dob')} min={5} max={12} required />
                         </div>
                     </div>
 
@@ -140,7 +140,6 @@ const StudentSignup = () => {
                                 <option value="">Select gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div className={style.group}>
@@ -166,9 +165,8 @@ const StudentSignup = () => {
 
                     <div className={style.group}>
                         <label>Parent / Guardian Phone</label>
-                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="+2348000000000" required />
+                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="+2348000000000" min={12} max={12} required />
                     </div>
-
                     <div className={style.group}>
                         <label>Password</label>
                         <div className={style.inputWrapper}>
