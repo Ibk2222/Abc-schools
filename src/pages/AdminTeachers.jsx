@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Search, X } from 'lucide-react'
 import style from './AdminManage.module.css'
 
 const BASE = 'https://schoolpj-backend.onrender.com/admin'
@@ -83,12 +84,11 @@ const AdminTeachers = () => {
                 <button className={style.addBtn} onClick={openAdd}>+ Add Teacher</button>
             </div>
 
-            <input
-                className={style.searchBar}
-                placeholder="Search by name or email…"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className={style.searchWrap}>
+                <Search size={16} className={style.searchIcon} />
+                <input className={style.searchInput} placeholder="Search by name or email…" value={search} onChange={(e) => setSearch(e.target.value)} />
+                {search && <button className={style.clearBtn} onClick={() => setSearch('')}><X size={14} /></button>}
+            </div>
 
             <div className={style.tableCard}>
                 {loading ? (

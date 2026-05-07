@@ -103,7 +103,7 @@ const AdminTimetables = () => {
                     <Search size={16} className={style.searchIcon} />
                     <input
                         className={style.searchInput}
-                        placeholder="Search by class, teacher, subject or day…"
+                        placeholder="Search classes, teachers"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                     />
