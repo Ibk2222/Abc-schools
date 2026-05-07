@@ -41,7 +41,7 @@
 }
 .addBtn:hover { background: rgb(15, 65, 200); }
 
-/* ── Search bar ── */
+/* ── Search bar (simple, used by other pages) ── */
 .searchBar {
     width: 100%;
     max-width: 340px;
@@ -56,6 +56,81 @@
 }
 .searchBar::placeholder { color: #6b7a99; }
 .searchBar:focus { border-color: rgb(20, 81, 240); }
+
+/* ── Redesigned search section (timetables) ── */
+.searchSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+.searchWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 12px;
+    padding: 0 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.searchWrap:focus-within {
+    border-color: rgb(20, 81, 240);
+    box-shadow: 0 0 0 3px rgba(20, 81, 240, 0.12);
+}
+.searchIcon {
+    color: #6b7a99;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+.searchInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #c0cfe8;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 12px 0;
+}
+.searchInput::placeholder { color: #4a5568; }
+.clearBtn {
+    background: transparent;
+    border: none;
+    color: #6b7a99;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 50%;
+    transition: color 0.2s, background 0.2s;
+}
+.clearBtn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+/* ── Day filter chips ── */
+.dayChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.dayFilterChip {
+    padding: 5px 14px;
+    border: 1px solid #1a2540;
+    border-radius: 20px;
+    background: transparent;
+    color: #6b7a99;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+}
+.dayFilterChip:hover { border-color: rgb(20, 81, 240); color: #c0cfe8; }
+.dayFilterActive {
+    background: rgb(20, 81, 240);
+    border-color: rgb(20, 81, 240);
+    color: #fff;
+}
 
 /* ── Table card ── */
 .tableCard {

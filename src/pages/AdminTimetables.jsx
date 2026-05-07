@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Search, X } from 'lucide-react'
 import style from './AdminManage.module.css'
 
 const BASE = 'https://schoolpj-backend.onrender.com/admin'
@@ -15,6 +16,7 @@ const AdminTimetables = () => {
     const [subjects, setSubjects]     = useState([])
     const [loading, setLoading]       = useState(false)
     const [search, setSearch]         = useState('')
+    const [dayFilter, setDayFilter]   = useState('')
     const [modal, setModal]           = useState(false)
     const [editing, setEditing]       = useState(null)
     const [form, setForm]             = useState(EMPTY)
@@ -76,10 +78,14 @@ const AdminTimetables = () => {
 
     const filtered = timetables.filter(t => {
         const q = search.toLowerCase()
-        return (t.class?.name ?? '').toLowerCase().includes(q)
+        const matchesSearch = !q
+            || (t.class?.name ?? '').toLowerCase().includes(q)
             || (t.teacher?.firstname ?? '').toLowerCase().includes(q)
+            || (t.teacher?.lastname ?? '').toLowerCase().includes(q)
             || (t.subject?.subject_name ?? '').toLowerCase().includes(q)
             || (t.day_of_week ?? '').toLowerCase().includes(q)
+        const matchesDay = !dayFilter || t.day_of_week === dayFilter
+        return matchesSearch && matchesDay
     })
 
     return (
@@ -92,8 +98,34 @@ const AdminTimetables = () => {
                 <button className={style.addBtn} onClick={openAdd}>+ Add Entry</button>
             </div>
 
-            <div className={style.searchBar}>
-                <input placeholder="Search by class, teacher, subject or day…" value={search} onChange={e => setSearch(e.target.value)} />
+            <div className={style.searchSection}>
+                <div className={style.searchWrap}>
+                    <Search size={16} className={style.searchIcon} />
+                    <input
+                        className={style.searchInput}
+                        placeholder="Search by class, teacher, subject or day…"
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                    />
+                    {search && (
+                        <button className={style.clearBtn} onClick={() => setSearch('')}>
+                            <X size={14} />
+                        </button>
+                    )}
+                </div>
+                <div className={style.dayChips}>
+                    <button
+                        className={`${style.dayFilterChip} ${dayFilter === '' ? style.dayFilterActive : ''}`}
+                        onClick={() => setDayFilter('')}
+                    >All</button>
+                    {DAYS.map(d => (
+                        <button
+                            key={d}
+                            className={`${style.dayFilterChip} ${dayFilter === d ? style.dayFilterActive : ''}`}
+                            onClick={() => setDayFilter(prev => prev === d ? '' : d)}
+                        >{d.slice(0, 3)}</button>
+                    ))}
+                </div>
             </div>
 
             {loading ? <div className={style.loadingWrap}><div className={style.spinner} /></div> : (
