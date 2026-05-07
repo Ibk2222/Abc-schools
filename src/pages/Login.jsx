@@ -30,9 +30,9 @@ const Login = () => {
                 setError(res.data.message)
             }
         })
-        .catch((error) => {
+        .catch(() => {
             setLoading(false)
-            console.log(error)
+            setError('Something went wrong. Please try again.')
         })
     }
 

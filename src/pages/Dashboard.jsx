@@ -23,7 +23,7 @@ const Dashboard = () => {
     }, [])
 
     const getTeacherDashboard = () => {
-        const url = 'https://schoolpj-backend.onrender.com/teacher/getTeacherDashboard'
+        const url = 'https://schoolpj-backend.onrender.com/teacher/dashboard'
         const token = localStorage.token
         axios.get(url, {
             headers: {
