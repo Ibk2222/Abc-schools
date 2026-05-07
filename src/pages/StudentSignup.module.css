@@ -144,6 +144,58 @@
 }
 .eyeIcon:hover { color: rgb(20, 81, 240); }
 
+/* Strength bar */
+.strengthWrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+.strengthBar {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+.strengthSegment {
+    height: 5px;
+    flex: 1;
+    border-radius: 3px;
+    transition: background 0.3s;
+}
+.strengthLabel {
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 36px;
+    transition: color 0.3s;
+}
+
+/* Requirements checklist */
+.pwChecklist {
+    list-style: none;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 12px;
+}
+.pwChecklist li {
+    font-size: 12px;
+    padding-left: 16px;
+    position: relative;
+}
+.pwChecklist li::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    font-size: 8px;
+    top: 2px;
+}
+.checkPass { color: #4caf50; }
+.checkFail { color: #6b7a99; }
+
+/* Match indicator */
+.matchOk   { font-size: 12px; color: #4caf50; margin-top: 6px; }
+.matchFail { font-size: 12px; color: #f44336; margin-top: 6px; }
+
 .submitBtn {
     width: 100%;
     padding: 12px 20px;

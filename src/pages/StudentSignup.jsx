@@ -14,6 +14,8 @@ const StudentSignup = () => {
     const [imagePreview, setImagePreview] = useState(null)
     const [classes, setClasses] = useState([])
     const [showPassword, setShowPassword] = useState(false)
+    const [showConfirm, setShowConfirm] = useState(false)
+    const [confirm, setConfirm] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const fileRef = useRef()
@@ -48,8 +50,20 @@ const StudentSignup = () => {
         throw new Error('Image upload failed')
     }
 
+    const pwChecks = {
+        length:    form.password.length >= 6,
+        uppercase: /[A-Z]/.test(form.password),
+        lowercase: /[a-z]/.test(form.password),
+        number:    /\d/.test(form.password),
+    }
+    const pwStrength = Object.values(pwChecks).filter(Boolean).length
+    const strengthLabel = ['', 'Weak', 'Fair', 'Good', 'Strong'][pwStrength] ?? ''
+    const strengthColor = ['', '#f44336', '#ff9800', '#2196f3', '#4caf50'][pwStrength] ?? ''
+
     const registerStudent = async () => {
         if (!image) { setError('Please upload a profile photo.'); return }
+        if (!Object.values(pwChecks).every(Boolean)) { setError('Password does not meet all requirements.'); return }
+        if (form.password !== confirm) { setError('Passwords do not match.'); return }
         setLoading(true)
         setError('')
         try {
@@ -162,16 +176,56 @@ const StudentSignup = () => {
                                 type={showPassword ? 'text' : 'password'}
                                 value={form.password}
                                 onChange={set('password')}
-                                placeholder="Min 6 chars, uppercase, lowercase & number"
+                                placeholder="Create a password"
                                 required
                             />
                             <span className={style.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </span>
-                            <p className={style.passwordHint}>
-                                Password must be at least 6 characters long and include uppercase, lowercase, and a number.
-                            </p>
                         </div>
+
+                        {form.password && (
+                            <div className={style.strengthWrap}>
+                                <div className={style.strengthBar}>
+                                    {[1,2,3,4].map(n => (
+                                        <div
+                                            key={n}
+                                            className={style.strengthSegment}
+                                            style={{ background: pwStrength >= n ? strengthColor : '#2a3550' }}
+                                        />
+                                    ))}
+                                </div>
+                                <span className={style.strengthLabel} style={{ color: strengthColor }}>{strengthLabel}</span>
+                            </div>
+                        )}
+
+                        <ul className={style.pwChecklist}>
+                            <li className={pwChecks.length    ? style.checkPass : style.checkFail}>At least 6 characters</li>
+                            <li className={pwChecks.uppercase ? style.checkPass : style.checkFail}>One uppercase letter</li>
+                            <li className={pwChecks.lowercase ? style.checkPass : style.checkFail}>One lowercase letter</li>
+                            <li className={pwChecks.number    ? style.checkPass : style.checkFail}>One number</li>
+                        </ul>
+                    </div>
+
+                    <div className={style.group}>
+                        <label>Confirm Password</label>
+                        <div className={style.inputWrapper}>
+                            <input
+                                type={showConfirm ? 'text' : 'password'}
+                                value={confirm}
+                                onChange={(e) => setConfirm(e.target.value)}
+                                placeholder="Re-enter your password"
+                                required
+                            />
+                            <span className={style.eyeIcon} onClick={() => setShowConfirm(!showConfirm)}>
+                                {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </span>
+                        </div>
+                        {confirm && (
+                            <p className={form.password === confirm ? style.matchOk : style.matchFail}>
+                                {form.password === confirm ? '✓ Passwords match' : '✗ Passwords do not match'}
+                            </p>
+                        )}
                     </div>
 
                     <button type="submit" className={style.submitBtn} disabled={loading}>
