@@ -284,6 +284,12 @@
     }
 }
 
+@media print {
+    .sidebar { display: none !important; }
+    .layout { display: block; }
+    .main { background: #fff !important; }
+}
+
 @media (max-width: 560px) {
     .layout {
         flex-direction: column;

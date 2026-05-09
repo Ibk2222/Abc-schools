@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Printer } from 'lucide-react'
 import s from './StudentPages.module.css'
 
 const gradeColor = (grade) => {
@@ -43,9 +44,19 @@ const StudentResults = () => {
 
     return (
         <div className={s.container}>
-            <div className={s.header}>
-                <h1 className={s.title}>My Results</h1>
-                <p className={s.subtitle}>Your exam scores and grades</p>
+            <div className={s.printHeader}>
+                <h2>ABC School — Student Results</h2>
+                <p>Printed on {new Date().toLocaleDateString()}</p>
+            </div>
+
+            <div className={s.header} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                    <h1 className={s.title}>My Results</h1>
+                    <p className={s.subtitle}>Your exam scores and grades</p>
+                </div>
+                <button className={s.printBtn} onClick={() => window.print()}>
+                    <Printer size={16} /> Print
+                </button>
             </div>
             <div className={s.tableCard}>
                 <table className={s.table}>
