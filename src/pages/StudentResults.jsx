@@ -137,8 +137,8 @@ const StudentResults = () => {
                             <th colSpan={2} className={s.rcThGroup}>Overall</th>
                         </tr>
                         <tr>
-                            <th className={s.rcThSub}>Half Yearly<br /><em>30</em></th>
-                            <th className={s.rcThSub}>Total<br /><em>70</em></th>
+                            <th className={s.rcThSub}>Test<br /><em>30</em></th>
+                            <th className={s.rcThSub}>Exam<br /><em>70</em></th>
                             <th className={s.rcThSub}>Grand Total<br /><em>100</em></th>
                             <th className={s.rcThSub}>Grade</th>
                         </tr>
