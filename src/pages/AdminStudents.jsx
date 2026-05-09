@@ -4,9 +4,19 @@ import { Search, X } from 'lucide-react'
 import style from './AdminManage.module.css'
 
 const EMPTY = {
-    firstname: '', lastname: '', email: '', age: '',
+    firstname: '', lastname: '', email: '',
     dob: '', gender: '', address: '', parent_phone: '',
     class_id: '', password: '',
+}
+
+const calcAge = (dob) => {
+    if (!dob) return '—'
+    const today = new Date()
+    const birth = new Date(dob)
+    let age = today.getFullYear() - birth.getFullYear()
+    const m = today.getMonth() - birth.getMonth()
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--
+    return age
 }
 
 const headers = () => ({
@@ -54,7 +64,6 @@ const AdminStudents = () => {
             firstname: student.firstname ?? '',
             lastname: student.lastname ?? '',
             email: student.email ?? '',
-            age: student.age ?? '',
             dob: student.dob ? student.dob.slice(0, 10) : '',
             gender: student.gender ?? '',
             address: student.address ?? '',
@@ -78,7 +87,7 @@ const AdminStudents = () => {
             : 'https://schoolpj-backend.onrender.com/admin/registerstudent'
         const method = editing ? axios.post : axios.post
         const payload = editing
-            ? { firstname: form.firstname, lastname: form.lastname, email: form.email, age: form.age, dob: form.dob, gender: form.gender, address: form.address, parent_phone: form.parent_phone, class_id: form.class_id }
+            ? { firstname: form.firstname, lastname: form.lastname, email: form.email, dob: form.dob, gender: form.gender, address: form.address, parent_phone: form.parent_phone, class_id: form.class_id }
             : { ...form, image: '' }
 
         method(url, payload, { headers: headers() })
@@ -143,7 +152,7 @@ const AdminStudents = () => {
                                     <td>{i + 1}</td>
                                     <td>{s.firstname} {s.lastname}</td>
                                     <td>{s.email}</td>
-                                    <td>{s.age}</td>
+                                    <td>{calcAge(s.dob)}</td>
                                     <td>{s.gender}</td>
                                     <td>{s.parent_phone}</td>
                                     <td>
@@ -189,10 +198,6 @@ const AdminStudents = () => {
                             <div className={style.formGroup}>
                                 <label>Email</label>
                                 <input type="email" value={form.email} onChange={set('email')} placeholder="Email address" required />
-                            </div>
-                            <div className={style.formGroup}>
-                                <label>Age</label>
-                                <input type="number" value={form.age} onChange={set('age')} placeholder="Age" min="1" required />
                             </div>
                         </div>
 

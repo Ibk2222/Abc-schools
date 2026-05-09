@@ -4,6 +4,17 @@ import { Search, X } from 'lucide-react'
 import style from './AdminManage.module.css'
 
 const BASE = 'https://schoolpj-backend.onrender.com/admin'
+
+const calcAge = (dob) => {
+    if (!dob) return '—'
+    const today = new Date()
+    const birth = new Date(dob)
+    let age = today.getFullYear() - birth.getFullYear()
+    const m = today.getMonth() - birth.getMonth()
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--
+    return age
+}
+
 const EMPTY = { student: '', exam: '', score: '', grade_level: '', teacher: '', test_score: '' }
 
 const headers = () => ({ Authorization: `Bearer ${localStorage.token}`, 'Content-Type': 'application/json' })
@@ -105,14 +116,15 @@ const AdminResults = () => {
                 <div className={style.tableCard}>
                     <table className={style.table}>
                         <thead><tr>
-                            <th>Student</th><th>Grade Level</th><th>Exam Score</th><th>Test Score</th><th>Teacher</th><th>Actions</th>
+                            <th>Student</th><th>Age</th><th>Grade Level</th><th>Exam Score</th><th>Test Score</th><th>Teacher</th><th>Actions</th>
                         </tr></thead>
                         <tbody>
                             {filtered.length === 0 ? (
-                                <tr><td colSpan={6} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No results found</td></tr>
+                                <tr><td colSpan={7} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No results found</td></tr>
                             ) : filtered.map(r => (
                                 <tr key={r._id}>
                                     <td>{r.student?.firstname ?? '—'} {r.student?.lastname ?? ''}</td>
+                                    <td>{calcAge(r.student?.dob)}</td>
                                     <td>
                                         <span className={style.badgeActive}>{r.grade_level ?? '—'}</span>
                                     </td>

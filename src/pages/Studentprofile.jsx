@@ -5,6 +5,16 @@ import s from './Studentprofile.module.css'
 
 const BASE = 'https://schoolpj-backend.onrender.com'
 
+const calcAge = (dob) => {
+    if (!dob) return '—'
+    const today = new Date()
+    const birth = new Date(dob)
+    let age = today.getFullYear() - birth.getFullYear()
+    const m = today.getMonth() - birth.getMonth()
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--
+    return age
+}
+
 const Studentprofile = () => {
     const navigate = useNavigate()
     const [student, setStudent] = useState(null)
@@ -44,7 +54,6 @@ const Studentprofile = () => {
                         firstname: st.firstname ?? '',
                         lastname: st.lastname ?? '',
                         email: st.email ?? '',
-                        age: st.age ?? '',
                         parent_phone: st.parent_phone ?? '',
                         address: st.address ?? '',
                     })
@@ -94,7 +103,6 @@ const Studentprofile = () => {
             firstname: student.firstname ?? '',
             lastname: student.lastname ?? '',
             email: student.email ?? '',
-            age: student.age ?? '',
             parent_phone: student.parent_phone ?? '',
             address: student.address ?? '',
         })
@@ -239,6 +247,16 @@ const Studentprofile = () => {
                             ? <input className={s.fieldInput} name="address" value={form.address} onChange={handleField} placeholder="Address" />
                             : <p className={s.fieldValue}>{student?.address ?? '—'}</p>
                         }
+                    </div>
+
+                    <div className={s.fieldRow}>
+                        <p className={s.fieldLabel}>Date of Birth</p>
+                        <p className={s.fieldValue}>{student?.dob ? new Date(student.dob).toLocaleDateString() : '—'}</p>
+                    </div>
+
+                    <div className={s.fieldRow}>
+                        <p className={s.fieldLabel}>Age</p>
+                        <p className={s.fieldValue}>{calcAge(student?.dob)} years old</p>
                     </div>
 
                     <div className={s.fieldRow}>
