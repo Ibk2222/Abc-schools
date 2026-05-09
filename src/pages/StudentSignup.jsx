@@ -64,12 +64,18 @@ const StudentSignup = () => {
     const strengthLabel = ['', 'Weak', 'Fair', 'Good', 'Strong'][pwStrength] ?? ''
     const strengthColor = ['', '#f44336', '#ff9800', '#2196f3', '#4caf50'][pwStrength] ?? ''
 
+    const nameRegex = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const phoneRegex = /^[0-9]{11}$/
+
     const validateStep = () => {
         setError('')
         if (step === 1) {
             if (!image) { setError('Please upload a profile photo.'); return false }
             if (!form.firstname.trim()) { setError('First name is required.'); return false }
+            if (!nameRegex.test(form.firstname.trim())) { setError('Invalid first name format. Name must start and end with a letter and may only contain letters, spaces, hyphens, or apostrophes.'); return false }
             if (!form.lastname.trim()) { setError('Last name is required.'); return false }
+            if (!nameRegex.test(form.lastname.trim())) { setError('Invalid last name format. Name must start and end with a letter and may only contain letters, spaces, hyphens, or apostrophes.'); return false }
             if (!form.dob) { setError('Date of birth is required.'); return false }
             const year = new Date(form.dob).getFullYear()
             if (year < 2015 || year > 2022) { setError('Date of birth must be between 2015 and 2022.'); return false }
@@ -78,8 +84,9 @@ const StudentSignup = () => {
         }
         if (step === 2) {
             if (!form.email.trim()) { setError('Email is required.'); return false }
+            if (!emailRegex.test(form.email.trim())) { setError('Invalid email format. Please enter a valid email address.'); return false }
             if (!form.address.trim()) { setError('Address is required.'); return false }
-            if (!form.parent_phone || form.parent_phone.length < 11) { setError('Enter a valid 11-digit phone number.'); return false }
+            if (!phoneRegex.test(form.parent_phone)) { setError('Phone number must be exactly 11 digits (numbers only).'); return false }
         }
         return true
     }
@@ -89,7 +96,7 @@ const StudentSignup = () => {
 
     const registerStudent = async (e) => {
         e.preventDefault()
-        if (!Object.values(pwChecks).every(Boolean)) { setError('Password does not meet all requirements.'); return }
+        if (!Object.values(pwChecks).every(Boolean)) { setError('Password must be at least 6 characters and contain an uppercase letter, a lowercase letter, and a number.'); return }
         if (form.password !== confirm) { setError('Passwords do not match.'); return }
         setLoading(true)
         setError('')
