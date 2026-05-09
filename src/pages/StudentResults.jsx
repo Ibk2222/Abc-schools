@@ -51,6 +51,19 @@ const StudentResults = () => {
 
     return (
         <div className={s.container}>
+            {/* ── Screen-only school banner ── */}
+            <div className={s.schoolBanner}>
+                <img
+                    src="https://img.freepik.com/premium-vector/abc-kindergarten-school-preschool-day-care-logo_513640-3079.jpg?w=360"
+                    alt="School Logo"
+                    className={s.schoolBannerLogo}
+                />
+                <div>
+                    <p className={s.schoolBannerName}>ABC Nursery and Primary School</p>
+                    <p className={s.schoolBannerAddress}>No 28 Alegongo Akobo, Ibadan</p>
+                </div>
+            </div>
+
             {/* ── Print-only header ── */}
             <div className={s.printHeader}>
                 <div className={s.printSchoolRow}>

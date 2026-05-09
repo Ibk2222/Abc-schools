@@ -188,38 +188,74 @@ const printSheet = (student, studentResults) => {
     setTimeout(() => { w.print(); w.close() }, 400)
 }
 
+const BASE_T = 'https://schoolpj-backend.onrender.com/teacher'
+const ADD_EMPTY = { student: '', exam: '', score: '', test_score: '', grade_level: '' }
+
 /* ── Main component ── */
 const Results = () => {
     const [results, setResults] = useState([])
     const [classes, setClasses] = useState([])
+    const [allStudents, setAllStudents] = useState([])
+    const [allExams, setAllExams] = useState([])
     const [activeClass, setActiveClass] = useState('all')
     const [loading, setLoading] = useState(false)
     const [sheet, setSheet] = useState(null)
+    const [addModal, setAddModal] = useState(false)
+    const [addForm, setAddForm] = useState(ADD_EMPTY)
+    const [addSaving, setAddSaving] = useState(false)
+    const [addError, setAddError] = useState('')
     const navigate = useNavigate()
 
     useEffect(() => {
         fetchData()
     }, [])
 
+    const getHeaders = () => ({
+        Authorization: `Bearer ${localStorage.token}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+    })
+
     const fetchData = () => {
         setLoading(true)
-        const token = localStorage.token
-        const headers = {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        }
         Promise.all([
-            axios.get('https://schoolpj-backend.onrender.com/teacher/all-results', { headers }),
-            axios.get('https://schoolpj-backend.onrender.com/teacher/all-classes', { headers }),
+            axios.get(`${BASE_T}/all-results`,  { headers: getHeaders() }),
+            axios.get(`${BASE_T}/all-classes`,  { headers: getHeaders() }),
+            axios.get(`${BASE_T}/all-students`, { headers: getHeaders() }),
+            axios.get(`${BASE_T}/all-exams`,    { headers: getHeaders() }),
         ])
-        .then(([rRes, cRes]) => {
+        .then(([rRes, cRes, sRes, eRes]) => {
             if (rRes.data.status) setResults(rRes.data.results ?? [])
             if (cRes.data.status) setClasses(cRes.data.classes ?? [])
+            if (sRes.data.status) setAllStudents(sRes.data.students ?? [])
+            if (eRes.data.status) setAllExams(eRes.data.exams ?? [])
         })
         .catch((err) => console.log(err))
         .finally(() => setLoading(false))
     }
+
+    const openAdd = () => { setAddForm(ADD_EMPTY); setAddError(''); setAddModal(true) }
+
+    const handleAddSave = () => {
+        if (!addForm.student || !addForm.exam) { setAddError('Student and Exam are required.'); return }
+        setAddSaving(true); setAddError('')
+        const payload = {
+            student:     addForm.student,
+            exam:        addForm.exam,
+            grade_level: addForm.grade_level,
+            score:       addForm.score !== '' ? Number(addForm.score) : undefined,
+            test_score:  addForm.test_score !== '' ? Number(addForm.test_score) : null,
+        }
+        axios.post(`${BASE_T}/create-result`, payload, { headers: getHeaders() })
+            .then((res) => {
+                if (res.data.status === false) { setAddError(res.data.message ?? 'Error'); return }
+                setAddModal(false); fetchData()
+            })
+            .catch((err) => setAddError(err.response?.data?.message ?? 'Server error'))
+            .finally(() => setAddSaving(false))
+    }
+
+    const addField = (key, val) => setAddForm(f => ({ ...f, [key]: val }))
 
     /* ── Stats ── */
     const scores = results.map(r => r.score).filter(s => typeof s === 'number')
@@ -362,7 +398,7 @@ const Results = () => {
                                 </p>
                                 <p className={style.tableSubtitle}>{results.length} students</p>
                             </div>
-                            <button className={style.addBtn}>Add Grade</button>
+                            <button className={style.addBtn} onClick={openAdd}>+ Add Grade</button>
                         </div>
 
                         {results.length === 0 ? (
@@ -470,6 +506,66 @@ const Results = () => {
                         </div>
                     </div>
                 </>
+            )}
+
+            {/* ── Add Grade modal ── */}
+            {addModal && (
+                <div className={style.overlay} onClick={e => e.target === e.currentTarget && setAddModal(false)}>
+                    <div className={style.addGradeModal}>
+                        <div className={style.sheetModalHead}>
+                            <div>
+                                <h2 className={style.sheetTitle}>Add Grade</h2>
+                                <p className={style.sheetSub}>Enter exam and test scores for a student</p>
+                            </div>
+                            <button className={style.sheetCloseBtn} onClick={() => setAddModal(false)}>×</button>
+                        </div>
+                        {addError && <div className={style.addErrorMsg}>{addError}</div>}
+                        <div className={style.addFormRow}>
+                            <div className={style.addFormGroup}>
+                                <label>Student</label>
+                                <select value={addForm.student} onChange={e => addField('student', e.target.value)}>
+                                    <option value="">Select student</option>
+                                    {allStudents.map(s => (
+                                        <option key={s._id} value={s._id}>{s.firstname} {s.lastname}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className={style.addFormGroup}>
+                                <label>Exam</label>
+                                <select value={addForm.exam} onChange={e => addField('exam', e.target.value)}>
+                                    <option value="">Select exam</option>
+                                    {allExams.map(ex => (
+                                        <option key={ex._id} value={ex._id}>
+                                            {ex.subject_id?.subject_name ?? 'Exam'}{ex.start_date ? ' · ' + new Date(ex.start_date).toLocaleDateString() : ''}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div className={style.addFormRow}>
+                            <div className={style.addFormGroup}>
+                                <label>Exam Score (max 70)</label>
+                                <input type="number" min="0" max="70" placeholder="0–70" value={addForm.score} onChange={e => addField('score', e.target.value)} />
+                            </div>
+                            <div className={style.addFormGroup}>
+                                <label>Test Score (max 30)</label>
+                                <input type="number" min="0" max="30" placeholder="0–30" value={addForm.test_score} onChange={e => addField('test_score', e.target.value)} />
+                            </div>
+                        </div>
+                        <div className={style.addFormRow}>
+                            <div className={style.addFormGroup}>
+                                <label>Grade Level</label>
+                                <input type="text" placeholder="e.g. A, B+, Pass" value={addForm.grade_level} onChange={e => addField('grade_level', e.target.value)} />
+                            </div>
+                        </div>
+                        <div className={style.addModalFooter}>
+                            <button className={style.closeSheetBtn} onClick={() => setAddModal(false)}>Cancel</button>
+                            <button className={style.printBtn} onClick={handleAddSave} disabled={addSaving}>
+                                {addSaving ? 'Saving…' : 'Add Grade'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
 
             {/* ── Result sheet modal ── */}

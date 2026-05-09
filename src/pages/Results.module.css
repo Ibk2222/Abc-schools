@@ -552,6 +552,62 @@
 }
 .printBtn:hover { background: rgb(15, 65, 200); }
 
+/* ── Add Grade modal ── */
+.addGradeModal {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    max-width: 560px;
+    animation: popIn 0.2s ease-out;
+}
+.addErrorMsg {
+    background: rgba(239,68,68,0.12);
+    color: #f87171;
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+.addFormRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+.addFormGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.addFormGroup label {
+    color: #8899aa;
+    font-size: 12px;
+    font-weight: 600;
+}
+.addFormGroup input,
+.addFormGroup select {
+    background: #131f35;
+    border: 1px solid #1a2540;
+    border-radius: 8px;
+    color: #c0cfe8;
+    font-size: 13px;
+    padding: 9px 12px;
+    outline: none;
+    width: 100%;
+}
+.addFormGroup input:focus,
+.addFormGroup select:focus { border-color: rgb(20,81,240); }
+.addFormGroup select option { background: #0f1623; }
+.addModalFooter {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
 @media (max-width: 1024px) {
     .chartsRow { grid-template-columns: 1fr; }
     .summaryGrid { grid-template-columns: repeat(2, 1fr); }
