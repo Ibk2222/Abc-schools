@@ -46,7 +46,15 @@ const Dashboard = () => {
                 setStats(response.data.stats)
             }
         })
-        .catch(() => setLoadError('Could not connect to server. Please try again.'))
+        .catch((err) => {
+            if (err.response?.status === 401) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('role')
+                navigate('/login')
+            } else {
+                setLoadError('Server is waking up — please click Retry in a moment.')
+            }
+        })
     }
 
     const handleLogout = () => {
