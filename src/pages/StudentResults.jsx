@@ -185,6 +185,16 @@ const StudentResults = () => {
                 </table>
                 </div>
 
+                {/* Teacher's Remarks */}
+                <div className={s.rcRemarks}>
+                    <p className={s.rcRemarksLabel}>Teacher's Remarks</p>
+                    <div className={s.rcRemarksBox}>
+                        {results[0]?.teacher
+                            ? `${results[0].teacher.firstname ?? ''} ${results[0].teacher.lastname ?? ''}`.trim()
+                            : ''}
+                    </div>
+                </div>
+
                 {/* Signatures */}
                 <div className={s.rcSignRow}>
                     <div className={s.rcSignBox}>

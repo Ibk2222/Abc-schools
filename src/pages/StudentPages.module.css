@@ -206,6 +206,24 @@
 .rcTdPctCell { text-align: center; }
 .rcEmpty { text-align: center; padding: 28px; color: #666; font-style: italic; }
 
+/* Teacher's Remarks */
+.rcRemarks { margin-bottom: 16px; }
+.rcRemarksLabel {
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 0 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.rcRemarksBox {
+    border: 1px solid #555;
+    min-height: 54px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.6;
+}
+
 /* Signatures */
 .rcSignRow {
     display: flex;
