@@ -235,6 +235,75 @@
 }
 .rcGradeTable th { background: #dde4f0; font-weight: 700; }
 
+/* Table scroll wrappers */
+.rcTableWrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.rcGradeTableWrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.rcGradeTable { min-width: 480px; }
+
+/* ── Mobile: tablet (≤640px) ── */
+@media (max-width: 640px) {
+    .rcPage { padding: 16px 10px; }
+    .rcDocument { padding: 20px 16px; }
+    .rcSchoolName { font-size: 16px; }
+    .rcAcReport { font-size: 13px; }
+    .rcSessionLine, .rcClassLine { font-size: 11px; }
+    .rcInfoKey { min-width: 110px; }
+}
+
+/* ── Mobile: phone (≤480px) ── */
+@media (max-width: 480px) {
+    .rcPage { padding: 10px 6px; }
+    .rcDocument { padding: 14px 10px; }
+
+    /* Header: shrink logo & passport */
+    .rcHeader { gap: 8px; padding-bottom: 10px; }
+    .rcLogo { width: 52px; height: 52px; }
+    .rcSchoolName { font-size: 13px; letter-spacing: 0; }
+    .rcSchoolAddr { font-size: 10px; }
+    .rcAcReport { font-size: 12px; margin: 4px 0 2px; }
+    .rcSessionLine, .rcClassLine { font-size: 10px; }
+    .rcPassportImg { width: 54px; height: 68px; }
+    .rcPassportInitials { width: 54px; height: 68px; font-size: 18px; }
+
+    /* Student info: stack into one column */
+    .rcInfoBox { flex-direction: column; }
+    .rcInfoCol {
+        border-right: none !important;
+        border-bottom: 1px solid #555;
+        padding: 6px 10px;
+    }
+    .rcInfoCol:last-child { border-bottom: none; }
+    .rcInfoRow { font-size: 12px; }
+    .rcInfoKey { min-width: 100px; font-size: 12px; }
+
+    /* Results table */
+    .rcTable { font-size: 11px; }
+    .rcTable th, .rcTable td { padding: 4px 5px; }
+    .rcTdSubject { padding-left: 6px !important; font-size: 11px; }
+    .rcThArea { width: 30%; }
+    .rcTotalsRow td { font-size: 10px; padding: 5px 4px; }
+
+    /* Signatures: reduce line width */
+    .rcSignRow { margin: 18px 0 14px; }
+    .rcSignLine { width: 80px; }
+    .rcSignBox p { font-size: 10px; }
+
+    /* Print button */
+    .rcPrintBar { margin-bottom: 8px; }
+    .printBtn { font-size: 13px; padding: 7px 14px; }
+}
+
+/* ── Mobile: very small (≤360px) ── */
+@media (max-width: 360px) {
+    .rcLogo { width: 40px; height: 40px; }
+    .rcSchoolName { font-size: 11px; }
+    .rcPassportImg { width: 44px; height: 56px; }
+    .rcPassportInitials { width: 44px; height: 56px; font-size: 14px; }
+    .rcTable { font-size: 10px; }
+    .rcTable th, .rcTable td { padding: 3px 3px; }
+    .rcSignLine { width: 64px; }
+}
+
 /* Print overrides */
 @media print {
     .rcPage { background: none !important; padding: 0 !important; }

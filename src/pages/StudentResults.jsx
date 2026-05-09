@@ -129,6 +129,7 @@ const StudentResults = () => {
                 </div>
 
                 {/* Scholastic Areas Table */}
+                <div className={s.rcTableWrap}>
                 <table className={s.rcTable}>
                     <thead>
                         <tr>
@@ -182,26 +183,28 @@ const StudentResults = () => {
                         </tr>
                     </tbody>
                 </table>
+                </div>
 
                 {/* Signatures */}
                 <div className={s.rcSignRow}>
                     <div className={s.rcSignBox}>
                         <div className={s.rcSignLine} />
-                        <p>Sign. of Class Teacher</p>
+                        <p>Class Teacher's Signature</p>
                     </div>
                     <div className={s.rcSignBox}>
                         <div className={s.rcSignLine} />
-                        <p>Sign. Of Principal</p>
+                        <p>Principal's Signature</p>
                     </div>
                     <div className={s.rcSignBox}>
                         <div className={s.rcSignLine} />
-                        <p>Sign. of Manager</p>
+                        <p>Manager's Signature</p>
                     </div>
                 </div>
 
                 {/* Grading Scale */}
                 <div className={s.rcGradeNote}>
                     <p>Grading scale for scholastic areas: Grades are awarded on an 8-point grading scale as follows:</p>
+                    <div className={s.rcGradeTableWrap}>
                     <table className={s.rcGradeTable}>
                         <thead>
                             <tr>
@@ -228,6 +231,7 @@ const StudentResults = () => {
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
             </div>
