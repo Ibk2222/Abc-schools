@@ -52,7 +52,7 @@ const ForgotPassword = () => {
                     setStep1Error(res.data.message ?? 'Something went wrong.')
                 }
             })
-            .catch(() => setStep1Error('Server error. Please try again.'))
+            .catch((err) => setStep1Error(err.response?.data?.message ?? 'Server error. Please try again.'))
             .finally(() => setStep1Loading(false))
     }
 
@@ -72,7 +72,7 @@ const ForgotPassword = () => {
                     setStep2Error(res.data.message ?? 'Something went wrong.')
                 }
             })
-            .catch(() => setStep2Error('Server error. Please try again.'))
+            .catch((err) => setStep2Error(err.response?.data?.message ?? 'Server error. Please try again.'))
             .finally(() => setStep2Loading(false))
     }
 
