@@ -4,7 +4,7 @@ import { Search, X } from 'lucide-react'
 import style from './AdminManage.module.css'
 
 const BASE = 'https://schoolpj-backend.onrender.com/admin'
-const EMPTY = { test_name: '', teacher_id: '', test_score: '', subject_id: '' }
+const EMPTY = { teacher_id: '', test_score: '', subject_id: '' }
 
 const headers = () => ({ Authorization: `Bearer ${localStorage.token}`, 'Content-Type': 'application/json' })
 
@@ -43,7 +43,6 @@ const AdminTests = () => {
     const openEdit = (t) => {
         setEditing(t._id)
         setForm({
-            test_name:  t.test_name              ?? '',
             teacher_id: t.teacher_id?._id ?? t.teacher_id ?? '',
             test_score: t.test_score             ?? '',
             subject_id: t.subject_id?._id ?? t.subject_id ?? '',
@@ -70,8 +69,8 @@ const AdminTests = () => {
 
     const filtered = tests.filter(t => {
         const q = search.toLowerCase()
-        return (t.test_name ?? '').toLowerCase().includes(q)
-            || (t.teacher_id?.firstname ?? '').toLowerCase().includes(q)
+        return (t.teacher_id?.firstname ?? '').toLowerCase().includes(q)
+            || (t.teacher_id?.lastname ?? '').toLowerCase().includes(q)
             || (t.subject_id?.subject_name ?? '').toLowerCase().includes(q)
     })
 
@@ -87,7 +86,7 @@ const AdminTests = () => {
 
             <div className={style.searchWrap}>
                 <Search size={16} className={style.searchIcon} />
-                <input className={style.searchInput} placeholder="Search by test name…" value={search} onChange={e => setSearch(e.target.value)} />
+                <input className={style.searchInput} placeholder="Search by teacher or subject…" value={search} onChange={e => setSearch(e.target.value)} />
                 {search && <button className={style.clearBtn} onClick={() => setSearch('')}><X size={14} /></button>}
             </div>
         
@@ -95,14 +94,13 @@ const AdminTests = () => {
                 <div className={style.tableCard}>
                     <table className={style.table}>
                         <thead><tr>
-                            <th>Test Name</th><th>Subject</th><th>Teacher</th><th>Score</th><th>Actions</th>
+                            <th>Subject</th><th>Teacher</th><th>Score</th><th>Actions</th>
                         </tr></thead>
                         <tbody>
                             {filtered.length === 0 ? (
-                                <tr><td colSpan={5} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No test records found</td></tr>
+                                <tr><td colSpan={4} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No test records found</td></tr>
                             ) : filtered.map(t => (
                                 <tr key={t._id}>
-                                    <td>{t.test_name ?? '—'}</td>
                                     <td>{t.subject_id?.subject_name ?? '—'}</td>
                                     <td>{t.teacher_id?.firstname ?? '—'} {t.teacher_id?.lastname ?? ''}</td>
                                     <td>{t.test_score ?? '—'}</td>
@@ -127,12 +125,8 @@ const AdminTests = () => {
                         {error && <div className={style.errorMsg}>{error}</div>}
                         <div className={style.formRow}>
                             <div className={style.formGroup}>
-                                <label>Test Name</label>
-                                <input type="text" value={form.test_name} onChange={e => field('test_name', e.target.value)} placeholder="Enter test name" />
-                            </div>
-                            <div className={style.formGroup}>
-                                <label>Score (out of 100)</label>
-                                <input type="number" min="0" max="100" value={form.test_score} onChange={e => field('test_score', e.target.value)} />
+                                <label>Score (max 30)</label>
+                                <input type="number" min="0" max="30" value={form.test_score} onChange={e => field('test_score', e.target.value)} placeholder="0–30" />
                             </div>
                         </div>
                         <div className={style.formRow}>
