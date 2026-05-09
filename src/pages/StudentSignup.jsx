@@ -164,7 +164,7 @@ const StudentSignup = () => {
 
                     <div className={style.group}>
                         <label>Parent / Guardian Phone</label>
-                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="07000000000" maxLength={11} required />
+                        <input type="tel" value={form.parent_phone} onChange={(e) => setForm(prev => ({ ...prev, parent_phone: e.target.value.replace(/\D/g, '').slice(0, 11) }))} placeholder="07000000000" maxLength={11} required />
                     </div>
                     <div className={style.group}>
                         <label>Password</label>
