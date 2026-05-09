@@ -195,10 +195,6 @@ const StudentResults = () => {
                         <div className={s.rcSignLine} />
                         <p>Principal's Signature</p>
                     </div>
-                    <div className={s.rcSignBox}>
-                        <div className={s.rcSignLine} />
-                        <p>Manager's Signature</p>
-                    </div>
                 </div>
 
                 {/* Grading Scale */}
