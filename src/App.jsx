@@ -39,14 +39,18 @@ import StudentTests from "./pages/StudentTests";
 import ForgotPassword from "./pages/ForgotPassword";
 import Nopagefound from "./pages/Nopagefound";
 import socketClient from "socket.io-client";
-function App() {
 
+const PrivateRoute = ({ children, loginPath }) => {
+    const token = localStorage.getItem('token')
+    return token ? children : <Navigate to={loginPath} replace />
+}
+
+function App() {
     let socket = useRef();
-  let endpoint = "https://schoolpj-backend.onrender.com";
-  useEffect(() => {
-    socket.current = socketClient(endpoint);
-  }, []);
-    const token = localStorage.token
+    let endpoint = "https://schoolpj-backend.onrender.com";
+    useEffect(() => {
+        socket.current = socketClient(endpoint);
+    }, []);
 
     return (
         <Routes>
@@ -63,7 +67,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route
                 path="dashboard"
-                element={token ? <Dashboard /> : <Navigate to="/login" />}
+                element={<PrivateRoute loginPath="/login"><Dashboard /></PrivateRoute>}
             >
                 <Route path="myclasses" element={<Myclasses />} />
                 <Route path="mystudents" element={<Mystudents />} />
@@ -77,7 +81,7 @@ function App() {
             <Route path="/admin/signup" element={<AdminSignup />} />
             <Route
                 path="/admin/dashboard"
-                element={token ? <AdminDashboard /> : <Navigate to="/admin/login" />}
+                element={<PrivateRoute loginPath="/admin/login"><AdminDashboard /></PrivateRoute>}
             >
                 <Route path="students" element={<AdminStudents />} />
                 <Route path="teachers" element={<AdminTeachers />} />
@@ -95,7 +99,7 @@ function App() {
             <Route path="/student/signup" element={<StudentSignup />} />
             <Route
                 path="/student/dashboard"
-                element={token ? <StudentDashboard /> : <Navigate to="/student/login" />}
+                element={<PrivateRoute loginPath="/student/login"><StudentDashboard /></PrivateRoute>}
             >
                 <Route path="profile" element={<Studentprofile />} />
                 <Route path="attendance" element={<StudentAttendance />} />
