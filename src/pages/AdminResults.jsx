@@ -70,9 +70,17 @@ const AdminResults = () => {
     const handleSave = () => {
         setSaving(true); setError('')
         const url = editing ? `${BASE}/update-result/${editing}` : `${BASE}/create-result`
-        axios.post(url, form, { headers: headers() })
-            .then((res) => { if (res.data.status) { setModal(false); fetchAll() } else setError(res.data.message ?? 'Error') })
-            .catch(() => setError('Server error'))
+        const payload = {
+            ...form,
+            score: form.score !== '' ? Number(form.score) : undefined,
+            test_score: form.test_score !== '' ? Number(form.test_score) : null,
+        }
+        axios.post(url, payload, { headers: headers() })
+            .then((res) => {
+                if (res.data.status === false) { setError(res.data.message ?? 'Error'); return }
+                setModal(false); fetchAll()
+            })
+            .catch((err) => setError(err.response?.data?.message ?? 'Server error'))
             .finally(() => setSaving(false))
     }
 
