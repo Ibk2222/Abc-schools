@@ -4,7 +4,7 @@ import { Search, X } from 'lucide-react'
 import style from './AdminManage.module.css'
 
 const BASE = 'https://schoolpj-backend.onrender.com/admin'
-const EMPTY = { student: '', exam: '', score: '', grade_level: '', teacher: '' }
+const EMPTY = { student: '', exam: '', score: '', grade_level: '', teacher: '', test_score: '' }
 
 const headers = () => ({ Authorization: `Bearer ${localStorage.token}`, 'Content-Type': 'application/json' })
 
@@ -51,6 +51,7 @@ const AdminResults = () => {
             score:       r.score         ?? '',
             grade_level: r.grade_level   ?? '',
             teacher:     r.teacher?._id  ?? r.teacher  ?? '',
+            test_score:  r.test_score    ?? '',
         })
         setError(''); setModal(true)
     }
@@ -104,11 +105,11 @@ const AdminResults = () => {
                 <div className={style.tableCard}>
                     <table className={style.table}>
                         <thead><tr>
-                            <th>Student</th><th>Grade Level</th><th>Score</th><th>Teacher</th><th>Actions</th>
+                            <th>Student</th><th>Grade Level</th><th>Exam Score</th><th>Test Score</th><th>Teacher</th><th>Actions</th>
                         </tr></thead>
                         <tbody>
                             {filtered.length === 0 ? (
-                                <tr><td colSpan={5} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No results found</td></tr>
+                                <tr><td colSpan={6} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>No results found</td></tr>
                             ) : filtered.map(r => (
                                 <tr key={r._id}>
                                     <td>{r.student?.firstname ?? '—'} {r.student?.lastname ?? ''}</td>
@@ -116,6 +117,7 @@ const AdminResults = () => {
                                         <span className={style.badgeActive}>{r.grade_level ?? '—'}</span>
                                     </td>
                                     <td>{r.score ?? '—'}</td>
+                                    <td>{r.test_score ?? '—'}</td>
                                     <td>{r.teacher?.firstname ?? '—'} {r.teacher?.lastname ?? ''}</td>
                                     <td>
                                         <button className={style.editBtn} onClick={() => openEdit(r)}>Edit</button>
@@ -163,14 +165,20 @@ const AdminResults = () => {
                                 </select>
                             </div>
                             <div className={style.formGroup}>
-                                <label>Score</label>
-                                <input type="number" value={form.score} onChange={e => field('score', e.target.value)} />
+                                <label>Exam Score (max 70)</label>
+                                <input type="number" min="0" max="70" value={form.score} onChange={e => field('score', e.target.value)} />
                             </div>
                         </div>
                         <div className={style.formRow}>
                             <div className={style.formGroup}>
                                 <label>Grade Level</label>
                                 <input type="text" value={form.grade_level} onChange={e => field('grade_level', e.target.value)} placeholder="e.g. A, B+, Pass" />
+                            </div>
+                        </div>
+                        <div className={style.formRow}>
+                            <div className={style.formGroup}>
+                                <label>Test Score (max 30)</label>
+                                <input type="number" min="0" max="30" value={form.test_score} onChange={e => field('test_score', e.target.value)} placeholder="0–30" />
                             </div>
                         </div>
                         <div className={style.modalFooter}>
