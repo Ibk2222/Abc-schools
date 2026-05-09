@@ -68,6 +68,185 @@
     .schoolBanner { display: none !important; }
 }
 
+/* ─────────────────────────────────────────
+   Report Card (StudentResults)
+───────────────────────────────────────── */
+.rcPage {
+    background: #dce3ec;
+    min-height: 100vh;
+    padding: 28px 20px;
+}
+.rcPrintBar {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 820px;
+    margin: 0 auto 14px;
+}
+.rcDocument {
+    background: #fff;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 30px 36px;
+    border: 1px solid #ccc;
+    box-shadow: 0 3px 18px rgba(0,0,0,0.13);
+    font-family: 'Times New Roman', Times, serif;
+    color: #000;
+}
+
+/* Header */
+.rcHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border-bottom: 3px double #444;
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+}
+.rcLogo { width: 82px; height: 82px; object-fit: contain; flex-shrink: 0; }
+.rcSchoolMid { flex: 1; text-align: center; }
+.rcSchoolName {
+    font-size: 21px;
+    font-weight: 900;
+    color: #1a1a6e;
+    margin: 0 0 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+.rcSchoolAddr { font-size: 12px; margin: 2px 0; color: #333; }
+.rcAcReport { font-size: 15px; font-weight: 700; margin: 7px 0 2px; }
+.rcSessionLine { font-size: 13px; font-weight: 600; margin: 2px 0; }
+.rcClassLine { font-size: 13px; font-weight: 700; margin: 2px 0; }
+.rcPassportWrap { flex-shrink: 0; }
+.rcPassportImg {
+    width: 82px;
+    height: 104px;
+    object-fit: cover;
+    border: 1px solid #333;
+    display: block;
+}
+.rcPassportInitials {
+    width: 82px;
+    height: 104px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-weight: 700;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+}
+
+/* Student info */
+.rcInfoBox {
+    display: flex;
+    gap: 0;
+    border: 1px solid #555;
+    margin-bottom: 14px;
+    font-size: 13px;
+}
+.rcInfoCol {
+    flex: 1;
+    padding: 8px 14px;
+    border-right: 1px solid #555;
+}
+.rcInfoCol:last-child { border-right: none; }
+.rcInfoRow {
+    display: flex;
+    gap: 4px;
+    margin: 4px 0;
+    line-height: 1.4;
+}
+.rcInfoKey {
+    font-weight: 700;
+    min-width: 130px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Scholastic table */
+.rcTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.rcTable th, .rcTable td {
+    border: 1px solid #555;
+    padding: 6px 8px;
+}
+.rcThArea {
+    background: #c4cfe8;
+    font-weight: 700;
+    text-align: center;
+    width: 36%;
+    vertical-align: middle;
+}
+.rcThGroup {
+    background: #c4cfe8;
+    font-weight: 700;
+    text-align: center;
+}
+.rcThSub {
+    background: #dde4f0;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+.rcThSub em { font-style: normal; color: #555; font-weight: 400; font-size: 11px; }
+.rcTdSubject { font-weight: 600; padding-left: 12px !important; }
+.rcTdNum { text-align: center; }
+.rcTdGrade { text-align: center; font-weight: 700; }
+.rcRowAlt { background: #f5f7fa; }
+.rcTotalsRow { background: #fffde6; }
+.rcTotalsRow td { font-size: 12px; padding: 6px 8px; }
+.rcTdAttend { text-align: left; padding-left: 10px !important; }
+.rcTdTotalCell { text-align: center; }
+.rcTdPctCell { text-align: center; }
+.rcEmpty { text-align: center; padding: 28px; color: #666; font-style: italic; }
+
+/* Signatures */
+.rcSignRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 28px 0 20px;
+}
+.rcSignBox { text-align: center; }
+.rcSignLine {
+    border-top: 1px solid #333;
+    width: 170px;
+    margin: 0 auto 5px;
+}
+.rcSignBox p { font-size: 12px; font-style: italic; margin: 0; }
+
+/* Grading note */
+.rcGradeNote { margin-top: 4px; }
+.rcGradeNote p { font-size: 11px; margin: 0 0 4px; }
+.rcGradeTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+.rcGradeTable th, .rcGradeTable td {
+    border: 1px solid #555;
+    padding: 4px 6px;
+    text-align: center;
+}
+.rcGradeTable th { background: #dde4f0; font-weight: 700; }
+
+/* Print overrides */
+@media print {
+    .rcPage { background: none !important; padding: 0 !important; }
+    .rcPrintBar { display: none !important; }
+    .rcDocument {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 16px !important;
+        max-width: 100% !important;
+    }
+}
+
 /* Subjects grid */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
 .subjectCard { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; border-left: 4px solid #3b82f6; }
