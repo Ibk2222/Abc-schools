@@ -11,6 +11,7 @@ const Signup = () => {
     const [lastname, setlastname] = useState("")
     const [email, setemail] = useState("")
     const [age, setage] = useState("")
+    const [phone, setphone] = useState("")
     const [password, setpassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState("")
@@ -20,7 +21,7 @@ const Signup = () => {
     const registerUser = () =>{
         setLoading(true)
         const url = "https://schoolpj-backend.onrender.com/teacher/register"
-        const teacherObject = {title, firstname, lastname, email, age, password}
+        const teacherObject = {title, firstname, lastname, email, age, phone, password}
         console.log(teacherObject)
 
         axios.post(url, teacherObject)
@@ -54,9 +55,9 @@ const Signup = () => {
           <div className={style['form-row']}>
             <div className={style['form-group']}>
               <label htmlFor="title">Title</label>
-              <select 
+              <select
                 id="title"
-                value={title} 
+                value={title}
                 onChange={(e) => settitle(e.target.value)}
                 required
               >
@@ -68,15 +69,27 @@ const Signup = () => {
             </div>
             <div className={style['form-group']}>
               <label htmlFor="age">Age</label>
-              <input 
+              <input
                 id="age"
-                type="number" 
+                type="number"
                 value={age}
                 onChange={(e) => setage(e.target.value)}
                 placeholder="Enter your age"
                 required
               />
             </div>
+          </div>
+
+          <div className={style['form-group']}>
+            <label htmlFor="phone">Phone</label>
+            <input
+              id="phone"
+              type="tel"
+              value={phone}
+              onChange={(e) => setphone(e.target.value)}
+              placeholder="+2348000000000"
+              required
+            />
           </div>
 
           <div className={style['form-row']}>
