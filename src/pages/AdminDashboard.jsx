@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import {
     LayoutDashboard, Users, BookOpen, BookMarked,
     Calendar, ClipboardList, FileText, CheckSquare,
-    LogOut, GraduationCap, FlaskConical, ShieldCheck,
+    LogOut, GraduationCap, FlaskConical, ShieldCheck, Wifi,
 } from 'lucide-react'
 import style from './Dashboard.module.css'
 
@@ -20,6 +20,7 @@ const navLinks = [
     { to: '/admin/dashboard/attendance', label: 'Attendance', icon: CheckSquare },
     { to: '/admin/dashboard/tests', label: 'Tests', icon: FlaskConical },
     { to: '/admin/dashboard/approvals', label: 'Approvals', icon: ShieldCheck, end: true },
+    { to: '/admin/dashboard/online', label: 'Online Now', icon: Wifi, end: true },
 ]
 
 const AdminDashboard = () => {
@@ -31,6 +32,11 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         getAdminDashboard()
+        const beat = setInterval(() => {
+            const token = localStorage.token
+            if (token) axios.post('https://schoolpj-backend.onrender.com/admin/heartbeat', {}, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {})
+        }, 60000)
+        return () => clearInterval(beat)
     }, [])
 
     const getAdminDashboard = () => {

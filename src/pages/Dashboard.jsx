@@ -22,6 +22,11 @@ const Dashboard = () => {
 
     useEffect(() => {
         getTeacherDashboard()
+        const beat = setInterval(() => {
+            const token = localStorage.token
+            if (token) axios.post('https://schoolpj-backend.onrender.com/teacher/heartbeat', {}, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {})
+        }, 60000)
+        return () => clearInterval(beat)
     }, [])
 
     const getTeacherDashboard = () => {

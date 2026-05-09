@@ -22,6 +22,11 @@ const StudentDashboard = () => {
 
     useEffect(() => {
         getStudentDashboard()
+        const beat = setInterval(() => {
+            const token = localStorage.token
+            if (token) axios.post('https://schoolpj-backend.onrender.com/students/heartbeat', {}, { headers: { Authorization: `Bearer ${token}` } }).catch(() => {})
+        }, 60000)
+        return () => clearInterval(beat)
     }, [])
 
     const getStudentDashboard = () => {

@@ -25,6 +25,7 @@ import AdminExams from "./pages/AdminExams";
 import AdminTests from "./pages/AdminTests";
 import AdminResults from "./pages/AdminResults"
 import AdminApprovals from "./pages/AdminApprovals";
+import AdminOnline from "./pages/AdminOnline";
 
 // Student
 import StudentLogin from "./pages/StudentLogin";
@@ -94,6 +95,7 @@ function App() {
                 <Route path="tests" element={<AdminTests />} />
                 <Route path="results" element={<AdminResults />} />
                 <Route path="approvals" element={<AdminApprovals />} />
+                <Route path="online" element={<AdminOnline />} />
             </Route>
 
             {/* ── Student ── */}
