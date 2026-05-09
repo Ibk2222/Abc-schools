@@ -163,7 +163,7 @@ const StudentSignup = () => {
 
                     <div className={style.group}>
                         <label>Parent / Guardian Phone</label>
-                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="+2348000000000" maxLength={12} required />
+                        <input type="tel" value={form.parent_phone} onChange={set('parent_phone')} placeholder="07000000000" maxLength={11} required />
                     </div>
                     <div className={style.group}>
                         <label>Password</label>

@@ -5,7 +5,7 @@ import style from './AdminManage.module.css'
 
 const BASE = 'https://schoolpj-backend.onrender.com/admin'
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-const EMPTY = { class: '', teacher: '', subject: '', day_of_week: 'Monday', start_time: '', end_time: '', academic_year: '' }
+const EMPTY = { class_id: '', teacher: '', subject: '', day_of_week: 'Monday', start_time: '', end_time: '', academic_year: '' }
 
 const headers = () => ({ Authorization: `Bearer ${localStorage.token}`, 'Content-Type': 'application/json' })
 
@@ -48,7 +48,7 @@ const AdminTimetables = () => {
     const openEdit = (t) => {
         setEditing(t._id)
         setForm({
-            class:        t.class?._id        ?? t.class        ?? '',
+            class_id:     t.class_id?._id     ?? t.class_id     ?? '',
             teacher:      t.teacher?._id      ?? t.teacher      ?? '',
             subject:      t.subject?._id      ?? t.subject      ?? '',
             day_of_week:  t.day_of_week       ?? 'Monday',
@@ -64,7 +64,7 @@ const AdminTimetables = () => {
         const url = editing ? `${BASE}/update-timetable/${editing}` : `${BASE}/create-timetable`
         axios.post(url, form, { headers: headers() })
             .then((res) => { if (res.data.status) { setModal(false); fetchAll() } else setError(res.data.message ?? 'Error') })
-            .catch(() => setError('Server error'))
+            .catch((err) => setError(err.response?.data?.message ?? 'Server error'))
             .finally(() => setSaving(false))
     }
 
@@ -79,7 +79,7 @@ const AdminTimetables = () => {
     const filtered = timetables.filter(t => {
         const q = search.toLowerCase()
         const matchesSearch = !q
-            || (t.class?.name ?? '').toLowerCase().includes(q)
+            || (t.class_id?.name ?? '').toLowerCase().includes(q)
             || (t.teacher?.firstname ?? '').toLowerCase().includes(q)
             || (t.teacher?.lastname ?? '').toLowerCase().includes(q)
             || (t.subject?.subject_name ?? '').toLowerCase().includes(q)
@@ -141,7 +141,7 @@ const AdminTimetables = () => {
                             ) : filtered.map(t => (
                                 <tr key={t._id}>
                                     <td>{t.day_of_week ?? '—'}</td>
-                                    <td>{t.class?.name ?? '—'}</td>
+                                    <td>{t.class_id?.name ?? '—'}</td>
                                     <td>{t.subject?.subject_name ?? '—'}</td>
                                     <td>{t.teacher?.firstname ?? '—'} {t.teacher?.lastname ?? ''}</td>
                                     <td>{t.start_time ?? '—'} – {t.end_time ?? '—'}</td>
@@ -168,7 +168,7 @@ const AdminTimetables = () => {
                         <div className={style.formRow}>
                             <div className={style.formGroup}>
                                 <label>Class</label>
-                                <select value={form.class} onChange={e => field('class', e.target.value)}>
+                                <select value={form.class_id} onChange={e => field('class_id', e.target.value)}>
                                     <option value="">Select class</option>
                                     {classes.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
                                 </select>

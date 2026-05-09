@@ -86,10 +86,6 @@ const StudentLogin = () => {
                     Don't have an account?{' '}
                     <span onClick={() => navigate('/student/signup')}>Sign Up</span>
                 </p>
-                <p className={style['signup-link']} style={{ marginTop: 8 }}>
-                    Teacher?{' '}
-                    <span onClick={() => navigate('/login')}>Login here</span>
-                </p>
             </div>
         </div>
     )
