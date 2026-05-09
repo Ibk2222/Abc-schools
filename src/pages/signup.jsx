@@ -87,7 +87,7 @@ const Signup = () => {
               type="tel"
               value={phone}
               onChange={(e) => setphone(e.target.value)}
-              placeholder="+2348000000000"
+              placeholder="08000000000" maxLength={11}
               required
             />
           </div>
