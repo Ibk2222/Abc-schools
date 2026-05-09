@@ -55,7 +55,7 @@ const AdminTests = () => {
         const url = editing ? `${BASE}/update-test/${editing}` : `${BASE}/create-test`
         axios.post(url, form, { headers: headers() })
             .then((res) => { if (res.data.status) { setModal(false); fetchAll() } else setError(res.data.message ?? 'Error') })
-            .catch(() => setError('Server error'))
+            .catch((err) => setError(err.response?.data?.message ?? 'Server error'))
             .finally(() => setSaving(false))
     }
 
