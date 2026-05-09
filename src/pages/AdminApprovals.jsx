@@ -14,58 +14,111 @@ const STATUS_COLORS = {
 
 const AdminApprovals = () => {
     const [teachers, setTeachers] = useState([])
-    const [loading, setLoading]   = useState(true)
+    const [admins, setAdmins]     = useState([])
+    const [entity, setEntity]     = useState('teachers')   // 'teachers' | 'admins'
     const [tab, setTab]           = useState('pending')
     const [search, setSearch]     = useState('')
+    const [loading, setLoading]   = useState(true)
     const [busy, setBusy]         = useState('')
 
-    useEffect(() => { fetchTeachers() }, [])
+    useEffect(() => { fetchAll() }, [])
 
-    const fetchTeachers = () => {
+    const fetchAll = () => {
         setLoading(true)
-        axios.get(`${BASE}/all-teachers`, { headers: headers() })
-            .then((res) => { if (res.data.status) setTeachers(res.data.teachers ?? []) })
-            .catch(console.log)
-            .finally(() => setLoading(false))
+        Promise.all([
+            axios.get(`${BASE}/all-teachers`, { headers: headers() }),
+            axios.get(`${BASE}/all-admins`,   { headers: headers() }),
+        ])
+        .then(([tRes, aRes]) => {
+            if (tRes.data.status) setTeachers(tRes.data.teachers ?? [])
+            if (aRes.data.status) setAdmins(aRes.data.admins ?? [])
+        })
+        .catch(console.log)
+        .finally(() => setLoading(false))
     }
 
     const handleAction = (id, action) => {
         setBusy(id + action)
-        const url = action === 'approve'
-            ? `${BASE}/approve-teacher/${id}`
-            : `${BASE}/reject-teacher/${id}`
-        axios.post(url, {}, { headers: headers() })
-            .then(() => fetchTeachers())
+        const path = entity === 'teachers'
+            ? (action === 'approve' ? `approve-teacher` : `reject-teacher`)
+            : (action === 'approve' ? `approve-admin`   : `reject-admin`)
+        axios.post(`${BASE}/${path}/${id}`, {}, { headers: headers() })
+            .then(() => fetchAll())
             .catch(console.log)
             .finally(() => setBusy(''))
     }
 
-    const filtered = teachers
-        .filter(t => (t.approval_status ?? 'pending') === tab)
-        .filter(t => {
+    const list = entity === 'teachers' ? teachers : admins
+
+    const filtered = list
+        .filter(u => (u.approval_status ?? 'pending') === tab)
+        .filter(u => {
             const q = search.toLowerCase()
             return (
-                `${t.firstname ?? ''} ${t.lastname ?? ''}`.toLowerCase().includes(q) ||
-                (t.email ?? '').toLowerCase().includes(q)
+                `${u.firstname ?? ''} ${u.lastname ?? ''}`.toLowerCase().includes(q) ||
+                (u.email ?? '').toLowerCase().includes(q)
             )
         })
 
-    const counts = {
-        pending:  teachers.filter(t => (t.approval_status ?? 'pending') === 'pending').length,
-        approved: teachers.filter(t => t.approval_status === 'approved').length,
-        rejected: teachers.filter(t => t.approval_status === 'rejected').length,
-    }
+    const counts = (arr) => ({
+        pending:  arr.filter(u => (u.approval_status ?? 'pending') === 'pending').length,
+        approved: arr.filter(u => u.approval_status === 'approved').length,
+        rejected: arr.filter(u => u.approval_status === 'rejected').length,
+    })
+
+    const tc = counts(teachers)
+    const ac = counts(admins)
+    const cur = entity === 'teachers' ? tc : ac
 
     return (
         <div className={style.container}>
             <div className={style.pageHeader}>
                 <div>
-                    <h1 className={style.pageTitle}>Teacher Approvals</h1>
-                    <p className={style.pageSubtitle}>Review and approve teacher registrations</p>
+                    <h1 className={style.pageTitle}>Approvals</h1>
+                    <p className={style.pageSubtitle}>Review and approve teacher and admin registrations</p>
                 </div>
             </div>
 
-            {/* Tabs */}
+            {/* Entity toggle: Teachers / Admins */}
+            <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+                {[
+                    { key: 'teachers', label: 'Teachers', pending: tc.pending },
+                    { key: 'admins',   label: 'Admins',   pending: ac.pending },
+                ].map(e => (
+                    <button
+                        key={e.key}
+                        onClick={() => { setEntity(e.key); setTab('pending'); setSearch('') }}
+                        style={{
+                            padding: '8px 20px',
+                            borderRadius: 8,
+                            border: '2px solid',
+                            borderColor: entity === e.key ? '#1451f0' : '#e2e8f0',
+                            background: entity === e.key ? '#1451f0' : '#fff',
+                            color: entity === e.key ? '#fff' : '#475569',
+                            fontWeight: 700,
+                            fontSize: 14,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 8,
+                        }}
+                    >
+                        {e.label}
+                        {e.pending > 0 && (
+                            <span style={{
+                                background: entity === e.key ? 'rgba(255,255,255,0.3)' : '#fef9c3',
+                                color: entity === e.key ? '#fff' : '#854d0e',
+                                borderRadius: 99,
+                                padding: '1px 8px',
+                                fontSize: 12,
+                                fontWeight: 700,
+                            }}>{e.pending}</span>
+                        )}
+                    </button>
+                ))}
+            </div>
+
+            {/* Status tabs */}
             <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
                 {['pending', 'approved', 'rejected'].map(t => (
                     <button
@@ -94,7 +147,7 @@ const AdminApprovals = () => {
                             padding: '1px 8px',
                             fontSize: 12,
                             fontWeight: 700,
-                        }}>{counts[t]}</span>
+                        }}>{cur[t]}</span>
                     </button>
                 ))}
             </div>
@@ -121,7 +174,6 @@ const AdminApprovals = () => {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Department</th>
                                 <th>Registered</th>
                                 <th>Status</th>
                                 {tab === 'pending' && <th>Actions</th>}
@@ -130,27 +182,23 @@ const AdminApprovals = () => {
                         <tbody>
                             {filtered.length === 0 ? (
                                 <tr>
-                                    <td colSpan={tab === 'pending' ? 7 : 6} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>
-                                        No {tab} teachers
+                                    <td colSpan={tab === 'pending' ? 6 : 5} style={{ textAlign: 'center', color: '#6b7a99', padding: '40px' }}>
+                                        No {tab} {entity}
                                     </td>
                                 </tr>
-                            ) : filtered.map(t => {
-                                const status = t.approval_status ?? 'pending'
+                            ) : filtered.map(u => {
+                                const status = u.approval_status ?? 'pending'
                                 const col = STATUS_COLORS[status]
                                 return (
-                                    <tr key={t._id}>
+                                    <tr key={u._id}>
                                         <td>
-                                            <strong>{t.title ? `${t.title} ` : ''}{t.firstname} {t.lastname}</strong>
+                                            <strong>
+                                                {u.title ? `${u.title} ` : ''}{u.firstname} {u.lastname}
+                                            </strong>
                                         </td>
-                                        <td>{t.email}</td>
-                                        <td>{t.phone ?? '—'}</td>
-                                        <td>{t.department ?? '—'}</td>
-                                        <td>
-                                            {t.createdAt
-                                                ? new Date(t.createdAt).toLocaleDateString()
-                                                : '—'
-                                            }
-                                        </td>
+                                        <td>{u.email}</td>
+                                        <td>{u.phone ?? '—'}</td>
+                                        <td>{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'}</td>
                                         <td>
                                             <span style={{
                                                 display: 'inline-block',
@@ -170,17 +218,17 @@ const AdminApprovals = () => {
                                                 <button
                                                     className={style.editBtn}
                                                     style={{ background: '#dcfce7', color: '#166534', border: '1px solid #bbf7d0' }}
-                                                    disabled={busy === t._id + 'approve'}
-                                                    onClick={() => handleAction(t._id, 'approve')}
+                                                    disabled={busy === u._id + 'approve'}
+                                                    onClick={() => handleAction(u._id, 'approve')}
                                                 >
-                                                    {busy === t._id + 'approve' ? '…' : 'Approve'}
+                                                    {busy === u._id + 'approve' ? '…' : 'Approve'}
                                                 </button>
                                                 <button
                                                     className={style.deleteBtn}
-                                                    disabled={busy === t._id + 'reject'}
-                                                    onClick={() => handleAction(t._id, 'reject')}
+                                                    disabled={busy === u._id + 'reject'}
+                                                    onClick={() => handleAction(u._id, 'reject')}
                                                 >
-                                                    {busy === t._id + 'reject' ? '…' : 'Reject'}
+                                                    {busy === u._id + 'reject' ? '…' : 'Reject'}
                                                 </button>
                                             </td>
                                         )}
