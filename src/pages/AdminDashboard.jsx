@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import {
     LayoutDashboard, Users, BookOpen, BookMarked,
     Calendar, ClipboardList, FileText, CheckSquare,
-    LogOut, GraduationCap, FlaskConical,
+    LogOut, GraduationCap, FlaskConical, ShieldCheck,
 } from 'lucide-react'
 import style from './Dashboard.module.css'
 
@@ -19,6 +19,7 @@ const navLinks = [
     { to: '/admin/dashboard/exams', label: 'Exams', icon: FileText },
     { to: '/admin/dashboard/attendance', label: 'Attendance', icon: CheckSquare },
     { to: '/admin/dashboard/tests', label: 'Tests', icon: FlaskConical },
+    { to: '/admin/dashboard/approvals', label: 'Approvals', icon: ShieldCheck, end: true },
 ]
 
 const AdminDashboard = () => {

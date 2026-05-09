@@ -23,7 +23,8 @@ import AdminAttendance from "./pages/AdminAttendance";
 import AdminTimetables from "./pages/AdminTimetables";
 import AdminExams from "./pages/AdminExams";
 import AdminTests from "./pages/AdminTests";
-import AdminResults from "./pages/AdminResults";
+import AdminResults from "./pages/AdminResults"
+import AdminApprovals from "./pages/AdminApprovals";
 
 // Student
 import StudentLogin from "./pages/StudentLogin";
@@ -92,6 +93,7 @@ function App() {
                 <Route path="exams" element={<AdminExams />} />
                 <Route path="tests" element={<AdminTests />} />
                 <Route path="results" element={<AdminResults />} />
+                <Route path="approvals" element={<AdminApprovals />} />
             </Route>
 
             {/* ── Student ── */}
