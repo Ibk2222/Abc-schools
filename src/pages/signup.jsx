@@ -81,7 +81,7 @@ const Signup = () => {
           </div>
 
           <div className={style['form-group']}>
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phone">Parent's Phone</label>
             <input
               id="phone"
               type="tel"
