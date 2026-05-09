@@ -385,10 +385,21 @@ const Results = () => {
                                         const studentName = r.student?.firstname
                                             ? `${r.student.firstname} ${r.student.lastname ?? ''}`
                                             : `Student ${i + 1}`
+                                        const initials = r.student?.firstname
+                                            ? `${r.student.firstname[0]}${r.student.lastname?.[0] ?? ''}`.toUpperCase()
+                                            : '?'
                                         return (
                                             <tr key={r._id}>
                                                 <td>{String(i + 1).padStart(3, '0')}</td>
-                                                <td>{studentName}</td>
+                                                <td>
+                                                    <div className={style.studentCell}>
+                                                        {r.student?.image
+                                                            ? <img src={r.student.image} alt={studentName} className={style.studentThumb} />
+                                                            : <div className={style.studentInitials}>{initials}</div>
+                                                        }
+                                                        {studentName}
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <span className={style.scoreBadge}>{r.score}</span>
                                                 </td>
@@ -464,9 +475,17 @@ const Results = () => {
                     >
                         <div className={style.sheetModal}>
                             <div className={style.sheetModalHead}>
-                                <div>
-                                    <h2 className={style.sheetTitle}>Result Sheet</h2>
-                                    <p className={style.sheetSub}>{fullName} — {sr.length} subject{sr.length !== 1 ? 's' : ''}</p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                                    {student?.image
+                                        ? <img src={student.image} alt={fullName} style={{ width: 54, height: 54, objectFit: 'cover', borderRadius: 6, border: '1px solid #1a2540', flexShrink: 0 }} />
+                                        : <div style={{ width: 54, height: 54, borderRadius: 6, background: 'rgba(20,81,240,0.2)', color: 'rgb(100,150,255)', fontWeight: 700, fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                            {`${student?.firstname?.[0] ?? ''}${student?.lastname?.[0] ?? ''}`.toUpperCase()}
+                                          </div>
+                                    }
+                                    <div>
+                                        <h2 className={style.sheetTitle}>Result Sheet</h2>
+                                        <p className={style.sheetSub}>{fullName} — {sr.length} subject{sr.length !== 1 ? 's' : ''}</p>
+                                    </div>
                                 </div>
                                 <button className={style.sheetCloseBtn} onClick={() => setSheet(null)}>×</button>
                             </div>
