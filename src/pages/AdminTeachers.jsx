@@ -42,6 +42,7 @@ const AdminTeachers = () => {
 
     const closeModal = () => { setModal(false); setError('') }
     const set = (f) => (e) => setForm(p => ({ ...p, [f]: e.target.value }))
+    const setName = (f) => (e) => setForm(p => ({ ...p, [f]: e.target.value.replace(/[^A-Za-z '-]/g, '') }))
 
     const save = () => {
         setSaving(true)
@@ -167,11 +168,11 @@ const AdminTeachers = () => {
                         <div className={style.formRow}>
                             <div className={style.formGroup}>
                                 <label>First Name</label>
-                                <input value={form.firstname} onChange={set('firstname')} placeholder="First name" required />
+                                <input value={form.firstname} onChange={setName('firstname')} placeholder="First name" required />
                             </div>
                             <div className={style.formGroup}>
                                 <label>Last Name</label>
-                                <input value={form.lastname} onChange={set('lastname')} placeholder="Last name" required />
+                                <input value={form.lastname} onChange={setName('lastname')} placeholder="Last name" required />
                             </div>
                         </div>
 

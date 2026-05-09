@@ -86,7 +86,7 @@ const Signup = () => {
                 id="firstname"
                 type="text" 
                 value={firstname}
-                onChange={(e) => setfirstname(e.target.value)}
+                onChange={(e) => setfirstname(e.target.value.replace(/[^A-Za-z '-]/g, ''))}
                 placeholder="Enter first name"
                 required
               />
@@ -97,7 +97,7 @@ const Signup = () => {
                 id="lastname"
                 type="text" 
                 value={lastname}
-                onChange={(e) => setlastname(e.target.value)}
+                onChange={(e) => setlastname(e.target.value.replace(/[^A-Za-z '-]/g, ''))}
                 placeholder="Enter last name"
                 required
               />

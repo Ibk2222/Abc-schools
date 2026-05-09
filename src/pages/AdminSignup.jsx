@@ -15,6 +15,7 @@ const AdminSignup = () => {
     const navigate = useNavigate()
 
     const set = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }))
+    const setName = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value.replace(/[^A-Za-z '-]/g, '') }))
 
     const registerAdmin = () => {
         setLoading(true)
@@ -50,11 +51,11 @@ const AdminSignup = () => {
                     <div className={style['form-row']}>
                         <div className={style['form-group']}>
                             <label>First Name</label>
-                            <input type="text" value={form.firstname} onChange={set('firstname')} placeholder="First name" required />
+                            <input type="text" value={form.firstname} onChange={setName('firstname')} placeholder="First name" required />
                         </div>
                         <div className={style['form-group']}>
                             <label>Last Name</label>
-                            <input type="text" value={form.lastname} onChange={set('lastname')} placeholder="Last name" required />
+                            <input type="text" value={form.lastname} onChange={setName('lastname')} placeholder="Last name" required />
                         </div>
                     </div>
 
