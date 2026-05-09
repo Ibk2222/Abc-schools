@@ -373,7 +373,9 @@ const Results = () => {
                                     <tr>
                                         <th>Roll No.</th>
                                         <th>Student</th>
-                                        <th>Score</th>
+                                        <th>Exam Score</th>
+                                        <th>Test Score</th>
+                                        <th>Total</th>
                                         <th>Grade</th>
                                         <th>Status</th>
                                         <th>Actions</th>
@@ -401,7 +403,17 @@ const Results = () => {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span className={style.scoreBadge}>{r.score}</span>
+                                                    <span className={style.scoreBadge}>{r.score ?? '—'}</span>
+                                                </td>
+                                                <td>
+                                                    <span className={style.scoreBadge} style={{ background: 'rgba(34,197,94,0.12)', color: '#22c55e' }}>
+                                                        {r.test_score != null ? r.test_score : '—'}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span className={style.scoreBadge} style={{ background: 'rgba(245,158,11,0.12)', color: '#f59e0b' }}>
+                                                        {r.score != null && r.test_score != null ? r.score + r.test_score : r.score ?? '—'}
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     <span

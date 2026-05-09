@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
-import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, LogOut } from 'lucide-react'
+import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, CheckSquare, LogOut } from 'lucide-react'
 import style from './Dashboard.module.css'
 
 const navLinks = [
@@ -10,6 +10,7 @@ const navLinks = [
     { to: '/dashboard/mystudents', label: 'My Students', icon: Users },
     { to: '/dashboard/mytimetable', label: 'My Timetable', icon: Calendar },
     { to: '/dashboard/results', label: 'Assignments', icon: ClipboardList },
+    { to: '/dashboard/attendance', label: 'Attendance', icon: CheckSquare },
 ]
 
 const Dashboard = () => {

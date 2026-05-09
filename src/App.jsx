@@ -8,7 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import Myclasses from "./pages/Myclasses";
 import Mystudents from "./pages/Mystudents";
 import Mytimetable from "./pages/Mytimetable";
-import Results from "./pages/Results";
+import Results from "./pages/Results"
+import TeacherAttendance from "./pages/TeacherAttendance";
 
 // Admin
 import AdminLogin from "./pages/AdminLogin";
@@ -68,6 +69,7 @@ function App() {
                 <Route path="mystudents" element={<Mystudents />} />
                 <Route path="mytimetable" element={<Mytimetable />} />
                 <Route path="results" element={<Results />} />
+                <Route path="attendance" element={<TeacherAttendance />} />
             </Route>
 
             {/* ── Admin ── */}
