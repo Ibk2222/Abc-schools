@@ -132,7 +132,7 @@ const StudentResults = () => {
                 <table className={s.rcTable}>
                     <thead>
                         <tr>
-                            <th rowSpan={2} className={s.rcThArea}>Scholastic Areas</th>
+                            <th rowSpan={2} className={s.rcThArea}>Subjects</th>
                             <th colSpan={2} className={s.rcThGroup}>Term I</th>
                             <th colSpan={2} className={s.rcThGroup}>Overall</th>
                         </tr>
