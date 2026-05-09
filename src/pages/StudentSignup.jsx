@@ -1,10 +1,13 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader2, Eye, EyeOff, Upload } from 'lucide-react'
 import style from './StudentSignup.module.css'
 
+const STEPS = ['Personal Info', 'Contact Details', 'Security']
+
 const StudentSignup = () => {
+    const [step, setStep] = useState(1)
     const [form, setForm] = useState({
         firstname: '', lastname: '', email: '',
         password: '', dob: '', gender: '', address: '',
@@ -61,12 +64,31 @@ const StudentSignup = () => {
     const strengthLabel = ['', 'Weak', 'Fair', 'Good', 'Strong'][pwStrength] ?? ''
     const strengthColor = ['', '#f44336', '#ff9800', '#2196f3', '#4caf50'][pwStrength] ?? ''
 
-    const registerStudent = async () => {
-        if (!image) { setError('Please upload a profile photo.'); return }
-        if (form.dob) {
+    const validateStep = () => {
+        setError('')
+        if (step === 1) {
+            if (!image) { setError('Please upload a profile photo.'); return false }
+            if (!form.firstname.trim()) { setError('First name is required.'); return false }
+            if (!form.lastname.trim()) { setError('Last name is required.'); return false }
+            if (!form.dob) { setError('Date of birth is required.'); return false }
             const year = new Date(form.dob).getFullYear()
-            if (year < 2015 || year > 2022) { setError('Date of birth must be between 2015 and 2022.'); return }
+            if (year < 2015 || year > 2022) { setError('Date of birth must be between 2015 and 2022.'); return false }
+            if (!form.gender) { setError('Please select a gender.'); return false }
+            if (!form.class_id) { setError('Please select a class.'); return false }
         }
+        if (step === 2) {
+            if (!form.email.trim()) { setError('Email is required.'); return false }
+            if (!form.address.trim()) { setError('Address is required.'); return false }
+            if (!form.parent_phone || form.parent_phone.length < 11) { setError('Enter a valid 11-digit phone number.'); return false }
+        }
+        return true
+    }
+
+    const nextStep = () => { if (validateStep()) setStep(s => s + 1) }
+    const prevStep = () => { setError(''); setStep(s => s - 1) }
+
+    const registerStudent = async (e) => {
+        e.preventDefault()
         if (!Object.values(pwChecks).every(Boolean)) { setError('Password does not meet all requirements.'); return }
         if (form.password !== confirm) { setError('Passwords do not match.'); return }
         setLoading(true)
@@ -101,133 +123,185 @@ const StudentSignup = () => {
                     <p>Create your student account</p>
                 </div>
 
+                <div className={style.stepBar}>
+                    {STEPS.map((label, i) => {
+                        const n = i + 1
+                        const active = n === step
+                        const done = n < step
+                        return (
+                            <React.Fragment key={n}>
+                                <div className={style.stepItem}>
+                                    <div className={`${style.stepCircle} ${done ? style.stepDone : active ? style.stepActive : ''}`}>
+                                        {done ? '✓' : n}
+                                    </div>
+                                    <span className={`${style.stepLabel} ${active ? style.stepLabelActive : ''}`}>{label}</span>
+                                </div>
+                                {i < STEPS.length - 1 && (
+                                    <div className={`${style.stepLine} ${done ? style.stepLineDone : ''}`} />
+                                )}
+                            </React.Fragment>
+                        )
+                    })}
+                </div>
+
                 {error && <div className={style.error}>{error}</div>}
 
-                <form onSubmit={(e) => { e.preventDefault(); registerStudent() }}>
-                    {/* Profile photo */}
-                    <div className={style.photoSection}>
-                        <div className={style.photoPreview} onClick={() => fileRef.current.click()}>
-                            {imagePreview
-                                ? <img src={imagePreview} alt="Preview" className={style.previewImg} />
-                                : <><Upload size={24} /><span>Upload Photo</span></>
-                            }
-                        </div>
-                        <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} />
-                        <p className={style.photoHint}>Profile photo (required)</p>
-                    </div>
-
-                    <div className={style.row}>
-                        <div className={style.group}>
-                            <label>First Name</label>
-                            <input type="text" value={form.firstname} onChange={setName('firstname')} placeholder="First name" required />
-                        </div>
-                        <div className={style.group}>
-                            <label>Last Name</label>
-                            <input type="text" value={form.lastname} onChange={setName('lastname')} placeholder="Last name" required />
-                        </div>
-                    </div>
-
-                    <div className={style.group}>
-                        <label>Date of Birth</label>
-                        <input type="date" value={form.dob} onChange={set('dob')} min="2015-01-01" max="2022-12-31" required />
-                    </div>
-
-                    <div className={style.row}>
-                        <div className={style.group}>
-                            <label>Gender</label>
-                            <select value={form.gender} onChange={set('gender')} required>
-                                <option value="">Select gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <div className={style.group}>
-                            <label>Class</label>
-                            <select value={form.class_id} onChange={set('class_id')} required>
-                                <option value="">Select class</option>
-                                {classes.map(c => (
-                                    <option key={c._id} value={c._id}>{c.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className={style.group}>
-                        <label>Email Address</label>
-                        <input type="email" value={form.email} onChange={set('email')} placeholder="Enter your email" required />
-                    </div>
-
-                    <div className={style.group}>
-                        <label>Address</label>
-                        <input type="text" value={form.address} onChange={set('address')} placeholder="Home address" required />
-                    </div>
-
-                    <div className={style.group}>
-                        <label>Parent / Guardian Phone</label>
-                        <input type="tel" value={form.parent_phone} onChange={(e) => setForm(prev => ({ ...prev, parent_phone: e.target.value.replace(/\D/g, '').slice(0, 11) }))} placeholder="07000000000" maxLength={11} required />
-                    </div>
-                    <div className={style.group}>
-                        <label>Password</label>
-                        <div className={style.inputWrapper}>
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                value={form.password}
-                                onChange={set('password')}
-                                placeholder="Create a password"
-                                required
-                            />
-                            <span className={style.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                            </span>
-                        </div>
-
-                        {form.password && (
-                            <div className={style.strengthWrap}>
-                                <div className={style.strengthBar}>
-                                    {[1,2,3,4].map(n => (
-                                        <div
-                                            key={n}
-                                            className={style.strengthSegment}
-                                            style={{ background: pwStrength >= n ? strengthColor : '#2a3550' }}
-                                        />
-                                    ))}
+                <form onSubmit={registerStudent}>
+                    {step === 1 && (
+                        <>
+                            <div className={style.photoSection}>
+                                <div className={style.photoPreview} onClick={() => fileRef.current.click()}>
+                                    {imagePreview
+                                        ? <img src={imagePreview} alt="Preview" className={style.previewImg} />
+                                        : <><Upload size={24} /><span>Upload Photo</span></>
+                                    }
                                 </div>
-                                <span className={style.strengthLabel} style={{ color: strengthColor }}>{strengthLabel}</span>
+                                <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} />
+                                <p className={style.photoHint}>Profile photo (required)</p>
                             </div>
+
+                            <div className={style.row}>
+                                <div className={style.group}>
+                                    <label>First Name</label>
+                                    <input type="text" value={form.firstname} onChange={setName('firstname')} placeholder="First name" />
+                                </div>
+                                <div className={style.group}>
+                                    <label>Last Name</label>
+                                    <input type="text" value={form.lastname} onChange={setName('lastname')} placeholder="Last name" />
+                                </div>
+                            </div>
+
+                            <div className={style.group}>
+                                <label>Date of Birth</label>
+                                <input type="date" value={form.dob} onChange={set('dob')} min="2015-01-01" max="2022-12-31" />
+                            </div>
+
+                            <div className={style.row}>
+                                <div className={style.group}>
+                                    <label>Gender</label>
+                                    <select value={form.gender} onChange={set('gender')}>
+                                        <option value="">Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div className={style.group}>
+                                    <label>Class</label>
+                                    <select value={form.class_id} onChange={set('class_id')}>
+                                        <option value="">Select class</option>
+                                        {classes.map(c => (
+                                            <option key={c._id} value={c._id}>{c.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    {step === 2 && (
+                        <>
+                            <div className={style.group}>
+                                <label>Email Address</label>
+                                <input type="email" value={form.email} onChange={set('email')} placeholder="Enter your email" />
+                            </div>
+
+                            <div className={style.group}>
+                                <label>Address</label>
+                                <input type="text" value={form.address} onChange={set('address')} placeholder="Home address" />
+                            </div>
+
+                            <div className={style.group}>
+                                <label>Parent / Guardian Phone</label>
+                                <input
+                                    type="tel"
+                                    value={form.parent_phone}
+                                    onChange={(e) => setForm(prev => ({ ...prev, parent_phone: e.target.value.replace(/\D/g, '').slice(0, 11) }))}
+                                    placeholder="07000000000"
+                                    maxLength={11}
+                                />
+                            </div>
+                        </>
+                    )}
+
+                    {step === 3 && (
+                        <>
+                            <div className={style.group}>
+                                <label>Password</label>
+                                <div className={style.inputWrapper}>
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        value={form.password}
+                                        onChange={set('password')}
+                                        placeholder="Create a password"
+                                        required
+                                    />
+                                    <span className={style.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </span>
+                                </div>
+
+                                {form.password && (
+                                    <div className={style.strengthWrap}>
+                                        <div className={style.strengthBar}>
+                                            {[1,2,3,4].map(n => (
+                                                <div
+                                                    key={n}
+                                                    className={style.strengthSegment}
+                                                    style={{ background: pwStrength >= n ? strengthColor : '#2a3550' }}
+                                                />
+                                            ))}
+                                        </div>
+                                        <span className={style.strengthLabel} style={{ color: strengthColor }}>{strengthLabel}</span>
+                                    </div>
+                                )}
+
+                                <ul className={style.pwChecklist}>
+                                    <li className={pwChecks.length    ? style.checkPass : style.checkFail}>At least 6 characters</li>
+                                    <li className={pwChecks.uppercase ? style.checkPass : style.checkFail}>One uppercase letter</li>
+                                    <li className={pwChecks.lowercase ? style.checkPass : style.checkFail}>One lowercase letter</li>
+                                    <li className={pwChecks.number    ? style.checkPass : style.checkFail}>One number</li>
+                                </ul>
+                            </div>
+
+                            <div className={style.group}>
+                                <label>Confirm Password</label>
+                                <div className={style.inputWrapper}>
+                                    <input
+                                        type={showConfirm ? 'text' : 'password'}
+                                        value={confirm}
+                                        onChange={(e) => setConfirm(e.target.value)}
+                                        placeholder="Re-enter your password"
+                                        required
+                                    />
+                                    <span className={style.eyeIcon} onClick={() => setShowConfirm(!showConfirm)}>
+                                        {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </span>
+                                </div>
+                                {confirm && (
+                                    <p className={form.password === confirm ? style.matchOk : style.matchFail}>
+                                        {form.password === confirm ? '✓ Passwords match' : '✗ Passwords do not match'}
+                                    </p>
+                                )}
+                            </div>
+                        </>
+                    )}
+
+                    <div className={style.navBtns}>
+                        {step > 1 && (
+                            <button type="button" className={style.backBtn} onClick={prevStep}>
+                                Back
+                            </button>
                         )}
-
-                        <ul className={style.pwChecklist}>
-                            <li className={pwChecks.length    ? style.checkPass : style.checkFail}>At least 6 characters</li>
-                            <li className={pwChecks.uppercase ? style.checkPass : style.checkFail}>One uppercase letter</li>
-                            <li className={pwChecks.lowercase ? style.checkPass : style.checkFail}>One lowercase letter</li>
-                            <li className={pwChecks.number    ? style.checkPass : style.checkFail}>One number</li>
-                        </ul>
-                    </div>
-
-                    <div className={style.group}>
-                        <label>Confirm Password</label>
-                        <div className={style.inputWrapper}>
-                            <input
-                                type={showConfirm ? 'text' : 'password'}
-                                value={confirm}
-                                onChange={(e) => setConfirm(e.target.value)}
-                                placeholder="Re-enter your password"
-                                required
-                            />
-                            <span className={style.eyeIcon} onClick={() => setShowConfirm(!showConfirm)}>
-                                {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-                            </span>
-                        </div>
-                        {confirm && (
-                            <p className={form.password === confirm ? style.matchOk : style.matchFail}>
-                                {form.password === confirm ? '✓ Passwords match' : '✗ Passwords do not match'}
-                            </p>
+                        {step < 3 ? (
+                            <button type="button" className={style.submitBtn} onClick={nextStep}>
+                                Next
+                            </button>
+                        ) : (
+                            <button type="submit" className={style.submitBtn} disabled={loading}>
+                                {loading ? <><Loader2 className="animate-spin" /><span>Registering...</span></> : 'Create Student Account'}
+                            </button>
                         )}
                     </div>
-
-                    <button type="submit" className={style.submitBtn} disabled={loading}>
-                        {loading ? <><Loader2 className="animate-spin" /><span>Registering...</span></> : 'Create Student Account'}
-                    </button>
                 </form>
 
                 <p className={style.loginLink}>

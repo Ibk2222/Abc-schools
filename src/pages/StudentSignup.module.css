@@ -232,6 +232,81 @@
 }
 .loginLink span:hover { text-decoration: underline; }
 
+/* Step indicator */
+.stepBar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+}
+.stepItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.stepCircle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #2a3550;
+    background: #1a2540;
+    color: #6b7a99;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+.stepActive {
+    border-color: rgb(20, 81, 240);
+    background: rgb(20, 81, 240);
+    color: #fff;
+}
+.stepDone {
+    border-color: #4caf50;
+    background: #4caf50;
+    color: #fff;
+}
+.stepLabel {
+    font-size: 11px;
+    color: #6b7a99;
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+.stepLabelActive { color: #fff; font-weight: 600; }
+.stepLine {
+    flex: 1;
+    height: 2px;
+    background: #2a3550;
+    margin: 0 6px;
+    margin-bottom: 22px;
+    transition: background 0.3s;
+}
+.stepLineDone { background: #4caf50; }
+
+/* Nav buttons */
+.navBtns {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+.backBtn {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    color: #fff;
+    border: 2px solid #2a3550;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.backBtn:hover { border-color: rgb(20, 81, 240); color: rgb(20, 81, 240); }
+.navBtns .submitBtn { flex: 2; margin-top: 0; }
+
 @media (max-width: 500px) {
     .wrapper { padding: 32px 20px; }
     .row { grid-template-columns: 1fr; }
