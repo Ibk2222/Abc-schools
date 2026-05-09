@@ -81,8 +81,8 @@ const StudentSignup = () => {
             } else {
                 navigate('/student/login')
             }
-        } catch {
-            setError('Registration failed. Please try again.')
+        } catch (err) {
+            setError(err.response?.data?.message ?? 'Registration failed. Please try again.')
         } finally {
             setLoading(false)
         }
