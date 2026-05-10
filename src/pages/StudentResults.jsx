@@ -203,7 +203,7 @@ const StudentResults = () => {
                     </div>
                     <div className={s.rcSignBox}>
                         <div className={s.rcSignLine} />
-                        <p>Principal's Signature</p>
+                        <p>Headmaster's Signature</p>
                     </div>
                 </div>
 
