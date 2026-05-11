@@ -78,7 +78,7 @@ const StudentSignup = () => {
             if (!nameRegex.test(form.lastname.trim())) { setError('Invalid last name format. Name must start and end with a letter and may only contain letters, spaces, hyphens, or apostrophes.'); return false }
             if (!form.dob) { setError('Date of birth is required.'); return false }
             const year = new Date(form.dob).getFullYear()
-            if (year < 2015 || year > 2022) { setError('Date of birth must be between 2015 and 2022.'); return false }
+            if (year < 2017 || year > 2022) { setError('Date of birth must be between 2017 and 2022.'); return false }
             if (!form.gender) { setError('Please select a gender.'); return false }
             if (!form.class_id) { setError('Please select a class.'); return false }
         }
@@ -180,7 +180,7 @@ const StudentSignup = () => {
 
                             <div className={style.group}>
                                 <label>Date of Birth</label>
-                                <input type="date" value={form.dob} onChange={set('dob')} min="2015-01-01" max="2022-12-31" />
+                                <input type="date" value={form.dob} onChange={set('dob')} min="2017-01-01" max="2022-12-31" />
                             </div>
 
                             <div className={style.row}>
