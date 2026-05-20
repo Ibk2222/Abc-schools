@@ -334,59 +334,6 @@ const Results = () => {
                 <div className={style.loadingWrap}><div className={style.spinner} /></div>
             ) : (
                 <>
-                    {/* Summary cards */}
-                    <div className={style.summaryGrid}>
-                        {summaryCards.map(card => (
-                            <div key={card.label} className={style.summaryCard}>
-                                <p className={style.summaryLabel}>{card.label}</p>
-                                <p className={style.summaryValue}>{card.value}</p>
-                                <span className={card.up ? style.summaryChange : style.summaryChangeBad}>
-                                    {card.change}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Charts row */}
-                    <div className={style.chartsRow}>
-                        {/* Grade Distribution */}
-                        <div className={style.chartCard}>
-                            <p className={style.chartTitle}>Grade Distribution</p>
-                            <div className={style.donutWrap}>
-                                <DonutChart segments={gradeSegments} total={totalResults} />
-                                <div className={style.legend}>
-                                    {gradeSegments.map(seg => (
-                                        <div key={seg.label} className={style.legendItem}>
-                                            <span className={style.legendDot} style={{ background: seg.color }} />
-                                            <span>{seg.label}</span>
-                                            <span className={style.legendCount}>{seg.count}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Performance Trend */}
-                        <div className={style.chartCard}>
-                            <p className={style.chartTitle}>Performance Trend</p>
-                            <div className={style.lineChartLegend}>
-                                <div className={style.lineChartLegendItem}>
-                                    <div className={style.lineChartLegendLine} style={{ background: 'rgb(20,81,240)' }} />
-                                    <span>Score count</span>
-                                </div>
-                            </div>
-                            <div className={style.lineChartWrap}>
-                                <LineChart points={trendPoints} color="rgb(20,81,240)" label="avg" />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Class Performance Comparison */}
-                    <div className={style.barChartCard}>
-                        <p className={style.chartTitle}>Class Performance Comparison</p>
-                        <BarChart bars={classBars} />
-                    </div>
-
                     {/* Student Grades Table */}
                     <div className={style.tableCard}>
                         <div className={style.tableHeader}>

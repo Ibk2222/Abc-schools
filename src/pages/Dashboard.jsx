@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
-import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, CheckSquare, LogOut } from 'lucide-react'
+import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, CheckSquare, LogOut, FileEdit } from 'lucide-react'
 import style from './Dashboard.module.css'
 
 const GRADE_COLORS = { A: '#22c55e', B: '#3b82f6', C: '#f59e0b', D: '#f97316', F: '#ef4444' }
@@ -83,7 +83,8 @@ const navLinks = [
     { to: '/dashboard/myclasses', label: 'My Classes', icon: BookOpen },
     { to: '/dashboard/mystudents', label: 'My Students', icon: Users },
     { to: '/dashboard/mytimetable', label: 'My Timetable', icon: Calendar },
-    { to: '/dashboard/results', label: 'Assignments', icon: ClipboardList },
+    { to: '/dashboard/results', label: 'Overview', icon: ClipboardList },
+    { to: '/dashboard/assignments', label: 'Assignments', icon: FileEdit },
     { to: '/dashboard/attendance', label: 'Attendance', icon: CheckSquare },
 ]
 
@@ -91,6 +92,7 @@ const Dashboard = () => {
     const [teacher, setTeacher] = useState(null)
     const [stats, setStats] = useState(null)
     const [results, setResults] = useState([])
+    const [classes, setClasses] = useState([])
     const [loadError, setLoadError] = useState('')
     const navigate = useNavigate()
     const outlet = useOutlet()
@@ -124,9 +126,13 @@ const Dashboard = () => {
             } else {
                 setTeacher(response.data.teacher)
                 setStats(response.data.stats)
-                axios.get('https://schoolpj-backend.onrender.com/teacher/all-results', {
-                    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
-                }).then((r) => { if (r.data.status) setResults(r.data.results ?? []) }).catch(() => {})
+                Promise.all([
+                    axios.get('https://schoolpj-backend.onrender.com/teacher/all-results', { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } }),
+                    axios.get('https://schoolpj-backend.onrender.com/teacher/all-classes', { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } }),
+                ]).then(([rRes, cRes]) => {
+                    if (rRes.data.status) setResults(rRes.data.results ?? [])
+                    if (cRes.data.status) setClasses(cRes.data.classes ?? [])
+                }).catch(() => {})
             }
         })
         .catch((err) => {
@@ -167,6 +173,20 @@ const Dashboard = () => {
         const [lo, hi] = b.split('-').map(Number)
         return { label: b, y: scores.filter(s => s >= lo && s <= hi).length }
     })
+
+    const classBars = classes.length
+        ? classes.slice(0, 6).map(c => {
+            const classScores = results
+                .filter(r => r.student?.class_id === c._id || r.exam?.class_id === c._id)
+                .map(r => r.score)
+                .filter(s => typeof s === 'number')
+            const classAvg = classScores.length ? Math.round(classScores.reduce((a, b) => a + b, 0) / classScores.length) : avg
+            return {
+                label: c.name?.length > 12 ? c.name.slice(0, 12) + '…' : (c.name ?? '—'),
+                value: classAvg,
+            }
+        })
+        : [{ label: 'All Classes', value: avg }]
 
     const statCards = [
         {
@@ -299,6 +319,11 @@ const Dashboard = () => {
                                             <LineChart points={trendPoints} color="rgb(20,81,240)" label="avg" />
                                         </div>
                                     </div>
+                                </div>
+
+                                <div className={style.barChartCard}>
+                                    <p className={style.chartTitle}>Class Performance Comparison</p>
+                                    <BarChart bars={classBars} />
                                 </div>
                             </>
                         )}

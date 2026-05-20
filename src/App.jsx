@@ -9,7 +9,8 @@ import Myclasses from "./pages/Myclasses";
 import Mystudents from "./pages/Mystudents";
 import Mytimetable from "./pages/Mytimetable";
 import Results from "./pages/Results"
-import TeacherAttendance from "./pages/TeacherAttendance";
+import TeacherAttendance from "./pages/TeacherAttendance"
+import TeacherAssignment from "./pages/TeacherAssignment";
 
 // Admin
 import AdminLogin from "./pages/AdminLogin";
@@ -24,6 +25,7 @@ import AdminTimetables from "./pages/AdminTimetables";
 import AdminExams from "./pages/AdminExams";
 import AdminTests from "./pages/AdminTests";
 import AdminResults from "./pages/AdminResults"
+import AdminAssignment from "./pages/AdminAssignment"
 import AdminApprovals from "./pages/AdminApprovals";
 import AdminOnline from "./pages/AdminOnline";
 
@@ -37,7 +39,8 @@ import StudentTimetable from "./pages/StudentTimetable";
 import StudentResults from "./pages/StudentResults";
 import StudentSubjects from "./pages/StudentSubjects";
 import StudentExams from "./pages/StudentExams";
-import StudentTests from "./pages/StudentTests";
+import StudentTests from "./pages/StudentTests"
+import StudentAssignment from "./pages/StudentAssignment";
 import ForgotPassword from "./pages/ForgotPassword";
 import Nopagefound from "./pages/Nopagefound";
 import socketClient from "socket.io-client";
@@ -75,6 +78,7 @@ function App() {
                 <Route path="mystudents" element={<Mystudents />} />
                 <Route path="mytimetable" element={<Mytimetable />} />
                 <Route path="results" element={<Results />} />
+                <Route path="assignments" element={<TeacherAssignment />} />
                 <Route path="attendance" element={<TeacherAttendance />} />
             </Route>
 
@@ -94,6 +98,7 @@ function App() {
                 <Route path="exams" element={<AdminExams />} />
                 <Route path="tests" element={<AdminTests />} />
                 <Route path="results" element={<AdminResults />} />
+                <Route path="assignments" element={<AdminAssignment />} />
                 <Route path="approvals" element={<AdminApprovals />} />
                 <Route path="online" element={<AdminOnline />} />
             </Route>
@@ -112,6 +117,7 @@ function App() {
                 <Route path="subjects" element={<StudentSubjects />} />
                 <Route path="exams" element={<StudentExams />} />
                 <Route path="tests" element={<StudentTests />} />
+                <Route path="assignments" element={<StudentAssignment />} />
             </Route>
             <Route path="*" element={<Nopagefound />} />
         </Routes>

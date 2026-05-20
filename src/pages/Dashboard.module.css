@@ -372,6 +372,13 @@
     height: 2px;
     border-radius: 2px;
 }
+.barChartCard {
+    background: #0f1623;
+    border: 1px solid #1a2540;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
 .barGroup {
     flex: 1;
     display: flex;
