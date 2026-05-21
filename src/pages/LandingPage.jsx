@@ -63,7 +63,7 @@ const LandingPage = () => {
             <nav className={style.nav}>
                 <div className={style.navBrand}>
                     <img
-                        src="https://img.freepik.com/premium-vector/abc-kindergarten-school-preschool-day-care-logo_513640-3079.jpg?w=360"
+                        src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=200&h=200&fit=crop&crop=center"
                         alt="School logo"
                         className={style.navLogo}
                     />
@@ -166,7 +166,7 @@ const LandingPage = () => {
             {/* ── Footer ── */}
             <footer className={style.footer}>
                 <img
-                    src="https://img.freepik.com/premium-vector/abc-kindergarten-school-preschool-day-care-logo_513640-3079.jpg?w=360"
+                    src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=200&h=200&fit=crop&crop=center"
                     alt="School logo"
                     className={style.footerLogo}
                 />
