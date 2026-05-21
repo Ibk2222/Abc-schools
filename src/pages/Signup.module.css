@@ -181,6 +181,88 @@
   height: 18px;
 }
 
+.login-link {
+  text-align: center;
+  margin-top: 24px;
+  color: #999;
+  font-size: 14px;
+}
+
+.login-link span {
+  color: rgb(20, 81, 240);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-link span:hover {
+  text-decoration: underline;
+}
+
+.strength-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.strength-bar {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.strength-segment {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.strength-label {
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 36px;
+}
+
+.pw-checklist {
+  list-style: none;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.check-pass,
+.check-fail {
+  font-size: 12px;
+  padding-left: 18px;
+  position: relative;
+}
+
+.check-pass::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.check-fail::before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: #f44336;
+  font-weight: 700;
+}
+
+.check-pass {
+  color: #4caf50;
+}
+
+.check-fail {
+  color: #f44336;
+}
+
 @media (max-width: 480px) {
   .signup-wrapper {
     padding: 30px 20px;

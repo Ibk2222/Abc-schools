@@ -17,6 +17,16 @@ const Signup = () => {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
+    const pwChecks = {
+        length:    password.length >= 6,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number:    /\d/.test(password),
+    }
+    const pwStrength = Object.values(pwChecks).filter(Boolean).length
+    const strengthLabel = ['', 'Weak', 'Fair', 'Good', 'Strong'][pwStrength] ?? ''
+    const strengthColor = ['', '#f44336', '#ff9800', '#2196f3', '#4caf50'][pwStrength] ?? ''
+
     let navigate = useNavigate()
     const registerUser = () =>{
         setLoading(true)
@@ -45,8 +55,8 @@ const Signup = () => {
       <div className={style['signup-wrapper']}>
         <div className={style['signup-header']}>
           <img src="https://img.freepik.com/premium-vector/abc-kindergarten-school-preschool-day-care-logo_513640-3079.jpg?w=360" alt="Hero Image" className={style['hero-image']} />
-          <h1>Welcome to ABC School</h1>
-          <p>Create your account</p>
+          <h1>Teacher Registration</h1>
+          <p>Create your teacher account</p>
         </div>
 
         {error && <div className={style['error-message']}>{error}</div>}
@@ -141,9 +151,27 @@ const Signup = () => {
                 required
               />
               <span className={style['eye-icon']} onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </span>
             </div>
+            {password && (
+              <div className={style['strength-wrap']}>
+                <div className={style['strength-bar']}>
+                  {[1,2,3,4].map(n => (
+                    <div key={n} className={style['strength-segment']} style={{ background: pwStrength >= n ? strengthColor : '#2a3550' }} />
+                  ))}
+                </div>
+                <span className={style['strength-label']} style={{ color: strengthColor }}>{strengthLabel}</span>
+              </div>
+            )}
+            {password && (
+              <ul className={style['pw-checklist']}>
+                <li className={pwChecks.length    ? style['check-pass'] : style['check-fail']}>At least 6 characters</li>
+                <li className={pwChecks.uppercase ? style['check-pass'] : style['check-fail']}>One uppercase letter</li>
+                <li className={pwChecks.lowercase ? style['check-pass'] : style['check-fail']}>One lowercase letter</li>
+                <li className={pwChecks.number    ? style['check-pass'] : style['check-fail']}>One number</li>
+              </ul>
+            )}
           </div>
 
           <button type="submit" className={style['signup-button']} disabled={loading}>

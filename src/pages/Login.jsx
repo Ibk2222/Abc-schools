@@ -41,8 +41,8 @@ const Login = () => {
             <div className={style['login-wrapper']}>
                 <div className={style['login-header']}>
                     <img src="https://img.freepik.com/premium-vector/abc-kindergarten-school-preschool-day-care-logo_513640-3079.jpg?w=360" alt="Hero Image" className={style['hero-image']} />
-                    <h1>Welcome to ABC Nursery and Primary School</h1>
-                    <p>Sign in to your account</p>
+                    <h1>Teacher Portal</h1>
+                    <p>Sign in to your teacher account</p>
                 </div>
 
                 {error && <div className={style['error-message']}>{error}</div>}

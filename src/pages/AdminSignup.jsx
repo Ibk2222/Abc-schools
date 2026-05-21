@@ -12,6 +12,16 @@ const AdminSignup = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+
+    const pwChecks = {
+        length:    form.password.length >= 6,
+        uppercase: /[A-Z]/.test(form.password),
+        lowercase: /[a-z]/.test(form.password),
+        number:    /\d/.test(form.password),
+    }
+    const pwStrength = Object.values(pwChecks).filter(Boolean).length
+    const strengthLabel = ['', 'Weak', 'Fair', 'Good', 'Strong'][pwStrength] ?? ''
+    const strengthColor = ['', '#f44336', '#ff9800', '#2196f3', '#4caf50'][pwStrength] ?? ''
     const navigate = useNavigate()
 
     const set = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }))
@@ -86,9 +96,27 @@ const AdminSignup = () => {
                                 required
                             />
                             <span className={style['eye-icon']} onClick={() => setShowPassword(!showPassword)}>
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                             </span>
                         </div>
+                        {form.password && (
+                            <div className={style['strength-wrap']}>
+                                <div className={style['strength-bar']}>
+                                    {[1,2,3,4].map(n => (
+                                        <div key={n} className={style['strength-segment']} style={{ background: pwStrength >= n ? strengthColor : '#2a3550' }} />
+                                    ))}
+                                </div>
+                                <span className={style['strength-label']} style={{ color: strengthColor }}>{strengthLabel}</span>
+                            </div>
+                        )}
+                        {form.password && (
+                            <ul className={style['pw-checklist']}>
+                                <li className={pwChecks.length    ? style['check-pass'] : style['check-fail']}>At least 6 characters</li>
+                                <li className={pwChecks.uppercase ? style['check-pass'] : style['check-fail']}>One uppercase letter</li>
+                                <li className={pwChecks.lowercase ? style['check-pass'] : style['check-fail']}>One lowercase letter</li>
+                                <li className={pwChecks.number    ? style['check-pass'] : style['check-fail']}>One number</li>
+                            </ul>
+                        )}
                     </div>
 
                     <button type="submit" className={style['signup-button']} disabled={loading}>
