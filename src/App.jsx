@@ -43,6 +43,7 @@ import StudentTests from "./pages/StudentTests"
 import StudentAssignment from "./pages/StudentAssignment";
 import ForgotPassword from "./pages/ForgotPassword";
 import Nopagefound from "./pages/Nopagefound";
+import LandingPage from "./pages/LandingPage";
 import socketClient from "socket.io-client";
 
 const PrivateRoute = ({ children, loginPath }) => {
@@ -60,7 +61,7 @@ function App() {
     return (
         <Routes>
             {/* Default */}
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/" element={<LandingPage />} />
 
             {/* ── Forgot password ── */}
             <Route path="/forgot-password" element={<ForgotPassword />} />
