@@ -37,14 +37,6 @@ const features = [
 
 const portals = [
     {
-        role: 'Admin',
-        icon: '🛡️',
-        description: 'Manage the entire school — staff, students, classes, and operations.',
-        loginPath: '/admin/login',
-        signupPath: '/admin/signup',
-        color: '#1451f0',
-    },
-    {
         role: 'Teacher',
         icon: '👨‍🏫',
         description: 'Take attendance, upload results, manage assignments and timetables.',
