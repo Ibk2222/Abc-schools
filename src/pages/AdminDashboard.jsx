@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import {
     LayoutDashboard, Users, BookOpen, BookMarked,
     Calendar, ClipboardList, FileText, CheckSquare,
-    LogOut, GraduationCap, FlaskConical, ShieldCheck, Wifi, FileEdit,
+    LogOut, GraduationCap, FlaskConical, ShieldCheck, Wifi, FileEdit, Menu, X,
 } from 'lucide-react'
 import style from './Dashboard.module.css'
 
@@ -28,8 +28,11 @@ const AdminDashboard = () => {
     const [admin, setAdmin] = useState(null)
     const [stats, setStats] = useState(null)
     const [loadError, setLoadError] = useState('')
+    const [sidebarOpen, setSidebarOpen] = useState(false)
     const navigate = useNavigate()
     const outlet = useOutlet()
+
+    const closeSidebar = () => setSidebarOpen(false)
 
     useEffect(() => {
         getAdminDashboard()
@@ -91,6 +94,8 @@ const AdminDashboard = () => {
 
     return (
         <div className={style.layout}>
+            {sidebarOpen && <div className={style.dropdownOverlay} onClick={closeSidebar} />}
+
             <aside className={style.sidebar}>
                 <div className={style.sidebarHeader}>
                     <h1 className={style.schoolName}>ABC School</h1>
@@ -129,6 +134,51 @@ const AdminDashboard = () => {
             </aside>
 
             <main className={style.main}>
+                <div className={style.mobileHeader}>
+                    <div className={style.mobileTopBar}>
+                        <button
+                            className={style.hamburger}
+                            onClick={() => setSidebarOpen(o => !o)}
+                            aria-label="Toggle menu"
+                        >
+                            {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
+                        </button>
+                        <span className={style.mobileSchoolName}>ABC School</span>
+                    </div>
+
+                    <div className={`${style.mobileDropdown} ${sidebarOpen ? style.dropdownOpen : ''}`}>
+                        <nav className={style.dropdownNav}>
+                            {navLinks.map(({ to, label, icon: Icon, end }) => (
+                                <NavLink
+                                    key={to}
+                                    to={to}
+                                    end={end}
+                                    onClick={closeSidebar}
+                                    className={({ isActive }) =>
+                                        `${style.dropdownNavLink} ${isActive ? style.navLinkActive : ''}`
+                                    }
+                                >
+                                    <Icon size={18} />
+                                    <span>{label}</span>
+                                </NavLink>
+                            ))}
+                        </nav>
+                        <div className={style.dropdownFooter}>
+                            <div className={style.teacherCard}>
+                                <div className={style.avatar}>{adminInitials}</div>
+                                <div className={style.teacherMeta}>
+                                    <p className={style.teacherName}>{adminFullName}</p>
+                                    <p className={style.teacherEmail}>{admin?.email ?? ''}</p>
+                                </div>
+                            </div>
+                            <button className={style.logoutBtn} onClick={handleLogout}>
+                                <LogOut size={15} />
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 {outlet || (
                     <div className={style.dashboardContent}>
                         {loadError && (

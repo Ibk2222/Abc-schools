@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
-import { LayoutDashboard, Calendar, ClipboardList, CheckSquare, LogOut, User, FileEdit } from 'lucide-react'
+import { LayoutDashboard, Calendar, ClipboardList, CheckSquare, LogOut, User, FileEdit, Menu, X } from 'lucide-react'
 import style from './Dashboard.module.css'
 
 const navLinks = [
@@ -18,8 +18,11 @@ const navLinks = [
 
 const StudentDashboard = () => {
     const [student, setStudent] = useState(null)
+    const [sidebarOpen, setSidebarOpen] = useState(false)
     const navigate = useNavigate()
     const outlet = useOutlet()
+
+    const closeSidebar = () => setSidebarOpen(false)
 
     useEffect(() => {
         getStudentDashboard()
@@ -68,6 +71,8 @@ const StudentDashboard = () => {
 
     return (
         <div className={style.layout}>
+            {sidebarOpen && <div className={style.dropdownOverlay} onClick={closeSidebar} />}
+
             <aside className={style.sidebar}>
                 <div className={style.sidebarHeader}>
                     <h1 className={style.schoolName}>ABC School</h1>
@@ -106,6 +111,51 @@ const StudentDashboard = () => {
             </aside>
 
             <main className={style.main}>
+                <div className={style.mobileHeader}>
+                    <div className={style.mobileTopBar}>
+                        <button
+                            className={style.hamburger}
+                            onClick={() => setSidebarOpen(o => !o)}
+                            aria-label="Toggle menu"
+                        >
+                            {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
+                        </button>
+                        <span className={style.mobileSchoolName}>ABC School</span>
+                    </div>
+
+                    <div className={`${style.mobileDropdown} ${sidebarOpen ? style.dropdownOpen : ''}`}>
+                        <nav className={style.dropdownNav}>
+                            {navLinks.map(({ to, label, icon: Icon, end }) => (
+                                <NavLink
+                                    key={to}
+                                    to={to}
+                                    end={end}
+                                    onClick={closeSidebar}
+                                    className={({ isActive }) =>
+                                        `${style.dropdownNavLink} ${isActive ? style.navLinkActive : ''}`
+                                    }
+                                >
+                                    <Icon size={18} />
+                                    <span>{label}</span>
+                                </NavLink>
+                            ))}
+                        </nav>
+                        <div className={style.dropdownFooter}>
+                            <div className={style.teacherCard}>
+                                <div className={style.avatar}>{studentInitials}</div>
+                                <div className={style.teacherMeta}>
+                                    <p className={style.teacherName}>{studentFullName}</p>
+                                    <p className={style.teacherEmail}>{student?.email ?? ''}</p>
+                                </div>
+                            </div>
+                            <button className={style.logoutBtn} onClick={handleLogout}>
+                                <LogOut size={15} />
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 {outlet || (
                     <div className={style.dashboardContent}>
                         <div className={style.welcomeSection}>
