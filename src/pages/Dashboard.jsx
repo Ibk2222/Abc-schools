@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
-import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, CheckSquare, LogOut, FileEdit } from 'lucide-react'
+import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, CheckSquare, LogOut, FileEdit, Menu, X } from 'lucide-react'
 import style from './Dashboard.module.css'
 
 const GRADE_COLORS = { A: '#22c55e', B: '#3b82f6', C: '#f59e0b', D: '#f97316', F: '#ef4444' }
@@ -94,8 +94,11 @@ const Dashboard = () => {
     const [results, setResults] = useState([])
     const [classes, setClasses] = useState([])
     const [loadError, setLoadError] = useState('')
+    const [sidebarOpen, setSidebarOpen] = useState(false)
     const navigate = useNavigate()
     const outlet = useOutlet()
+
+    const closeSidebar = () => setSidebarOpen(false)
 
     useEffect(() => {
         getTeacherDashboard()
@@ -212,10 +215,19 @@ const Dashboard = () => {
 
     return (
         <div className={style.layout}>
-            <aside className={style.sidebar}>
+            {sidebarOpen && <div className={style.overlay} onClick={closeSidebar} />}
+
+            <aside className={`${style.sidebar} ${sidebarOpen ? style.sidebarOpen : ''}`}>
                 <div className={style.sidebarHeader}>
-                    <h1 className={style.schoolName}>ABC School</h1>
-                    <p className={style.schoolSub}>Management System</p>
+                    <div className={style.sidebarHeaderRow}>
+                        <div>
+                            <h1 className={style.schoolName}>ABC School</h1>
+                            <p className={style.schoolSub}>Management System</p>
+                        </div>
+                        <button className={style.sidebarClose} onClick={closeSidebar} aria-label="Close menu">
+                            <X size={20} />
+                        </button>
+                    </div>
                 </div>
 
                 <nav className={style.nav}>
@@ -224,6 +236,7 @@ const Dashboard = () => {
                             key={to}
                             to={to}
                             end={end}
+                            onClick={closeSidebar}
                             className={({ isActive }) =>
                                 `${style.navLink} ${isActive ? style.navLinkActive : ''}`
                             }
@@ -250,6 +263,13 @@ const Dashboard = () => {
             </aside>
 
             <main className={style.main}>
+                <div className={style.mobileTopBar}>
+                    <button className={style.hamburger} onClick={() => setSidebarOpen(true)} aria-label="Open menu">
+                        <Menu size={22} />
+                    </button>
+                    <span className={style.mobileSchoolName}>ABC School</span>
+                </div>
+
                 {outlet || (
                     <div className={style.dashboardContent}>
                         {loadError && (
