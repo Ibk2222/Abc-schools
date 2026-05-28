@@ -215,19 +215,12 @@ const Dashboard = () => {
 
     return (
         <div className={style.layout}>
-            {sidebarOpen && <div className={style.overlay} onClick={closeSidebar} />}
+            {sidebarOpen && <div className={style.dropdownOverlay} onClick={closeSidebar} />}
 
-            <aside className={`${style.sidebar} ${sidebarOpen ? style.sidebarOpen : ''}`}>
+            <aside className={style.sidebar}>
                 <div className={style.sidebarHeader}>
-                    <div className={style.sidebarHeaderRow}>
-                        <div>
-                            <h1 className={style.schoolName}>ABC School</h1>
-                            <p className={style.schoolSub}>Management System</p>
-                        </div>
-                        <button className={style.sidebarClose} onClick={closeSidebar} aria-label="Close menu">
-                            <X size={20} />
-                        </button>
-                    </div>
+                    <h1 className={style.schoolName}>ABC School</h1>
+                    <p className={style.schoolSub}>Management System</p>
                 </div>
 
                 <nav className={style.nav}>
@@ -236,7 +229,6 @@ const Dashboard = () => {
                             key={to}
                             to={to}
                             end={end}
-                            onClick={closeSidebar}
                             className={({ isActive }) =>
                                 `${style.navLink} ${isActive ? style.navLinkActive : ''}`
                             }
@@ -263,11 +255,51 @@ const Dashboard = () => {
             </aside>
 
             <main className={style.main}>
-                <div className={style.mobileTopBar}>
-                    <button className={style.hamburger} onClick={() => setSidebarOpen(true)} aria-label="Open menu">
-                        <Menu size={22} />
-                    </button>
-                    <span className={style.mobileSchoolName}>ABC School</span>
+                {/* Mobile header — hidden on desktop, visible on mobile */}
+                <div className={style.mobileHeader}>
+                    <div className={style.mobileTopBar}>
+                        <button
+                            className={style.hamburger}
+                            onClick={() => setSidebarOpen(o => !o)}
+                            aria-label="Toggle menu"
+                        >
+                            {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
+                        </button>
+                        <span className={style.mobileSchoolName}>ABC School</span>
+                    </div>
+
+                    {/* Dropdown nav */}
+                    <div className={`${style.mobileDropdown} ${sidebarOpen ? style.dropdownOpen : ''}`}>
+                        <nav className={style.dropdownNav}>
+                            {navLinks.map(({ to, label, icon: Icon, end }) => (
+                                <NavLink
+                                    key={to}
+                                    to={to}
+                                    end={end}
+                                    onClick={closeSidebar}
+                                    className={({ isActive }) =>
+                                        `${style.dropdownNavLink} ${isActive ? style.navLinkActive : ''}`
+                                    }
+                                >
+                                    <Icon size={18} />
+                                    <span>{label}</span>
+                                </NavLink>
+                            ))}
+                        </nav>
+                        <div className={style.dropdownFooter}>
+                            <div className={style.teacherCard}>
+                                <div className={style.avatar}>{teacherInitials}</div>
+                                <div className={style.teacherMeta}>
+                                    <p className={style.teacherName}>{teacherFullName}</p>
+                                    <p className={style.teacherEmail}>{teacher?.email ?? ''}</p>
+                                </div>
+                            </div>
+                            <button className={style.logoutBtn} onClick={handleLogout}>
+                                <LogOut size={15} />
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 {outlet || (
