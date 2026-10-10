@@ -6,7 +6,7 @@
 
 .signup-container {
   height: fit-content;
-  background: rgb(19, 28, 49);
+  background: linear-gradient(180deg, #eef7ff 0%, #edf3fb 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,9 +15,10 @@
 }
 
 .signup-wrapper {
-  background: rgb(19, 28, 49);
-  border-radius: 15px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  border: 1px solid #dfeaf5;
+  border-radius: 18px;
+  box-shadow: 0 16px 34px rgba(14, 165, 233, 0.08);
   padding: 50px 40px;
   max-width: 500px;
   width: 100%;
@@ -36,29 +37,33 @@
 }
 
 .signup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   margin-bottom: 40px;
 }
 
 .hero-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  display: block;
+  width: 110px;
+  height: 110px;
+  border-radius: 18px;
   object-fit: cover;
-  border: 3px solid rgb(20, 81, 240);
-  margin-bottom: 16px;
-  box-shadow: 0 4px 15px rgba(20, 81, 240, 0.3);
+  border: 3px solid #0ea5e9;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25);
 }
 
 .signup-header h1 {
-  color: white;
+  color: #1f2a25;
   font-size: 28px;
   margin-bottom: 8px;
   font-weight: 700;
 }
 
 .signup-header p {
-  color: #999;
+  color: #5f7268;
   font-size: 14px;
   letter-spacing: 0.5px;
 }
@@ -70,7 +75,7 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: white;
+  color: #22342d;
   font-weight: 600;
   font-size: 14px;
   text-transform: capitalize;
@@ -84,6 +89,7 @@
   border-radius: 8px;
   font-size: 14px;
   font-family: inherit;
+  color: #1b221f;
   transition: all 0.3s ease;
   background-color: #f9f9f9;
 }
@@ -91,9 +97,9 @@
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #0ea5e9;
   background-color: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
 }
 
 .form-group input::placeholder {
@@ -121,7 +127,7 @@
 }
 
 .eye-icon:hover {
-  color: rgb(20, 81, 240);
+  color: #0ea5e9;
 }
 
 .form-row {
@@ -147,12 +153,13 @@
 .signup-button {
   width: 100%;
   padding: 12px 20px;
-  background: rgb(20, 81, 240);
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
   color: white;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid #0ea5e9;
+  border-radius: 10px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.2px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -160,11 +167,12 @@
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
+  box-shadow: 0 12px 22px rgba(14, 165, 233, 0.2);
 }
 
 .signup-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.35);
 }
 
 .signup-button:active:not(:disabled) {
@@ -184,12 +192,12 @@
 .login-link {
   text-align: center;
   margin-top: 24px;
-  color: #999;
+  color: #5f7268;
   font-size: 14px;
 }
 
 .login-link span {
-  color: rgb(20, 81, 240);
+  color: #0284c7;
   cursor: pointer;
   font-weight: 600;
 }
@@ -222,6 +230,7 @@
   font-size: 12px;
   font-weight: 600;
   min-width: 36px;
+  color: #1b221f;
 }
 
 .pw-checklist {
@@ -230,6 +239,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  color: #1b221f;
 }
 
 .check-pass,

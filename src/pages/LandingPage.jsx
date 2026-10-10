@@ -64,6 +64,8 @@ const portals = [
     },
 ]
 
+const schoolLogoUrl = 'https://img.freepik.com/premium-vector/abc-kindergarten-school-preschool-day-care-logo_513640-3079.jpg?w=360'
+
 const LandingPage = () => {
     const navigate = useNavigate()
 
@@ -72,7 +74,7 @@ const LandingPage = () => {
             {/* ── Navbar ── */}
             <nav className={style.nav}>
                 <div className={style.navBrand}>
-                    <School className={style.navLogo} size={40} strokeWidth={2.2} />
+                    <img src={schoolLogoUrl} alt="ABC School logo" className={style.navLogo} />
                     <span>ABC Nursery &amp; Primary School</span>
                 </div>
                 <div className={style.navLinks}>
@@ -86,37 +88,82 @@ const LandingPage = () => {
 
             {/* ── Hero ── */}
             <section className={style.hero}>
-                <div className={style.heroBadge}>Welcome to Our School Portal</div>
-                <h1 className={style.heroTitle}>
-                    Empowering Education<br />
-                    <span className={style.heroAccent}>at ABC School</span>
-                </h1>
-                <p className={style.heroSub}>
-                    A modern school management platform connecting admins, teachers, and students
-                    for a smarter, more organised learning experience.
-                </p>
-                <div className={style.heroActions}>
-                    <button className={style.heroPrimary} onClick={() => navigate('/student/login')}>
-                        Student Portal
-                    </button>
-                    <button className={style.heroSecondary} onClick={() => navigate('/login')}>
-                        Teacher Portal
-                    </button>
-                </div>
-                <div className={style.heroStats}>
-                    <div className={style.stat}>
-                        <span className={style.statNum}>3</span>
-                        <span className={style.statLabel}>User Roles</span>
+                <div className={style.heroContent}>
+                    <div className={style.heroText}>
+                        <div className={style.heroBadge}>Welcome to Our School Portal</div>
+                        <h1 className={style.heroTitle}>
+                            Empowering Education<br />
+                            <span className={style.heroAccent}>at ABC School</span>
+                        </h1>
+                        <p className={style.heroSub}>
+                            A modern school management platform connecting admins, teachers, and students
+                            for a smarter, more organised learning experience.
+                        </p>
+                        <div className={style.heroActions}>
+                            <button className={style.heroPrimary} onClick={() => navigate('/student/login')}>
+                                Student Portal
+                            </button>
+                            <button className={style.heroSecondary} onClick={() => navigate('/login')}>
+                                Teacher Portal
+                            </button>
+                        </div>
+                        <div className={style.heroStats}>
+                            <div className={style.stat}>
+                                <span className={style.statNum}>3</span>
+                                <span className={style.statLabel}>User Roles</span>
+                            </div>
+                            <div className={style.statDivider} />
+                            <div className={style.stat}>
+                                <span className={style.statNum}>10+</span>
+                                <span className={style.statLabel}>Features</span>
+                            </div>
+                            <div className={style.statDivider} />
+                            <div className={style.stat}>
+                                <span className={style.statNum}>24/7</span>
+                                <span className={style.statLabel}>Online Access</span>
+                            </div>
+                        </div>
                     </div>
-                    <div className={style.statDivider} />
-                    <div className={style.stat}>
-                        <span className={style.statNum}>10+</span>
-                        <span className={style.statLabel}>Features</span>
-                    </div>
-                    <div className={style.statDivider} />
-                    <div className={style.stat}>
-                        <span className={style.statNum}>24/7</span>
-                        <span className={style.statLabel}>Online Access</span>
+
+                    <div className={style.heroShowcase}>
+                        <div className={style.showcaseCard}>
+                            <div className={style.showcaseHeader}>
+                                <span className={style.showcaseTag}>Today</span>
+                                <span className={style.showcaseDot} />
+                            </div>
+
+                            <div className={style.showcaseSummary}>
+                                <div>
+                                    <span className={style.summaryLabel}>Attendance</span>
+                                    <strong>96.4%</strong>
+                                </div>
+                                <span className={style.summaryTrend}>+8.2%</span>
+                            </div>
+
+                            <div className={style.miniChart}>
+                                <span style={{ height: '30%' }} />
+                                <span style={{ height: '48%' }} />
+                                <span style={{ height: '52%' }} />
+                                <span style={{ height: '66%' }} />
+                                <span style={{ height: '80%' }} />
+                                <span style={{ height: '96%' }} />
+                            </div>
+
+                            <div className={style.showcaseList}>
+                                <div className={style.showcaseRow}>
+                                    <span>Assignments</span>
+                                    <strong>142</strong>
+                                </div>
+                                <div className={style.showcaseRow}>
+                                    <span>Timetable</span>
+                                    <strong>24</strong>
+                                </div>
+                                <div className={style.showcaseRow}>
+                                    <span>Results</span>
+                                    <strong>89</strong>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -179,7 +226,7 @@ const LandingPage = () => {
 
             {/* ── Footer ── */}
             <footer className={style.footer}>
-                <School className={style.footerLogo} size={44} strokeWidth={2} />
+                <img src={schoolLogoUrl} alt="ABC School logo" className={style.footerLogo} />
                 <p>© {new Date().getFullYear()} ABC Nursery &amp; Primary School. All rights reserved.</p>
             </footer>
         </div>
