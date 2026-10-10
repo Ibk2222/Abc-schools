@@ -1,4 +1,7 @@
 :root {
+  --school-accent: #0ea5e9;
+  --school-accent-dark: #0284c7;
+  --school-background-image: url('https://www.africamuslimsagency.co.za/wp-content/uploads/2024/10/article.jpg');
   --bg: #eef7ff;
   --bg-strong: #e4f1ff;
   --panel: #ffffff;
@@ -20,7 +23,9 @@ html, body, #root {
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(180deg, #eef7ff 0%, #edf3fb 100%);
+  background:
+    linear-gradient(135deg, rgba(8, 19, 35, 0.86), rgba(4, 57, 97, 0.72)),
+    var(--school-background-image) center / cover fixed no-repeat;
   color: var(--text);
 }
 

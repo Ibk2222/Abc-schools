@@ -6,6 +6,7 @@ import {
     Calendar, ClipboardList, FileText, CheckSquare,
     LogOut, GraduationCap, FlaskConical, ShieldCheck, Wifi, FileEdit, Menu, X,
 } from 'lucide-react'
+import { schoolLogoUrl } from '../constants/school'
 import style from './Dashboard.module.css'
 
 const navLinks = [
@@ -98,8 +99,13 @@ const AdminDashboard = () => {
 
             <aside className={style.sidebar}>
                 <div className={style.sidebarHeader}>
-                    <h1 className={style.schoolName}>ABC School</h1>
-                    <p className={style.schoolSub}>Admin Panel</p>
+                    <div className={style.schoolBrand}>
+                        <img src={schoolLogoUrl} alt="ABC School logo" className={style.schoolLogo} />
+                        <div>
+                            <h1 className={style.schoolName}>ABC School</h1>
+                            <p className={style.schoolSub}>Admin Panel</p>
+                        </div>
+                    </div>
                 </div>
 
                 <nav className={style.nav}>
@@ -143,6 +149,7 @@ const AdminDashboard = () => {
                         >
                             {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
                         </button>
+                        <img src={schoolLogoUrl} alt="ABC School logo" className={style.mobileSchoolLogo} />
                         <span className={style.mobileSchoolName}>ABC School</span>
                     </div>
 

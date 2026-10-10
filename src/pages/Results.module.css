@@ -1,6 +1,6 @@
 .container {
     padding: 40px 36px;
-    background: #080d18;
+    background: transparent;
     min-height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -43,8 +43,8 @@
     color: #c0cfe8;
 }
 .tabActive {
-    background: rgb(20, 81, 240);
-    border-color: rgb(20, 81, 240);
+    background: var(--school-accent);
+    border-color: var(--school-accent);
     color: #fff;
 }
 
@@ -210,7 +210,7 @@
 }
 .bar {
     width: 100%;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     border-radius: 4px 4px 0 0;
     transition: background 0.2s;
     min-height: 4px;
@@ -274,7 +274,7 @@
 }
 .addBtn {
     padding: 8px 16px;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -371,8 +371,8 @@
     transition: all 0.2s;
 }
 .viewBtn:hover {
-    border-color: rgb(20, 81, 240);
-    color: rgb(20, 81, 240);
+    border-color: var(--school-accent);
+    color: var(--school-accent);
 }
 
 /* Bottom analysis cards */
@@ -416,7 +416,7 @@
     width: 36px;
     height: 36px;
     border: 3px solid #1a2540;
-    border-top-color: rgb(20, 81, 240);
+    border-top-color: var(--school-accent);
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }
@@ -542,7 +542,7 @@
 .closeSheetBtn:hover { color: #c0cfe8; }
 .printBtn {
     padding: 10px 22px;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -599,7 +599,7 @@
     width: 100%;
 }
 .addFormGroup input:focus,
-.addFormGroup select:focus { border-color: rgb(20,81,240); }
+.addFormGroup select:focus { border-color: var(--school-accent); }
 .addFormGroup select option { background: #0f1623; }
 .addModalFooter {
     display: flex;

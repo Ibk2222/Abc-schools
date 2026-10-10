@@ -1,6 +1,6 @@
 .container {
     padding: 40px 36px;
-    background: #080d18;
+    background: transparent;
     min-height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -56,7 +56,7 @@
     background: rgba(255, 255, 255, 0.02);
 }
 .entryClass {
-    border-left-color: rgb(20, 81, 240);
+    border-left-color: var(--school-accent);
 }
 .entrySpecial {
     border-left-color: #7c3aed;
@@ -118,7 +118,7 @@
     margin-left: 24px;
 }
 .viewLink:hover {
-    color: rgb(20, 81, 240);
+    color: var(--school-accent);
 }
 
 /* Loading / empty */
@@ -132,7 +132,7 @@
     width: 36px;
     height: 36px;
     border: 3px solid #1a2540;
-    border-top-color: rgb(20, 81, 240);
+    border-top-color: var(--school-accent);
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }

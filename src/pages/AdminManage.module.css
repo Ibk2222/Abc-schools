@@ -1,7 +1,7 @@
 /* ── Page layout ── */
 .container {
     padding: 40px 36px;
-    background: #080d18;
+    background: transparent;
     min-height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -28,7 +28,7 @@
 }
 .addBtn {
     padding: 10px 20px;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     color: #fff;
     border: none;
     border-radius: 9px;
@@ -55,7 +55,7 @@
     margin-bottom: 20px;
 }
 .searchBar::placeholder { color: #6b7a99; }
-.searchBar:focus { border-color: rgb(20, 81, 240); }
+.searchBar:focus { border-color: var(--school-accent); }
 
 /* ── Redesigned search section (timetables) ── */
 .searchSection {
@@ -75,7 +75,7 @@
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 .searchWrap:focus-within {
-    border-color: rgb(20, 81, 240);
+    border-color: var(--school-accent);
     box-shadow: 0 0 0 3px rgba(20, 81, 240, 0.12);
 }
 .searchIcon {
@@ -125,10 +125,10 @@
     transition: all 0.15s;
     font-family: inherit;
 }
-.dayFilterChip:hover { border-color: rgb(20, 81, 240); color: #c0cfe8; }
+.dayFilterChip:hover { border-color: var(--school-accent); color: #c0cfe8; }
 .dayFilterActive {
-    background: rgb(20, 81, 240);
-    border-color: rgb(20, 81, 240);
+    background: var(--school-accent);
+    border-color: var(--school-accent);
     color: #fff;
 }
 
@@ -188,7 +188,7 @@
 .editBtn {
     padding: 5px 14px;
     background: rgba(20, 81, 240, 0.12);
-    color: rgb(20, 81, 240);
+    color: var(--school-accent);
     border: 1px solid rgba(20, 81, 240, 0.25);
     border-radius: 7px;
     font-size: 12px;
@@ -220,7 +220,7 @@
     width: 34px;
     height: 34px;
     border: 3px solid #1a2540;
-    border-top-color: rgb(20, 81, 240);
+    border-top-color: var(--school-accent);
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }
@@ -315,7 +315,7 @@
 }
 .formGroup input:focus,
 .formGroup select:focus,
-.formGroup textarea:focus { border-color: rgb(20, 81, 240); }
+.formGroup textarea:focus { border-color: var(--school-accent); }
 .formGroup input::placeholder,
 .formGroup textarea::placeholder { color: #4a5568; }
 .formGroup select option { background: #131f35; }
@@ -336,8 +336,8 @@
     transition: all 0.15s;
 }
 .dayChipActive {
-    background: rgb(20, 81, 240);
-    border-color: rgb(20, 81, 240);
+    background: var(--school-accent);
+    border-color: var(--school-accent);
     color: #fff;
 }
 
@@ -370,7 +370,7 @@
 .cancelBtn:hover { color: #c0cfe8; border-color: #2a3a5c; }
 .saveBtn {
     padding: 10px 24px;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     color: #fff;
     border: none;
     border-radius: 8px;

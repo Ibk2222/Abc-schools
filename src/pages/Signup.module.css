@@ -5,8 +5,10 @@
 }
 
 .signup-container {
-  height: fit-content;
-  background: linear-gradient(180deg, #eef7ff 0%, #edf3fb 100%);
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(8, 19, 35, 0.86), rgba(4, 57, 97, 0.72)),
+    var(--school-background-image) center / cover fixed no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;

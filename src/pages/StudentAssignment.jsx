@@ -156,13 +156,13 @@ const StudentAssignment = () => {
                         {answerModal.questions.map((q, qi) => (
                             <div key={qi} style={{ marginBottom: 20 }}>
                                 <p style={{ margin: '0 0 8px', fontWeight: 600, color: '#1e293b', fontSize: 14 }}>
-                                    <span style={{ color: '#1451f0', marginRight: 6 }}>Q{qi + 1}.</span>{q.text}
+                                    <span style={{ color: 'var(--school-accent)', marginRight: 6 }}>Q{qi + 1}.</span>{q.text}
                                 </p>
                                 {q.type === 'multiple_choice' ? (
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                                         {q.options.map((opt, oi) => (
-                                            <label key={oi} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '10px 14px', border: `2px solid ${answers[qi]?.answer === opt ? '#1451f0' : '#e2e8f0'}`, borderRadius: 8, background: answers[qi]?.answer === opt ? '#eff6ff' : '#f8fafc', transition: 'all 0.15s' }}>
-                                                <input type="radio" name={`q-${qi}`} value={opt} checked={answers[qi]?.answer === opt} onChange={() => setAnswers(a => { const n = [...a]; n[qi] = { ...n[qi], answer: opt }; return n })} style={{ accentColor: '#1451f0' }} />
+                                            <label key={oi} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '10px 14px', border: `2px solid ${answers[qi]?.answer === opt ? 'var(--school-accent)' : '#e2e8f0'}`, borderRadius: 8, background: answers[qi]?.answer === opt ? '#eff6ff' : '#f8fafc', transition: 'all 0.15s' }}>
+                                                <input type="radio" name={`q-${qi}`} value={opt} checked={answers[qi]?.answer === opt} onChange={() => setAnswers(a => { const n = [...a]; n[qi] = { ...n[qi], answer: opt }; return n })} style={{ accentColor: 'var(--school-accent)' }} />
                                                 <span style={{ fontSize: 13, color: '#334155' }}>{String.fromCharCode(65 + oi)}. {opt}</span>
                                             </label>
                                         ))}
@@ -181,7 +181,7 @@ const StudentAssignment = () => {
 
                         <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 8 }}>
                             <button onClick={() => setAnswerModal(null)} style={{ padding: '10px 20px', background: 'transparent', border: '1px solid #e2e8f0', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', color: '#64748b' }}>Cancel</button>
-                            <button onClick={handleSubmit} disabled={submitting} style={{ padding: '10px 22px', background: '#1451f0', color: '#fff', border: 'none', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', opacity: submitting ? 0.7 : 1 }}>{submitting ? 'Submitting…' : 'Submit Assignment'}</button>
+                            <button onClick={handleSubmit} disabled={submitting} style={{ padding: '10px 22px', background: 'var(--school-accent)', color: '#fff', border: 'none', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', opacity: submitting ? 0.7 : 1 }}>{submitting ? 'Submitting…' : 'Submit Assignment'}</button>
                         </div>
                     </div>
                 </div>
@@ -210,7 +210,7 @@ const StudentAssignment = () => {
                                     const ans = viewModal.submission.answers.find(a => a.question_index === qi)
                                     return (
                                         <div key={qi} style={{ marginBottom: 16, padding: '14px 16px', background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0' }}>
-                                            <p style={{ margin: '0 0 6px', fontWeight: 600, color: '#1e293b', fontSize: 13 }}><span style={{ color: '#1451f0', marginRight: 6 }}>Q{qi + 1}.</span>{q.text}</p>
+                                            <p style={{ margin: '0 0 6px', fontWeight: 600, color: '#1e293b', fontSize: 13 }}><span style={{ color: 'var(--school-accent)', marginRight: 6 }}>Q{qi + 1}.</span>{q.text}</p>
                                             <p style={{ margin: 0, fontSize: 13, color: '#334155', paddingLeft: 20 }}>{ans?.answer ?? <em style={{ color: '#94a3b8' }}>No answer recorded</em>}</p>
                                         </div>
                                     )

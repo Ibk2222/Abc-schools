@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import { LayoutDashboard, BookOpen, Users, Calendar, ClipboardList, CheckSquare, LogOut, FileEdit, Menu, X } from 'lucide-react'
+import { schoolLogoUrl } from '../constants/school'
 import style from './Dashboard.module.css'
 
 const GRADE_COLORS = { A: '#22c55e', B: '#3b82f6', C: '#f59e0b', D: '#f97316', F: '#ef4444' }
@@ -32,7 +33,7 @@ const DonutChart = ({ segments, total }) => {
     )
 }
 
-const LineChart = ({ points, color = 'rgb(20,81,240)', label }) => {
+const LineChart = ({ points, color = 'var(--school-accent)', label }) => {
     if (!points.length) return <p className={style.chartEmpty}>No data</p>
     const W = 400, H = 120, PAD = 16
     const vals = points.map(p => p.y)
@@ -219,8 +220,13 @@ const Dashboard = () => {
 
             <aside className={style.sidebar}>
                 <div className={style.sidebarHeader}>
-                    <h1 className={style.schoolName}>ABC School</h1>
-                    <p className={style.schoolSub}>Management System</p>
+                    <div className={style.schoolBrand}>
+                        <img src={schoolLogoUrl} alt="ABC School logo" className={style.schoolLogo} />
+                        <div>
+                            <h1 className={style.schoolName}>ABC School</h1>
+                            <p className={style.schoolSub}>Management System</p>
+                        </div>
+                    </div>
                 </div>
 
                 <nav className={style.nav}>
@@ -265,6 +271,7 @@ const Dashboard = () => {
                         >
                             {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
                         </button>
+                        <img src={schoolLogoUrl} alt="ABC School logo" className={style.mobileSchoolLogo} />
                         <span className={style.mobileSchoolName}>ABC School</span>
                     </div>
 
@@ -363,12 +370,12 @@ const Dashboard = () => {
                                         <p className={style.chartTitle}>Performance Trend</p>
                                         <div className={style.lineChartLegend}>
                                             <div className={style.lineChartLegendItem}>
-                                                <div className={style.lineChartLegendLine} style={{ background: 'rgb(20,81,240)' }} />
+                                                <div className={style.lineChartLegendLine} style={{ background: 'var(--school-accent)' }} />
                                                 <span>Score count</span>
                                             </div>
                                         </div>
                                         <div className={style.lineChartWrap}>
-                                            <LineChart points={trendPoints} color="rgb(20,81,240)" label="avg" />
+                                            <LineChart points={trendPoints} color="var(--school-accent)" label="avg" />
                                         </div>
                                     </div>
                                 </div>

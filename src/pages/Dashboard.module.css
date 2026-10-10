@@ -2,7 +2,7 @@
 .layout {
     display: flex;
     min-height: 100vh;
-    background: #080d18;
+    background: transparent;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -23,6 +23,20 @@
 .sidebarHeader {
     padding: 28px 20px 20px;
     border-bottom: 1px solid #1a2540;
+}
+
+.schoolBrand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.schoolLogo {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .schoolName {
@@ -66,7 +80,7 @@
 
 .navLinkActive {
     background: rgba(20, 81, 240, 0.15);
-    color: rgb(20, 81, 240);
+    color: var(--school-accent);
 }
 
 /* Sidebar footer – teacher info + logout */
@@ -89,7 +103,7 @@
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     color: #fff;
     display: flex;
     align-items: center;
@@ -146,7 +160,7 @@
 /* Main content area */
 .main {
     flex: 1;
-    background: #080d18;
+    background: transparent;
     overflow-y: auto;
 }
 
@@ -167,7 +181,7 @@
 }
 
 .department {
-    color: rgb(20, 81, 240);
+    color: var(--school-accent);
     font-size: 14px;
 }
 
@@ -390,12 +404,12 @@
 }
 .bar {
     width: 100%;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     border-radius: 4px 4px 0 0;
     transition: background 0.2s;
     min-height: 4px;
 }
-.bar:hover { background: rgb(50, 110, 255); }
+.bar:hover { background: var(--school-accent-dark); }
 .barLabel {
     color: #6b7a99;
     font-size: 11px;
@@ -463,6 +477,14 @@
     color: #fff;
     font-size: 16px;
     font-weight: 700;
+}
+
+.mobileSchoolLogo {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 /* Dropdown menu */

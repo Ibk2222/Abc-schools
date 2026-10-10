@@ -87,7 +87,7 @@
   padding: 84px 24px 80px;
   background:
     linear-gradient(135deg, rgba(8, 19, 35, 0.86), rgba(4, 57, 97, 0.72)),
-    url('https://www.africamuslimsagency.co.za/wp-content/uploads/2024/10/article.jpg') center / cover no-repeat;
+    var(--school-background-image) center / cover no-repeat;
 }
 
 .heroContent {

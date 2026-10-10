@@ -2,7 +2,9 @@
 
 .container {
     min-height: 100vh;
-    background: rgb(19, 28, 49);
+    background:
+        linear-gradient(135deg, rgba(8, 19, 35, 0.86), rgba(4, 57, 97, 0.72)),
+        var(--school-background-image) center / cover fixed no-repeat;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -79,7 +81,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border: 2px dashed rgb(20, 81, 240);
+    border: 2px dashed var(--school-accent);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,7 +128,7 @@
 .group input:focus,
 .group select:focus {
     outline: none;
-    border-color: rgb(20, 81, 240);
+    border-color: var(--school-accent);
     background: #fff;
     box-shadow: 0 0 0 3px rgba(20, 81, 240, 0.1);
 }
@@ -146,7 +148,7 @@
     display: flex;
     align-items: center;
 }
-.eyeIcon:hover { color: rgb(20, 81, 240); }
+.eyeIcon:hover { color: var(--school-accent); }
 
 /* Strength bar */
 .strengthWrap {
@@ -203,7 +205,7 @@
 .submitBtn {
     width: 100%;
     padding: 12px 20px;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -230,7 +232,7 @@
     font-size: 14px;
 }
 .loginLink span {
-    color: rgb(20, 81, 240);
+    color: var(--school-accent);
     cursor: pointer;
     font-weight: 600;
 }
@@ -264,8 +266,8 @@
     transition: all 0.3s;
 }
 .stepActive {
-    border-color: rgb(20, 81, 240);
-    background: rgb(20, 81, 240);
+    border-color: var(--school-accent);
+    background: var(--school-accent);
     color: #fff;
 }
 .stepDone {
@@ -308,7 +310,7 @@
     cursor: pointer;
     transition: all 0.2s;
 }
-.backBtn:hover { border-color: rgb(20, 81, 240); color: rgb(20, 81, 240); }
+.backBtn:hover { border-color: var(--school-accent); color: var(--school-accent); }
 .navBtns .submitBtn { flex: 2; margin-top: 0; }
 
 @media (max-width: 500px) {

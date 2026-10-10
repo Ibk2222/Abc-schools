@@ -62,7 +62,7 @@ const DonutChart = ({ segments, total }) => {
 }
 
 /* ── Line chart ── */
-const LineChart = ({ points, color = 'rgb(20,81,240)', label }) => {
+const LineChart = ({ points, color = 'var(--school-accent)', label }) => {
     if (!points.length) return <p className={style.empty}>No data</p>
     const W = 400, H = 120, PAD = 16
     const vals = points.map(p => p.y)

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
 import { LayoutDashboard, Calendar, ClipboardList, CheckSquare, LogOut, User, FileEdit, Menu, X } from 'lucide-react'
+import { schoolLogoUrl } from '../constants/school'
 import style from './Dashboard.module.css'
 
 const navLinks = [
@@ -75,8 +76,13 @@ const StudentDashboard = () => {
 
             <aside className={style.sidebar}>
                 <div className={style.sidebarHeader}>
-                    <h1 className={style.schoolName}>ABC School</h1>
-                    <p className={style.schoolSub}>Student Portal</p>
+                    <div className={style.schoolBrand}>
+                        <img src={schoolLogoUrl} alt="ABC School logo" className={style.schoolLogo} />
+                        <div>
+                            <h1 className={style.schoolName}>ABC School</h1>
+                            <p className={style.schoolSub}>Student Portal</p>
+                        </div>
+                    </div>
                 </div>
 
                 <nav className={style.nav}>
@@ -120,6 +126,7 @@ const StudentDashboard = () => {
                         >
                             {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
                         </button>
+                        <img src={schoolLogoUrl} alt="ABC School logo" className={style.mobileSchoolLogo} />
                         <span className={style.mobileSchoolName}>ABC School</span>
                     </div>
 
@@ -174,7 +181,7 @@ const StudentDashboard = () => {
                                     style={{ cursor: 'pointer' }}
                                 >
                                     <p className={style.cardTitle}>{label}</p>
-                                    <Icon size={28} color="rgb(20, 81, 240)" style={{ margin: '10px 0' }} />
+                                    <Icon size={28} color="var(--school-accent)" style={{ margin: '10px 0' }} />
                                     <p className={style.cardDesc}>{desc}</p>
                                 </div>
                             ))}

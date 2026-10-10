@@ -1,6 +1,6 @@
 .container {
     padding: 40px 36px;
-    background: #080d18;
+    background: transparent;
     min-height: 100%;
 }
 
@@ -87,7 +87,7 @@
 .btnPrimary {
     flex: 1;
     padding: 9px 16px;
-    background: rgb(20, 81, 240);
+    background: var(--school-accent);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -150,7 +150,7 @@
 }
 
 .studentsCount {
-    color: rgb(20, 81, 240);
+    color: var(--school-accent);
     font-size: 22px;
     font-weight: 700;
     margin: 0;
@@ -173,7 +173,7 @@
     width: 36px;
     height: 36px;
     border: 3px solid #1a2540;
-    border-top-color: rgb(20, 81, 240);
+    border-top-color: var(--school-accent);
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
 }
