@@ -1,35 +1,45 @@
 import React from 'react'
+import {
+    Backpack,
+    BarChart3,
+    BookOpen,
+    CalendarDays,
+    ClipboardList,
+    FileText,
+    GraduationCap,
+    School,
+} from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import style from './LandingPage.module.css'
 
 const features = [
     {
-        icon: '📋',
+        icon: ClipboardList,
         title: 'Attendance Tracking',
         description: 'Monitor daily student attendance with real-time updates and detailed reports.',
     },
     {
-        icon: '📅',
+        icon: CalendarDays,
         title: 'Timetable Management',
         description: 'View and manage class schedules for teachers and students seamlessly.',
     },
     {
-        icon: '📝',
+        icon: FileText,
         title: 'Exams & Assessments',
         description: 'Create, manage, and grade exams and tests all in one place.',
     },
     {
-        icon: '📊',
+        icon: BarChart3,
         title: 'Results & Reports',
         description: 'Generate comprehensive academic results and performance reports.',
     },
     {
-        icon: '📚',
+        icon: BookOpen,
         title: 'Assignments',
         description: 'Assign and submit classwork digitally, keeping teachers and students in sync.',
     },
     {
-        icon: '🏫',
+        icon: School,
         title: 'Class Management',
         description: 'Organise classes, subjects, and student rosters with ease.',
     },
@@ -38,7 +48,7 @@ const features = [
 const portals = [
     {
         role: 'Teacher',
-        icon: '👨‍🏫',
+        icon: GraduationCap,
         description: 'Take attendance, upload results, manage assignments and timetables.',
         loginPath: '/login',
         signupPath: '/signup',
@@ -46,7 +56,7 @@ const portals = [
     },
     {
         role: 'Student',
-        icon: '🎒',
+        icon: Backpack,
         description: 'View your timetable, results, assignments, and school updates.',
         loginPath: '/student/login',
         signupPath: '/student/signup',
@@ -62,11 +72,7 @@ const LandingPage = () => {
             {/* ── Navbar ── */}
             <nav className={style.nav}>
                 <div className={style.navBrand}>
-                    <img
-                        src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=200&h=200&fit=crop&crop=center"
-                        alt="School logo"
-                        className={style.navLogo}
-                    />
+                    <School className={style.navLogo} size={40} strokeWidth={2.2} />
                     <span>ABC Nursery &amp; Primary School</span>
                 </div>
                 <div className={style.navLinks}>
@@ -122,13 +128,17 @@ const LandingPage = () => {
                     A complete suite of tools to run your school efficiently.
                 </p>
                 <div className={style.featuresGrid}>
-                    {features.map((f) => (
-                        <div className={style.featureCard} key={f.title}>
-                            <span className={style.featureIcon}>{f.icon}</span>
-                            <h3>{f.title}</h3>
-                            <p>{f.description}</p>
-                        </div>
-                    ))}
+                    {features.map((f) => {
+                        const Icon = f.icon
+
+                        return (
+                            <div className={style.featureCard} key={f.title}>
+                                <Icon className={style.featureIcon} size={32} strokeWidth={1.8} />
+                                <h3>{f.title}</h3>
+                                <p>{f.description}</p>
+                            </div>
+                        )
+                    })}
                 </div>
             </section>
 
@@ -139,37 +149,37 @@ const LandingPage = () => {
                     Sign in to the portal that matches your role.
                 </p>
                 <div className={style.portalsGrid}>
-                    {portals.map((p) => (
-                        <div className={style.portalCard} key={p.role} style={{ '--accent': p.color }}>
-                            <span className={style.portalIcon}>{p.icon}</span>
-                            <h3 className={style.portalRole}>{p.role}</h3>
-                            <p className={style.portalDesc}>{p.description}</p>
-                            <div className={style.portalActions}>
-                                <button
-                                    className={style.portalLogin}
-                                    onClick={() => navigate(p.loginPath)}
-                                >
-                                    Log In
-                                </button>
-                                <button
-                                    className={style.portalSignup}
-                                    onClick={() => navigate(p.signupPath)}
-                                >
-                                    Sign Up
-                                </button>
+                    {portals.map((p) => {
+                        const Icon = p.icon
+
+                        return (
+                            <div className={style.portalCard} key={p.role} style={{ '--accent': p.color }}>
+                                <Icon className={style.portalIcon} size={42} strokeWidth={1.8} />
+                                <h3 className={style.portalRole}>{p.role}</h3>
+                                <p className={style.portalDesc}>{p.description}</p>
+                                <div className={style.portalActions}>
+                                    <button
+                                        className={style.portalLogin}
+                                        onClick={() => navigate(p.loginPath)}
+                                    >
+                                        Log In
+                                    </button>
+                                    <button
+                                        className={style.portalSignup}
+                                        onClick={() => navigate(p.signupPath)}
+                                    >
+                                        Sign Up
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
             </section>
 
             {/* ── Footer ── */}
             <footer className={style.footer}>
-                <img
-                    src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=200&h=200&fit=crop&crop=center"
-                    alt="School logo"
-                    className={style.footerLogo}
-                />
+                <School className={style.footerLogo} size={44} strokeWidth={2} />
                 <p>© {new Date().getFullYear()} ABC Nursery &amp; Primary School. All rights reserved.</p>
             </footer>
         </div>

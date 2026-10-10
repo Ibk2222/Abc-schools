@@ -40,8 +40,11 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  object-fit: cover;
+  padding: 8px;
+  background: rgba(20, 81, 240, 0.12);
   border: 2px solid rgb(20, 81, 240);
+  color: rgb(96, 165, 250);
+  flex-shrink: 0;
 }
 
 .navLinks {
@@ -257,9 +260,11 @@
 }
 
 .featureIcon {
-  font-size: 32px;
   display: block;
   margin-bottom: 16px;
+  color: rgb(96, 165, 250);
+  width: 32px;
+  height: 32px;
 }
 
 .featureCard h3 {
@@ -310,9 +315,11 @@
 }
 
 .portalIcon {
-  font-size: 42px;
   margin-bottom: 16px;
   display: block;
+  width: 42px;
+  height: 42px;
+  color: var(--accent);
 }
 
 .portalRole {
@@ -390,8 +397,10 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  object-fit: cover;
+  padding: 9px;
+  background: rgba(20, 81, 240, 0.12);
   border: 2px solid rgb(20, 81, 240);
+  color: rgb(96, 165, 250);
   opacity: 0.8;
 }
 
